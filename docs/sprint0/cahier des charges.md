@@ -20,6 +20,7 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 - Planification de l'épargne : définition d'objectifs d'épargne (vacances, gros achat etc) et suivi de la progression.console.log()
 - Génération de rapports personnalisés : dépenses par période, catégorie, etc.
 - Basculer entre le mode clair et mode Dark 
+- Confirmation de mot de passe à l'inscription
 
 
 ## Liste des technologies
