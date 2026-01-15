@@ -60,19 +60,23 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 
 ## Endpoints API
 
-- POST /auth/login
-- POST /auth/register
-- GET /auth/me
-- GET /category/:id
-- GET /category/
-- POST /category/
-- PATCH /category/:id
-- DELETE /category/:id
-- GET /expense/:id
-- GET /expense/
-- POST /expense/
-- PATCH /expense/:id
-- DELETE /expense/:id
+| Verbe  | Chemin          | Description                                                     |
+|--------|-----------------|-----------------------------------------------------------------|
+| POST   | /auth/login     | Requête de connexion qui renvois un JWT si identifiants valides |
+| POST   | /auth/register  | Requête d'inscription                                           |
+| POST   | /auth/logout    | Requête de deconnexion                                          |
+| GET    | /auth/me        | Requête pour récupérer l'id et le nom du user connecté          |
+| GET    | /category/:id   | Requête pour récupérer une catégorie                            |
+| GET    | /category       | Requête pour récupérer les catégories                           |
+| POST   | /category       | Requête pour ajouter une catégorie                              |
+| PATCH  | /category/:id   | Requête pour modifier une catégorie                             |
+| DELETE | /category/:id   | Requête pour supprimer une catégorie                            |
+| GET    | /expense/:id    | Requête pour récupérer une dépense                              |
+| GET    | /expense        | Requête pour récupérer les dépenses                             |
+| GET    | /expense?month= | Requête pour récupérer les dépenses d'un mois                   |
+| POST   | /expense        | Requête pour ajouter une dépense                                |
+| PATCH  | /expense/:id    | Requête pour modifier une dépense
+| DELETE  | /expense/:id    | Requête pour supprimer une dépense                                 |
 
 
 ## Users story
@@ -92,8 +96,8 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 
 
 ## Rôles de chacun
-Fabrice : Lead Dev Front  
+Fabrice : Lead Dev Front
 Samira : Dev Front & Product Owner
 Lucas : Lead Dev Back & Git-master
-Najat : Dev Back  
+Najat : Dev Back
 Nassim : Dev Back & Scrum Master
