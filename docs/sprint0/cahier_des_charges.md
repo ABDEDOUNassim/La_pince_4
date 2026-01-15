@@ -58,6 +58,23 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 
 ![arborescence](./arborescence.PNG)
 
+## Endpoints API
+
+- POST /auth/login
+- POST /auth/register
+- GET /auth/me
+- GET /category/:id
+- GET /category/
+- POST /category/
+- PATCH /category/:id
+- DELETE /category/:id
+- GET /expense/:id
+- GET /expense/
+- POST /expense/
+- PATCH /expense/:id
+- DELETE /expense/:id
+
+
 ## Users story
 
 | # | En tant que | Je souhaite | Afin de | Sprint |
@@ -74,9 +91,9 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 
 
 
-## Rôles de 
-Fabrice : Lead Front  
-Samira : Front & Product Owner
-Lucas : Lead Back & Git-master
-Najat : Back  
-Nassim : Back & Scrum Master
+## Rôles de chacun
+Fabrice : Lead Dev Front  
+Samira : Dev Front & Product Owner
+Lucas : Lead Dev Back & Git-master
+Najat : Dev Back  
+Nassim : Dev Back & Scrum Master

@@ -1,9 +1,11 @@
 
 ## MCD
 
-- USER (user code, name, email, password)  
-- EXPENSE (expense code, title, amount, date)  
-- CATEGORY (category code, name, color, max-budget) 
+![MCD](./MCD.png)
+
+- USER (name, email, password)  
+- EXPENSE (title, amount, date)  
+- CATEGORY (name, color, icon, max-budget) 
 
 -- un USER a (0, N) EXPENSE  
 -- une EXPENSE a (1, 1) USER  
@@ -18,8 +20,8 @@ Attention !
 
 ## MLD
 - USER (id, name, email, password)  
-- EXPENSE (id, title, amount, date, category_id, user_id)  
-- CATEGORY (id, name, color, user_id, max-budget)  
+- EXPENSE (id, title, amount, date, #category_id, #user_id)  
+- CATEGORY (id, name, color, icon, #user_id, max-budget)  
 
 ![MLD](./MLD.png)
 
@@ -50,5 +52,6 @@ Attention !
 | id         | Clé primaire                     | Integer | oui     | 3            |
 | name       | Nom d'une catégorie              | String  | oui     | Alimentation |
 | color      | Couleur                          | String  | non     | #FF0000      |
+| icon      | Lien de l'icone                          | String  | non     | https://www.image.com/icone.png      |
 | user_id    | Clé étrangère de la table user   | Integer | non     | 2            |
 | max-budget | Budget maximum pour la catégorie | Number  | non     | 1050         |
