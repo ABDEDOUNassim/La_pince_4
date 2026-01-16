@@ -1,0 +1,63 @@
+{
+    "users": [
+        {
+            "name": "admin",
+            "email": "admin@lapince.fr",
+            "password": "admin"
+        },
+        {
+            "name": "admin2",
+            "email": "admin2@lapince.fr",
+            "password": "admin2"
+        }
+    ],
+    "categories": [
+        {
+            "user_id": 1,
+            "name": "Alimentation",
+            "color": "#89CFF0",
+            "max_budget": 400
+        },
+        {
+            "user_id": 1,
+            "name": "Voiture",
+            "color": "#1FE049",
+            "max_budget": 200
+        },
+        {
+            "user_id": 1,
+            "name": "Loisir",
+            "color": "#EC1317",
+            "max_budget": 100
+        },
+        {
+            "user_id": 2,
+            "name": "Energie",
+            "color": "#1FA052",
+            "max_budget": 150
+        }
+    ],
+    "expenses": [
+        {
+            "title": "Course Auchan",
+            "user_id": 1,
+            "category_id": 1,
+            "amount": 102.37,
+            "date": "2025-01-15"
+        },
+        {
+            "title": "Garagiste",
+            "user_id": 1,
+            "category_id": 2,
+            "amount": 55.32,
+            "date": "2025-01-15"
+        },
+        {
+            "title": "Facture EDF",
+            "user_id": 2,
+            "category_id": 4,
+            "amount": 60.56,
+            "date": "2025-01-15"
+        }
+    ]
+}

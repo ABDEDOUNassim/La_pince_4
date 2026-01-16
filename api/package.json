@@ -7,9 +7,13 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "db:create": "node ./database/create-tables.js",
+    "db:seed": "node ./database/seed-tables.js",
+    "db:reset": "npm run db:create && npm run db:seed"
   },
   "dependencies": {
+    "argon2": "^0.44.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "joi": "^18.0.2",
