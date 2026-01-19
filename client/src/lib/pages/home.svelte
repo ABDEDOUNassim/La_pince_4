@@ -3,7 +3,7 @@
 
   <section class="targets">
     <div class="target">
-      <img src="etudients.png" alt="Avatar d'un étudient" />
+      <img src="etudients.png" alt="Avatar d'un étudiant" />
     </div>
 
     <div class="target">
@@ -16,8 +16,19 @@
   </section>
 
   <section class="services">
-    <p class="serviceCard">Suivez vos dépenses</p>
-    <p class="serviceCard">Gérez vos budgets</p>
-    <p class="serviceCard">Recevez des alertes</p>
+    <div class="serviceDesc">
+      <h2>Suivez vos dépenses</h2>
+      <p class="serviceCard">Visualisez vos dépenses en un seul coup d'oeil.</p>
+    </div>
+
+    <div class="serviceDesc">
+      <h2>Gérez vos budgets</h2>
+      <p class="serviceCard">Fixez vos limites et gardez le contrôle.</p>
+    </div>
+
+    <div class="serviceDesc">
+      <h2>Recevez des alertes</h2>
+      <p class="serviceCard">Anticipez les dépenses pour rester serein.</p>
+    </div>
   </section>
 </main>

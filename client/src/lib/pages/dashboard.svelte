@@ -7,13 +7,13 @@
 
   <section class="expensesTotal">
     <p>Dépenses total</p>
-    <span>125.58 €</span>
+    <span><p>125.58 €</p></span>
   </section>
 
   <section class="search">
     <div class="searchBar">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <i class="fa-solid fa-sliders"></i>
+      <i class="fa-solid fa-filter"></i>
       <div class="searchBarMiddle">
         <label for="searchBar"></label>
         <input type="text" id="searchBar" placeholder="Rechercher ..." />
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="addExpense">
-      <button><i><i class="fa-solid fa-plus"></i></i></button>
+      <button><i class="fa-solid fa-plus"></i></button>
     </div>
   </section>
 

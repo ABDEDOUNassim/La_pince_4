@@ -1,3 +1,18 @@
+@font-face {
+  font-family: title;
+  src: url(../../assets/font/Inter/static/Inter_18pt-SemiBold.ttf);
+}
+@font-face {
+  font-family: text;
+  src: url(../../assets/font/Inter/static/Inter_28pt-Regular.ttf);
+}
+@font-face {
+  font-family: bouton;
+  src: url(../../assets/font/Inter/static/Inter_18pt-Medium.ttf);
+}
+
+/* Variable global */
+
 :root {
   --BackgroundPrincipal: #20222d;
   --BackgroundCarte: #20232e;
@@ -7,4 +22,43 @@
   --BouttonPrincipal: #559cd2;
   --Bordure: #3c4154;
   --BackgroundListe: #141720;
+}
+
+body {
+  height: 100vh;
+}
+main {
+  background-color: var(--BackgroundPrincipal);
+}
+button {
+  cursor: pointer;
+  background-color: var(--BouttonPrincipal);
+  border: none;
+  padding: 0.5em;
+  color: var(--TextSecondairePlaceholder);
+  border-radius: 5px;
+  font-family: bouton, sans-serif;
+}
+button:hover {
+  background-color: #1d6fdb;
+}
+li {
+  list-style: none;
+}
+h1 {
+  color: var(--TextPrincipal);
+  font-family: title, sans-serif;
+  text-align: center;
+  padding: 1em 0 1em 0;
+}
+p {
+  color: var(--TextPrincipal);
+  font-family: text, sans-serif;
+}
+
+h2 {
+  color: var(--TextPrincipal);
+  font-family: title, sans-serif;
+  margin: 0.5em;
+  padding: 0.5em;
 }

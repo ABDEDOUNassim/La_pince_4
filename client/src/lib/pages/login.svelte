@@ -3,20 +3,19 @@
 
 <main>
   <h1>Connexion</h1>
+  <section class="formulaire">
+    <form class="form">
+      <div class="email">
+        <label for="email"> Email </label>
+        <input type="email" id="email" />
+      </div>
 
-  <form class="form">
-    <label for="email">
-      <p>Email</p>
-    </label>
-    <input type="email" id="email" />
-
-    <label for="password">
-      <p>Mot de passe</p>
-      <label>
+      <div class="password">
+        <label for="password">Mot de passe</label>
         <input type="password" id="password" />
+      </div>
 
-        <button type="submit "> Se connecter </button>
-      </label></label
-    >
-  </form>
+      <button type="submit ">Se connecter</button>
+    </form>
+  </section>
 </main>
