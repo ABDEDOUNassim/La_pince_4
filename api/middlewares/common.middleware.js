@@ -1,3 +1,5 @@
+import HttpError from '../utils/HtppError.js';
+
 export function handleError(err, req, res, next){
 
     const statusCode = err.statusCode || 500;
@@ -9,3 +11,4 @@ export function handleError(err, req, res, next){
         message : errorMessage
     });
 }
+
