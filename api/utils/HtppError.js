@@ -1,10 +1,12 @@
+// Class to make better errors than JS's base Errors (it carries a message and a status code)
+// The error will be thrown to errorHandler() (middlewares/common.middleware.js)
+
 class HttpError extends Error {
 
     #name;
     #statusCode;
 
     constructor(message, code){
-        // super appelle le constructeur de la classe parente Error
         super(message);
 
         this.#name = 'HttpError';

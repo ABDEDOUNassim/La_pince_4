@@ -66,17 +66,17 @@ L’application LaPince répond à ce besoin en permettant aux utilisateurs de s
 | POST   | /auth/register  | Requête d'inscription                                           |
 | POST   | /auth/logout    | Requête de deconnexion                                          |
 | GET    | /auth/me        | Requête pour récupérer l'id et le nom du user connecté          |
-| GET    | /category/:id   | Requête pour récupérer une catégorie                            |
-| GET    | /category       | Requête pour récupérer les catégories                           |
-| POST   | /category       | Requête pour ajouter une catégorie                              |
-| PATCH  | /category/:id   | Requête pour modifier une catégorie                             |
-| DELETE | /category/:id   | Requête pour supprimer une catégorie                            |
-| GET    | /expense/:id    | Requête pour récupérer une dépense                              |
-| GET    | /expense        | Requête pour récupérer les dépenses                             |
-| GET    | /expense?month= | Requête pour récupérer les dépenses d'un mois                   |
-| POST   | /expense        | Requête pour ajouter une dépense                                |
-| PATCH  | /expense/:id    | Requête pour modifier une dépense
-| DELETE  | /expense/:id    | Requête pour supprimer une dépense                                 |
+| GET    | /categories/:id   | Requête pour récupérer une catégorie                            |
+| GET    | /categories       | Requête pour récupérer les catégories                           |
+| POST   | /categories       | Requête pour ajouter une catégorie                              |
+| PATCH  | /categories/:id   | Requête pour modifier une catégorie                             |
+| DELETE | /categories/:id   | Requête pour supprimer une catégorie                            |
+| GET    | /expenses/:id    | Requête pour récupérer une dépense                              |
+| GET    | /expenses        | Requête pour récupérer les dépenses                             |
+| GET    | /expenses?month= | Requête pour récupérer les dépenses d'un mois                   |
+| POST   | /expenses        | Requête pour ajouter une dépense                                |
+| PATCH  | /expenses/:id    | Requête pour modifier une dépense
+| DELETE  | /expenses/:id    | Requête pour supprimer une dépense                                 |
 
 
 ## Users story
