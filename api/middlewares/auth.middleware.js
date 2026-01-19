@@ -1,0 +1,1 @@
+// regex for email and password checking 
