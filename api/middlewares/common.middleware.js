@@ -12,3 +12,17 @@ export function handleError(err, req, res, next){
     });
 }
 
+export function validateId(req, res, next){
+    try {
+        const id = parseInt(req.params.id, 10);
+
+        if (!id || id < 1){
+            throw new HttpError("Not found", 404);
+        }
+
+        next();
+    }
+    catch(error) {
+        next(error);
+    }
+}
