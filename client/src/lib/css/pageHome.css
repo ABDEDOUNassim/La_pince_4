@@ -1,0 +1,5 @@
+@import "./pageHome.css";
+
+.serviceDesc {
+  background-color: var(--BackgroundCarte);
+}
