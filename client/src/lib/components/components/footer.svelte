@@ -31,10 +31,11 @@
 <style>
   @import "../../css/settings.css";
   .footer {
-    background-color: var(--BackgroundHeaderFooter);
-    border-top: solid 2px var(--Bordure);
+    background-color: var(--backgroundHeaderFooter);
+    border-top: solid 2px var(--bordure);
     box-shadow: 0 0 0 0;
     padding: 1em;
+    height: 8vh;
   }
   ul {
     display: flex;

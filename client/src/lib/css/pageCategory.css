@@ -1,1 +1,42 @@
 @import "./pageHome.css";
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2em;
+}
+
+.filterBtn,
+.addBtn {
+  padding: 0.5em 2em;
+}
+.editBtn,
+.deleteBtn {
+  font-size: 10px;
+}
+
+@media (max-width: 800px) {
+  .nameCategory,
+  .sum,
+  .total {
+    display: block;
+  }
+  .nameCategory1,
+  .sum1,
+  .total1 {
+    display: block;
+  }
+}
+@media (max-width: 400px) {
+  .nameCategory,
+  .sum,
+  .total {
+    font-size: 0.9em;
+  }
+  .nameCategory1,
+  .sum1,
+  .total1 {
+    font-size: 0.9em;
+  }
+}

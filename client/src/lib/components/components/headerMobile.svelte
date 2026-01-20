@@ -1,5 +1,5 @@
 <script>
-  import logo from "../../../assets/logo/la_pince.png";
+  import logo from "../../../assets/logo/La_pince.png";
   export let currentPage;
   let open = false;
 </script>
@@ -49,12 +49,13 @@
 <style>
   @import "../../css/settings.css";
   .head {
-    background-color: var(--BackgroundHeaderFooter);
-    border-bottom: solid 2px var(--Bordure);
+    background-color: var(--backgroundHeaderFooter);
+    border-bottom: solid 2px var(--bordure);
     box-shadow: 0 0 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 10vh;
   }
   img {
     height: 100px;
@@ -62,8 +63,8 @@
   #sidebar {
     margin-right: 0.5em;
     padding: 0.5em;
-    background-color: var(--BackgroundHeaderFooter);
-    color: var(--TextPrincipal);
+    background-color: var(--backgroundHeaderFooter);
+    color: var(--textPrincipal);
     cursor: pointer;
     font-size: 2em;
     border: none;

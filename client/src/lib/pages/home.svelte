@@ -3,7 +3,7 @@
 
   <section class="targets">
     <div class="target">
-      <img src="etudients.png" alt="Avatar d'un étudiant" />
+      <img src="" alt="Avatar d'un étudiant" />
     </div>
 
     <div class="target">

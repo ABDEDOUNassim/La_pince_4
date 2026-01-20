@@ -2,16 +2,26 @@
   import HeaderMobile from "./lib/components/components/headerMobile.svelte";
   import Footer from "./lib/components/components/footer.svelte";
 
-  import Home from "./lib/pages/Home.svelte";
-  import Login from "./lib/pages/Login.svelte";
-  import Dashboard from "./lib/pages/Dashboard.svelte";
-  import Category from "./lib/pages/Category.svelte";
-  import Register from "./lib/pages/Register.svelte";
+  import Home from "./lib/pages/home.svelte";
+  import Login from "./lib/pages/login.svelte";
+  import Dashboard from "./lib/pages/dashboard.svelte";
+  import Category from "./lib/pages/category.svelte";
+  import Register from "./lib/pages/register.svelte";
 
-  let currentPage = "dashboard";
+  let currentPage = "category";
+
+  $: showLayout = ![
+    "HomeSidebar",
+    "MenuSidebar",
+    "newCategoryPopup",
+    "NewExpensePopup",
+    "WarningPopup",
+  ].includes(currentPage);
 </script>
 
-<HeaderMobile bind:currentPage />
+{#if showLayout}
+  <HeaderMobile bind:currentPage />
+{/if}
 
 {#if currentPage === "home"}
   <Home />
@@ -23,6 +33,10 @@
   <Register />
 {:else if currentPage === "category"}
   <Category />
+{:else if currentPage === "HomeSidebar"}
+  <HomeSidebar />
 {/if}
 
-<Footer />
+{#if showLayout}
+  <Footer />
+{/if}
