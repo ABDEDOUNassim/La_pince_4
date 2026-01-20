@@ -9,14 +9,11 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("API online");
 
-});
 
 app.use(devUser);
 
-app.use("/expense", expenseRouter);
+app.use(expenseRouter);
 
 
 app.use((err, req, res, next) => {

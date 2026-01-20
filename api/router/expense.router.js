@@ -4,18 +4,20 @@ import expenseController from "../controllers/expense.controller.js";
 const router = Router();
 
 // GET /expense
-router.get("/", expenseController.getAll);
+router.get("/expenses", expenseController.getAll);
 
 // GET /expense/:id
-router.get("/:id", expenseController.getById);
+router.get("/expenses:id", expenseController.getById);
+
+router.get("/expenses/by-month/:date", expenseController.getAllByMonth);
 
 // POST /expense
-router.post("/", expenseController.create);
+router.post("/expenses", expenseController.create);
 
 // PATCH /expense/:id
-router.patch("/:id", expenseController.update);
+router.patch("/expenses/:id", expenseController.update);
 
 // DELETE /expense/:id
-router.delete("/:id", expenseController.delete);
+router.delete("/expenses/:id", expenseController.delete);
 
 export default router;
