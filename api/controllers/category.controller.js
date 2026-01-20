@@ -1,5 +1,5 @@
 import { Category, User } from '../models/index.js';
-import HttpError from '../utils/HtppError.js';
+import HttpError from '../utils/HttpError.js';
 
 class CategoryController {
 

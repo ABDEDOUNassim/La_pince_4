@@ -1,4 +1,4 @@
-import HttpError from '../utils/HtppError.js';
+import HttpError from '../utils/HttpError.js';
 
 export function handleError(err, req, res, next){
 

@@ -1,4 +1,4 @@
-import HttpError from "../utils/HtppError.js";
+import HttpError from "../utils/HttpError.js";
 import { User } from "../models/index.js";
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';

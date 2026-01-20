@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
-import HttpError from '../utils/HtppError.js';
+import HttpError from '../utils/HttpError.js';
 
 // regex for email and password checking 
 
