@@ -10,44 +10,51 @@
   </div>
 
   <!-- Category -->
-  <!-- Category 1 -->
+  <!-- Category left -->
 
   <section class="categoryDetail">
-    <div class="categoryDescription">
-      <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
-      <span><p class="nameCategory"><strong>Courses</strong></p></span>
-      <span
-        ><p class="sum">
-          <strong>52,12 € / <span class="total">300,00 €</span></strong>
-        </p></span
-      >
-      <div class="edit">
-        <button class="editBtn"
-          ><i class="fa-solid fa-pen-to-square"></i></button
+    <section class="left">
+      <div class="categoryDescription">
+        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
+        <span><p class="nameCategory"><strong>Courses</strong></p></span>
+        <span
+          ><p class="sum">
+            <strong>52,12 € / <span class="total">300,00 €</span></strong>
+          </p></span
         >
-        <button class="deleteBtn"><i class="fa-solid fa-trash-can"></i></button>
+        <div class="edit">
+          <button class="editBtn"
+            ><i class="fa-solid fa-pen-to-square"></i></button
+          >
+          <button class="deleteBtn"
+            ><i class="fa-solid fa-trash-can"></i></button
+          >
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Category 2 -->
-
-    <div class="categoryDescription1">
-      <span
-        ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
-        ></i></span
-      >
-      <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
-      <span
-        ><p class="sum1">
-          <strong>152,12 € / <span class="total1">300,00 €</span></strong>
-        </p></span
-      >
-      <div class="edit">
-        <button class="editBtn"
-          ><i class="fa-solid fa-pen-to-square"></i></button
+    <!-- Category right -->
+    <section class="right">
+      <div class="categoryDescription1">
+        <span
+          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
+          ></i></span
         >
-        <button class="deleteBtn"><i class="fa-solid fa-trash-can"></i></button>
+        <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
+        <span
+          ><p class="sum1">
+            <strong>152,12 € / <span class="total1">300,00 €</span></strong>
+          </p></span
+        >
+        <div class="edit">
+          <button class="editBtn"
+            ><i class="fa-solid fa-pen-to-square"></i></button
+          >
+          <button class="deleteBtn"
+            ><i class="fa-solid fa-trash-can"></i></button
+          >
+        </div>
       </div>
-    </div>
+    </section>
   </section>
 </main>

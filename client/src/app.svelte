@@ -8,7 +8,7 @@
   import Category from "./lib/pages/category.svelte";
   import Register from "./lib/pages/register.svelte";
 
-  let currentPage = "category";
+  let currentPage = "register";
 
   $: showLayout = ![
     "HomeSidebar",
