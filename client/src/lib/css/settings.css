@@ -30,7 +30,7 @@ body {
 main {
   width: 90%;
   margin: 0 auto;
-  height: 82vh;
+  min-height: 82vh;
 }
 
 button {
