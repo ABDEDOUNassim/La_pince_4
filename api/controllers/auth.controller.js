@@ -69,7 +69,35 @@ class AuthController {
         catch(error) {
             next(error);
         }
+    }
 
+    getLoggedUser = async (req, res, next) => {
+        try {
+            // validateToken middleware gave the user id in req.user_id
+            const userId = req.user_id;
+
+            const user = await User.findOne({
+                where: {
+                    id: userId
+                }
+            });
+
+            if(!user){
+                throw new HttpError("Internal Server Error", 500);
+            }
+
+            res.status(200).json({ name: user.name});
+        }
+        catch(error) {
+            next(error);
+        }
+    }
+
+    logout = async (req, res, next) => {
+        // To logout the client, send a new token but empty
+        // It's not perfect because the token is still valid. (blocklist?)
+        const token = "";
+        res.status(200).json({ token });
     }
 }
 
