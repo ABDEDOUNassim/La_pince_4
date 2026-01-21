@@ -1,55 +1,296 @@
 {
   "users": [
-    { "id": 1, "name": "admin", "email": "admin@lapince.fr", "password": "Admin1!!" },
-    { "id": 2, "name": "admin2", "email": "admin2@lapince.fr", "password": "Admin2!!" },
-    { "id": 3, "name": "admin3", "email": "admin3@lapince.fr", "password": "Admin3!!" }
+    {
+      "name": "admin",
+      "email": "admin@lapince.fr",
+      "password": "Admin1!!"
+    },
+    {
+      "name": "admin2",
+      "email": "admin2@lapince.fr",
+      "password": "Admin2!!"
+    },
+    {
+      "name": "admin3",
+      "email": "admin3@lapince.fr",
+      "password": "Admin3!!"
+    }
   ],
   "categories": [
-    { "id": 1, "user_id": 1, "name": "Alimentation", "color": "#9BF6FF", "icon": "https://placehold.co/32x32.png", "max_budget": 450 },
-    { "id": 2, "user_id": 1, "name": "Transport", "color": "#FFD166", "icon": "https://placehold.co/32x32.png", "max_budget": 250 },
-    { "id": 3, "user_id": 1, "name": "Loisirs", "color": "#EF476F", "icon": "https://placehold.co/32x32.png", "max_budget": 180 },
-    { "id": 4, "user_id": 2, "name": "Logement", "color": "#118AB2", "icon": "https://placehold.co/32x32.png", "max_budget": 700 },
-    { "id": 5, "user_id": 2, "name": "Energie", "color": "#06D6A0", "icon": "https://placehold.co/32x32.png", "max_budget": 200 },
-    { "id": 6, "user_id": 2, "name": "Internet & Mobile", "color": "#8338EC", "icon": "https://placehold.co/32x32.png", "max_budget": 120 },
-    { "id": 7, "user_id": 3, "name": "Loisirs", "color": "#FF006E", "icon": "https://placehold.co/32x32.png", "max_budget": 220 },
-    { "id": 8, "user_id": 3, "name": "Santé", "color": "#3A86FF", "icon": "https://placehold.co/32x32.png", "max_budget": 160 },
-    { "id": 9, "user_id": 3, "name": "Alimentation", "color": "#80ED99", "icon": "https://placehold.co/32x32.png", "max_budget": 350 }
+    {
+      "user_id": 1,
+      "name": "Alimentation",
+      "color": "#F4A261",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 320
+    },
+    {
+      "user_id": 1,
+      "name": "Voiture",
+      "color": "#2A9D8F",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 250
+    },
+    {
+      "user_id": 1,
+      "name": "Loisir",
+      "color": "#E76F51",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 180
+    },
+    {
+      "user_id": 1,
+      "name": "Energie",
+      "color": "#264653",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 140
+    },
+    {
+      "user_id": 1,
+      "name": "Santé",
+      "color": "#F94144",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 120
+    },
+    {
+      "user_id": 1,
+      "name": "Transport",
+      "color": "#90BE6D",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 200
+    },
+    {
+      "user_id": 1,
+      "name": "Abonnements",
+      "color": "#577590",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 80
+    },
+    {
+      "user_id": 2,
+      "name": "Energie",
+      "color": "#6A4C93",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 160
+    },
+    {
+      "user_id": 2,
+      "name": "Banque",
+      "color": "#8D99AE",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 40
+    },
+    {
+      "user_id": 2,
+      "name": "Maison",
+      "color": "#457B9D",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 300
+    },
+    {
+      "user_id": 2,
+      "name": "Courses",
+      "color": "#F3722C",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 350
+    },
+    {
+      "user_id": 2,
+      "name": "Loisir",
+      "color": "#43AA8B",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 150
+    },
+    {
+      "user_id": 2,
+      "name": "Santé",
+      "color": "#FF6D00",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 120
+    },
+    {
+      "user_id": 3,
+      "name": "Restaurants",
+      "color": "#FFB703",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 220
+    },
+    {
+      "user_id": 3,
+      "name": "Loisir",
+      "color": "#8ECAE6",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 200
+    },
+    {
+      "user_id": 3,
+      "name": "Courses",
+      "color": "#219EBC",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 300
+    },
+    {
+      "user_id": 3,
+      "name": "Santé",
+      "color": "#023047",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 150
+    },
+    {
+      "user_id": 3,
+      "name": "Transport",
+      "color": "#FFB4A2",
+      "icon": "https://placehold.co/32x32.png",
+      "max_budget": 180
+    }
   ],
   "expenses": [
-    { "title": "Courses Carrefour", "user_id": 1, "category_id": 1, "amount": 92.4, "date": "2025-11-08" },
-    { "title": "Boulangerie", "user_id": 1, "category_id": 1, "amount": 6.8, "date": "2025-11-15" },
-    { "title": "Courses Lidl", "user_id": 1, "category_id": 1, "amount": 58.1, "date": "2025-12-02" },
-    { "title": "Restaurant", "user_id": 1, "category_id": 1, "amount": 34.9, "date": "2025-12-20" },
-    { "title": "Courses Auchan", "user_id": 1, "category_id": 1, "amount": 76.55, "date": "2026-01-11" },
-
-    { "title": "Essence Total", "user_id": 1, "category_id": 2, "amount": 65.2, "date": "2025-11-05" },
-    { "title": "Péage", "user_id": 1, "category_id": 2, "amount": 18.3, "date": "2025-11-18" },
-    { "title": "Essence Shell", "user_id": 1, "category_id": 2, "amount": 59.9, "date": "2025-12-07" },
-    { "title": "Parking", "user_id": 1, "category_id": 2, "amount": 12.0, "date": "2025-12-22" },
-    { "title": "Essence Total", "user_id": 1, "category_id": 2, "amount": 61.7, "date": "2026-01-09" },
-
-    { "title": "Cinéma", "user_id": 1, "category_id": 3, "amount": 28.0, "date": "2025-11-12" },
-    { "title": "Jeu vidéo", "user_id": 1, "category_id": 3, "amount": 49.99, "date": "2025-11-30" },
-    { "title": "Bowling", "user_id": 1, "category_id": 3, "amount": 22.5, "date": "2025-12-10" },
-    { "title": "Netflix", "user_id": 1, "category_id": 3, "amount": 15.99, "date": "2025-12-28" },
-    { "title": "Concert", "user_id": 1, "category_id": 3, "amount": 65.0, "date": "2026-01-14" },
-
-    { "title": "Loyer Novembre", "user_id": 2, "category_id": 4, "amount": 650.0, "date": "2025-11-01" },
-    { "title": "Loyer Décembre", "user_id": 2, "category_id": 4, "amount": 650.0, "date": "2025-12-01" },
-    { "title": "Loyer Janvier", "user_id": 2, "category_id": 4, "amount": 650.0, "date": "2026-01-01" },
-    { "title": "Assurance habitation", "user_id": 2, "category_id": 4, "amount": 22.9, "date": "2025-12-15" },
-    { "title": "Charges locatives", "user_id": 2, "category_id": 4, "amount": 45.0, "date": "2026-01-10" },
-
-    { "title": "Facture EDF", "user_id": 2, "category_id": 5, "amount": 72.4, "date": "2025-11-10" },
-    { "title": "Facture Gaz", "user_id": 2, "category_id": 5, "amount": 54.2, "date": "2025-11-25" },
-    { "title": "EDF Décembre", "user_id": 2, "category_id": 5, "amount": 81.6, "date": "2025-12-12" },
-    { "title": "Gaz Janvier", "user_id": 2, "category_id": 5, "amount": 68.3, "date": "2026-01-05" },
-    { "title": "EDF Janvier", "user_id": 2, "category_id": 5, "amount": 79.1, "date": "2026-01-18" },
-
-    { "title": "Spotify", "user_id": 3, "category_id": 7, "amount": 11.99, "date": "2025-11-03" },
-    { "title": "Cinéma", "user_id": 3, "category_id": 7, "amount": 27.0, "date": "2025-11-21" },
-    { "title": "Jeu Steam", "user_id": 3, "category_id": 7, "amount": 39.99, "date": "2025-12-09" },
-    { "title": "Escape Game", "user_id": 3, "category_id": 7, "amount": 32.0, "date": "2025-12-29" },
-    { "title": "Concert", "user_id": 3, "category_id": 7, "amount": 58.0, "date": "2026-01-13" }
+    {
+      "title": "Course Auchan",
+      "user_id": 1,
+      "category_id": 1,
+      "amount": 78.45,
+      "date": "2026-01-08"
+    },
+    {
+      "title": "Oclock Burger",
+      "user_id": 1,
+      "category_id": 1,
+      "amount": 18.90,
+      "date": "2026-01-14"
+    },
+    {
+      "title": "Supermarché Monop",
+      "user_id": 1,
+      "category_id": 1,
+      "amount": 54.20,
+      "date": "2026-01-28"
+    },
+    {
+      "title": "Essence Total",
+      "user_id": 1,
+      "category_id": 2,
+      "amount": 60.00,
+      "date": "2025-12-15"
+    },
+    {
+      "title": "Révision voiture",
+      "user_id": 1,
+      "category_id": 2,
+      "amount": 140.00,
+      "date": "2026-02-05"
+    },
+    {
+      "title": "Cinéma",
+      "user_id": 1,
+      "category_id": 3,
+      "amount": 28.00,
+      "date": "2026-01-18"
+    },
+    {
+      "title": "Sortie bar",
+      "user_id": 1,
+      "category_id": 3,
+      "amount": 32.00,
+      "date": "2026-01-25"
+    },
+    {
+      "title": "Facture EDF",
+      "user_id": 1,
+      "category_id": 4,
+      "amount": 82.30,
+      "date": "2026-02-10"
+    },
+    {
+      "title": "Médecin",
+      "user_id": 1,
+      "category_id": 5,
+      "amount": 35.00,
+      "date": "2026-01-22"
+    },
+    {
+      "title": "Abonnement Netflix",
+      "user_id": 1,
+      "category_id": 7,
+      "amount": 14.99,
+      "date": "2026-01-12"
+    },
+    {
+      "title": "Bus Pass",
+      "user_id": 1,
+      "category_id": 6,
+      "amount": 45.00,
+      "date": "2026-01-15"
+    },
+    {
+      "title": "Loyer Décembre",
+      "user_id": 2,
+      "category_id": 3,
+      "amount": 650.00,
+      "date": "2025-12-01"
+    },
+    {
+      "title": "Essence Janvier",
+      "user_id": 2,
+      "category_id": 4,
+      "amount": 70.00,
+      "date": "2026-01-10"
+    },
+    {
+      "title": "Courses Carrefour",
+      "user_id": 2,
+      "category_id": 5,
+      "amount": 120.50,
+      "date": "2026-01-15"
+    },
+    {
+      "title": "Cinéma",
+      "user_id": 2,
+      "category_id": 6,
+      "amount": 18.00,
+      "date": "2026-02-12"
+    },
+    {
+      "title": "Peinture Leroy Merlin",
+      "user_id": 2,
+      "category_id": 7,
+      "amount": 74.90,
+      "date": "2026-02-07"
+    },
+    {
+      "title": "Restaurant Sushi",
+      "user_id": 3,
+      "category_id": 8,
+      "amount": 45.00,
+      "date": "2026-01-20"
+    },
+    {
+      "title": "Cinéma",
+      "user_id": 3,
+      "category_id": 9,
+      "amount": 27.00,
+      "date": "2026-01-25"
+    },
+    {
+      "title": "Courses Lidl",
+      "user_id": 3,
+      "category_id": 10,
+      "amount": 95.50,
+      "date": "2026-01-28"
+    },
+    {
+      "title": "Médecin",
+      "user_id": 3,
+      "category_id": 11,
+      "amount": 60.00,
+      "date": "2026-02-05"
+    },
+    {
+      "title": "Essence",
+      "user_id": 3,
+      "category_id": 12,
+      "amount": 30.00,
+      "date": "2026-02-10"
+    }
   ]
 }

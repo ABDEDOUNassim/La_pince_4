@@ -23,7 +23,7 @@ Expense.init({
         date: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
         },
     { sequelize, modelName: 'expense'}
 );

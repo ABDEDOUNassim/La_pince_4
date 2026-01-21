@@ -23,7 +23,7 @@ Category.init(
     icon: {
         type : DataTypes.STRING,
         allowNull : false,
-        defaultValue : 'https://static.vecteezy.com/ti/vecteur-libre/p1/13277422-dollar-sur-le-batiment-presentant-l-icone-du-batiment-de-la-banque-vectoriel.jpg',
+        defaultValue : 'https://placehold.co/32x32.png',
     },
 
     max_budget : {

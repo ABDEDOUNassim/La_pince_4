@@ -83,8 +83,11 @@ class ExpenseController {
     getById = async (req, res, next) => {
         try {
             const expenseId = req.params.id;
-            const expenseList = await Expense.findByPk(expenseId,{
-                where: {user_id: this.userId},
+            const expenseList = await Expense.findOne({
+                where: {
+                    id: expenseId,
+                    user_id: this.userId
+                },
                 include: [{ model: Category, as: "category" }],
 
             });

@@ -29,8 +29,9 @@ class CategoryController {
     getById = async (req, res, next) => {
         try {
             const categoryId = req.params.id;
-            const categoryList = await Category.findByPk(categoryId,{
+            const categoryList = await Category.findOne({
                 where: {
+                    id: categoryId,
                     user_id: this.userId
                 }
             });
