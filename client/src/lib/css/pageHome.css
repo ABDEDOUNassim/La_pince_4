@@ -62,4 +62,8 @@
     align-content: center;
     align-items: stretch;
   }
+
+.serviceDesc {
+  background-color: var(--BackgroundCarte);
+}
 }

@@ -21,7 +21,7 @@ Expense.init({
         },
 
         date: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.STRING,
             allowNull: false,
         }
         },

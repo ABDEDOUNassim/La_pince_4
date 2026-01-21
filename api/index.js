@@ -1,8 +1,11 @@
 import express from 'express';
 import 'dotenv/config';
+
 import cors from 'cors';
 
 import categoryRouter from './routes/category.router.js'; 
+import expenseRouter from "./routes/expense.router.js";
+import authRouter from './routes/auth.router.js';
 
 import { handleError } from './middlewares/common.middleware.js';
 
@@ -14,7 +17,9 @@ app.use(cors({origin: "http://localhost:5173"}));
 app.use(express.json()); 
 
 ///// Routers /////
+app.use(authRouter);
 app.use(categoryRouter);
+app.use(expenseRouter);
 ///// End routers //////
 
 app.use(handleError);

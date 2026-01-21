@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .btnConnect {
   margin-top: 2em;
   padding: 14px 32px;
@@ -9,3 +10,6 @@
     transform 0.08s ease,
     box-shadow 0.08s ease;
 }
+=======
+@import "./pageHome.css";
+>>>>>>> origin/dev
