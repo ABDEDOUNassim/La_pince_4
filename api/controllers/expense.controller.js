@@ -16,8 +16,6 @@ class ExpenseController {
           const userId = 1;
     
           const RequestedDate = req.params.date;
-          // Middleware vérifie bien la présence de RequestedDate ?
-          console.log("Requested month:", RequestedDate);
           
           const expenses = await Expense.findAll({
             where : { 
