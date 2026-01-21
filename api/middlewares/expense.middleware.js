@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import HttpError from '../utils/HttpError.js';
 
 export function validateCreateExpense (req, res, next){
 
@@ -14,7 +15,7 @@ export function validateCreateExpense (req, res, next){
         const validation = createExpenseSchema.validate(req.body)
 
         if(validation.error){
-        return res.status(400).json({ error: validation.error });
+            throw new HttpError(validation.error, 400);
         }
 
     next();
@@ -33,7 +34,7 @@ export function validateUpdateExpense (req, res, next){
         const validation = updateExpenseSchema.validate(req.body)
 
         if(validation.error){
-        return res.status(400).json({ error: validation.error });
+            throw new HttpError(validation.error, 400);
         }
 
     next();
