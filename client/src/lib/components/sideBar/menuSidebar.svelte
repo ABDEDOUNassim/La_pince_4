@@ -36,7 +36,7 @@
         on:click={() => {
           currentPage = "register";
           open = false;
-        }}>Se déconnecter</button
+        }}>Déconnexion</button
       >
     </nav>
   </section>

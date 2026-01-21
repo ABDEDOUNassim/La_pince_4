@@ -23,17 +23,17 @@
 
   <section class="services">
     <div class="serviceDesc">
-      <h2>Suivez vos dépenses</h2>
+      <h2 class="titleHome">Suivez vos dépenses</h2>
       <p class="serviceCard">Visualisez vos dépenses en un seul coup d'oeil.</p>
     </div>
 
     <div class="serviceDesc">
-      <h2>Gérez vos budgets</h2>
+      <h2 class="titleHome">Gérez vos budgets</h2>
       <p class="serviceCard">Fixez vos limites et gardez le contrôle.</p>
     </div>
 
     <div class="serviceDesc">
-      <h2>Recevez des alertes</h2>
+      <h2 class="titleHome">Recevez des alertes</h2>
       <p class="serviceCard">Anticipez les dépenses pour rester serein.</p>
     </div>
   </section>

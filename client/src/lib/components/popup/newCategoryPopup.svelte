@@ -1,4 +1,4 @@
-<main>
+<main class="sidebarCategory">
   <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
 
   <h1>Création catégorie</h1>
@@ -31,15 +31,23 @@
       <div class="formGroup">
         <label>Icône</label>
         <ul class="formGroupIcon">
-          <li><i class="fa-solid fa-cart-plus"></i></li>
-          <li><i class="fa-solid fa-car"></i></li>
-          <li><i class="fa-solid fa-bolt"></i></li>
-          <li><i class="fa-solid fa-faucet"></i></li>
-          <li><i class="fa-solid fa-screwdriver-wrench"></i></li>
-          <li><i class="fa-solid fa-hospital"></i></li>
-          <li><i class="fa-solid fa-money-bill-trend-up"></i></li>
-          <li><i class="fa-solid fa-house"></i></li>
-          <li><i class="fa-solid fa-gas-pump"></i></li>
+          <li><i class="fa-solid fa-cart-plus" style="color: #B197FC;"></i></li>
+          <li><i class="fa-solid fa-car" style="color: #63E6BE;"></i></li>
+          <li><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i></li>
+          <li>
+            <i class="fa-solid fa-faucet-drip" style="color: #B197FC;"></i>
+          </li>
+          <li>
+            <i class="fa-solid fa-screwdriver-wrench" style="color: #63E6BE;"
+            ></i>
+          </li>
+          <li><i class="fa-solid fa-hospital" style="color: #FFD43B;"></i></li>
+          <li>
+            <i class="fa-solid fa-money-bill-trend-up" style="color: #B197FC;"
+            ></i>
+          </li>
+          <li><i class="fa-solid fa-house" style="color: #63E6BE;"></i></li>
+          <li><i class="fa-solid fa-gas-pump" style="color: #FFD43B;"></i></li>
         </ul>
       </div>
 
@@ -49,6 +57,7 @@
 </main>
 
 <style>
+  @import "../../css/settings.css";
   main {
     width: 90%;
     max-width: 400px;
@@ -84,7 +93,7 @@
 
   /* Titre */
   h1 {
-    color: var(--TextPrincipal);
+    color: #c8d4e4;
     font-family: title, sans-serif;
     text-align: center;
     padding: 1em 0 0.5em 0;
@@ -110,7 +119,7 @@
   /* Labels */
   .formGroup label {
     font-size: 0.9rem;
-    color: var(--TextPrincipal);
+    color: #c8d4e4;
     font-family: text, sans-serif;
     padding-left: 0.3em;
   }
@@ -119,9 +128,9 @@
   .formGroup input {
     width: 100%;
     padding: 0.8em;
-    background-color: var(--BackgroundListe);
-    border: 1px solid var(--Bordure);
-    color: var(--TextSecondairePlaceholder);
+    background-color: #141720;
+    border: 1px solid #3c4154;
+    color: #e1e1e1;
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
@@ -129,7 +138,7 @@
 
   .formGroup input:hover,
   .formGroup input:focus {
-    border-color: var(--BouttonPrincipal);
+    border-color: #559cd2;
     outline: none;
   }
 
@@ -137,6 +146,7 @@
   .formGroupColor {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
+    justify-items: center;
     gap: 6px;
     padding: 0;
     margin: 0;
@@ -162,7 +172,7 @@
     background-color: #6aff4d;
   }
   .color5 {
-    background-color: #4d6aff;
+    background-color: #4c68f7;
   }
   .color6 {
     background-color: #a64dff;
@@ -179,7 +189,7 @@
 
   .formGroupColor li:hover {
     transform: scale(1.1);
-    border-color: var(--BouttonPrincipal);
+    border-color: #559cd2;
   }
 
   /* ====== ICÔNES ====== */
@@ -195,8 +205,8 @@
   .formGroupIcon li {
     width: 100%;
     aspect-ratio: 1;
-    background-color: var(--BackgroundCarte);
-    border: 2px solid var(--Bordure);
+    background-color: #20232e;
+    border: 2px solid #3c4154;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -207,19 +217,19 @@
 
   .formGroupIcon li:hover {
     transform: scale(1.05);
-    border-color: var(--BouttonPrincipal);
+    border-color: #559cd2;
   }
   .formGroupIcon i {
-    font-size: 16px;
-    color: var(--TextPrincipal);
+    font-size: 30px;
+    color: #c8d4e4;
   }
   /* Bouton Ajouter */
   .btn-ajouter {
     cursor: pointer;
-    background-color: var(--BouttonPrincipal);
+    background-color: #559cd2;
     border: none;
     padding: 0.8em;
-    color: var(--TextSecondairePlaceholder);
+    color: #e1e1e1;
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;
@@ -229,5 +239,11 @@
   }
   .btn-ajouter:hover {
     background-color: #1d6fdb;
+  }
+  .sidebarCategory {
+    min-width: 90%;
+  }
+
+  @media (max-widht: 700px) {
   }
 </style>
