@@ -61,9 +61,9 @@
   .formExpense input {
     width: 100%;
     padding: 0.8em;
-    background-color: var(--BackgroundListe);
-    border: 1px solid var(--Bordure);
-    color: var(--TextSecondairePlaceholder);
+    background-color: var(--backgroundListe);
+    border: 1px solid #3c4154;
+    color: #e1e1e1;
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
@@ -73,18 +73,18 @@
   /*Labels*/
   .formExpense label {
     font-size: 0.95rem;
-    color: var(--TextPrincipal);
+    color: #c8d4e4;
     font-family: text, sans-serif;
     padding-left: 0.3em;
   }
 
   /* Focus */
   .formExpense input:hover {
-    border-color: var(--BouttonPrincipal);
+    border-color: #559cd2;
   }
 
   h1 {
-    color: var(--TextPrincipal);
+    color: #c8d4e4;
     font-family: title, sans-serif;
     text-align: center;
     padding: 2.5em 0 1em 0;
@@ -93,10 +93,10 @@
   /* Bouton Ajouter */
   .btn {
     cursor: pointer;
-    background-color: var(--BouttonPrincipal);
+    background-color: #559cd2;
     border: none;
     padding: 0.8em;
-    color: var(--TextSecondairePlaceholder);
+    color: #e1e1e1;
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;

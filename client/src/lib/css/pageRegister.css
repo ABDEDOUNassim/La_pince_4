@@ -23,7 +23,7 @@
   padding: 14px 16px;
   border: 1px solid #3c4154;
   border-radius: 10px;
-  color: var(--TextPrincipal);
+  color: var(--textSecondairePlaceholder);
   font-size: 1rem;
   font-family: text, sans-serif;
 }

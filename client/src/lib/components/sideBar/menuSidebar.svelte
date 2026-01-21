@@ -66,7 +66,7 @@
     display: flex;
     margin-bottom: 5rem;
     justify-content: center;
-    padding: 1.2em 10em;
+    padding: 1.2em 7em;
     min-width: 200px;
     font-size: 1.2rem;
     transform: translateY(0);

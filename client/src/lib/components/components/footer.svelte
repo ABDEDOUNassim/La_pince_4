@@ -34,7 +34,7 @@
     background-color: var(--backgroundHeaderFooter);
     border-top: solid 2px var(--bordure);
     box-shadow: 0 0 0 0;
-    padding: 1em;
+    padding: 1.5em;
     height: 8vh;
   }
   ul {

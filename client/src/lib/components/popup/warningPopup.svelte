@@ -6,9 +6,7 @@
   <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
   <div class="popup">
     <img src={DangerIcon} alt="Pop-up d'alerte de budget" />
-    <div class="content">
-      <p class="texte">Budget maximum bientôt atteint</p>
-    </div>
+    <p class="texte">Budget maximum bientôt atteint</p>
   </div>
 </div>
 
@@ -45,13 +43,14 @@
   .close i {
     color: #f4f5f6;
     font-size: 18px;
+    margin: 1em 1em 0 0;
   }
 
   .popup {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 16px 18px;
+    padding: 2em 5em;
     border-radius: 12px;
     background-color: var(--BackgroudCarte);
     box-shadow: 0 6px 18px rgba(255, 0, 0, 0.25);

@@ -204,7 +204,6 @@
 
   .formGroupIcon li {
     width: 100%;
-    aspect-ratio: 1;
     background-color: #20232e;
     border: 2px solid #3c4154;
     border-radius: 6px;
@@ -213,6 +212,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    padding: 1.5em 0;
   }
 
   .formGroupIcon li:hover {
@@ -233,7 +233,7 @@
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;
-    margin-top: 1em;
+    margin-top: 2em;
     width: 60%;
     align-self: center;
   }
@@ -244,6 +244,10 @@
     min-width: 90%;
   }
 
-  @media (max-widht: 700px) {
+  @media (max-width: 550px) {
+    .formGroupIcon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>
