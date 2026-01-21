@@ -21,7 +21,7 @@ export function validateRegisterUser(req, res, next) {
     const validation = registerUserSchema.validate(req.body);
 
     if(validation.error) {
-        return res.status(400).json({ error: validation.error });
+        throw new HttpError(validation.error, 400);
     }
 
     next();

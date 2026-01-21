@@ -27,6 +27,10 @@ class ExpenseController {
             order: [["date", "DESC"]],
             include: [{ model: Category, as: "category" }],
           });
+
+          if(!expenses) {
+            throw new HttpError("Internal Server Error", 500);
+          }
       
           res.status(200).json(expenses);
         }
@@ -156,7 +160,7 @@ class ExpenseController {
             });
             
             if (!result[1][0]){
-                throw new HttpError("expense Not Found", 404);
+                throw new HttpError("Expense Not Found", 404);
             }
 
             res.status(200).json(result[1][0]);
