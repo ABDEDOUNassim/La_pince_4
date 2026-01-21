@@ -6,6 +6,27 @@ import HttpError from '../utils/HttpError.js';
 
 // regex for email and password checking 
 
+export function validateRegisterUser(req, res, next) {
+
+    const passwordRegex = '(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$&*_-]).{8,30}';
+    // password must contain a number, lowercase, uppercase and one special character (!@#$&*-_)
+    // length between 8 and 30 characters
+
+    const registerUserSchema = Joi.object({
+        name: Joi.string().min(3).required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().pattern(new RegExp(passwordRegex)).required()
+    });
+
+    const validation = registerUserSchema.validate(req.body);
+
+    if(validation.error) {
+        throw new HttpError(validation.error, 400);
+    }
+
+    next();
+}
+
 
 export function validateToken(req, res, next) {
 

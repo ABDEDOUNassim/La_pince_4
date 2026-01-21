@@ -26,3 +26,19 @@ export function validateId(req, res, next){
         next(error);
     }
 }
+
+export function validateDate(req, res, next){
+    try {
+        const dateToTest = req.params.date;
+        const regex = /^\d{4}-\d{2}$/;
+
+        if(!regex.test(dateToTest)){
+            throw new HttpError("Invalid Date Format", 400);
+        }
+
+        next();
+    }
+    catch(error){
+        next(error);
+    }
+}

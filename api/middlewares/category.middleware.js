@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import HttpError from '../utils/HttpError.js';
 
 export function validateCreateCategory(req, res , next){
     
@@ -13,7 +14,7 @@ export function validateCreateCategory(req, res , next){
     const validation = createCategorySchema.validate(req.body)
 
     if(validation.error){
-        return res.status(400).json({ error: validation.error });
+        throw new HttpError(validation.error, 400);
     }
 
     next();
@@ -32,7 +33,7 @@ export function validateUpdateCategory(req, res , next){
     const validation = updateCategorySchema.validate(req.body)
 
     if(validation.error){
-        return res.status(400).json({ error: validation.error });
+        throw new HttpError(validation.error, 400);
     }
 
     next();
