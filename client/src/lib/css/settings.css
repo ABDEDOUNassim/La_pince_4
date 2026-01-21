@@ -14,28 +14,35 @@
 /* Variable global */
 
 :root {
-  --BackgroundPrincipal: #20222d;
-  --BackgroundCarte: #20232e;
-  --BackgroundHeaderFooter: #242731;
-  --TextPrincipal: #c8d4e4;
-  --TextSecondairePlaceholder: #e1e1e1;
-  --BouttonPrincipal: #559cd2;
-  --Bordure: #3c4154;
-  --BackgroundListe: #141720;
+  --test: #252832ec;
+}
+
+:root {
+  --backgroundPrincipal: #20222d;
+  --backgroundCarte: #20232e;
+  --backgroundHeaderFooter: #242731;
+  --textPrincipal: #c8d4e4;
+  --textSecondairePlaceholder: #e1e1e1;
+  --bouttonPrincipal: #559cd2;
+  --bordure: #3c4154;
+  --backgroundListe: #141720;
 }
 
 body {
-  height: 100vh;
+  background-color: var(--backgroundPrincipal);
 }
 main {
-  background-color: var(--BackgroundPrincipal);
+  width: 90%;
+  margin: 0 auto;
+  min-height: 82vh;
 }
+
 button {
   cursor: pointer;
-  background-color: var(--BouttonPrincipal);
+  background-color: var(--bouttonPrincipal);
   border: none;
   padding: 0.5em;
-  color: var(--TextSecondairePlaceholder);
+  color: var(--textSecondairePlaceholder);
   border-radius: 5px;
   font-family: bouton, sans-serif;
 }
@@ -46,19 +53,26 @@ li {
   list-style: none;
 }
 h1 {
-  color: var(--TextPrincipal);
+  color: var(--textPrincipal);
   font-family: title, sans-serif;
   text-align: center;
   padding: 1em 0 1em 0;
 }
 p {
-  color: var(--TextPrincipal);
+  color: var(--textPrincipal);
   font-family: text, sans-serif;
 }
 
 h2 {
-  color: var(--TextPrincipal);
+  color: var(--textPrincipal);
   font-family: title, sans-serif;
   margin: 0.5em;
   padding: 0.5em;
+}
+
+input {
+  background-color: var(--backgroundListe);
+  border: 1px solid var(--bordure);
+  color: var(--textSecondairePlaceholder);
+  border-radius: 10px;
 }

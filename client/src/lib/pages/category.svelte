@@ -1,21 +1,60 @@
 <script>
-  import shop from "../../assets/icon/shop.png";
 </script>
 
 <main>
   <h1>Catégorie</h1>
 
   <div class="nav">
-    <button type="submit" class="submit-btn">Filtre</button>
-    <button type="submit" class="submit-btn">Ajouter</button>
+    <button class="filterBtn">Filtre</button>
+    <button class="addBtn">Ajouter</button>
   </div>
 
-  <section class="categoryDetailed">
-    <div class="categoryDescription">
-      <span><i><img src={shop} alt="shop" /></i></span>
-      <span><p class="description">Achat</p></span>
-      <span><p class="totalExpenses">52,12 €</p></span>
-      <span><p class="totalBudget">500 €</p></span>
-    </div>
+  <!-- Category -->
+  <!-- Category left -->
+
+  <section class="categoryDetail">
+    <section class="left">
+      <div class="categoryDescription">
+        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
+        <span><p class="nameCategory"><strong>Courses</strong></p></span>
+        <span
+          ><p class="sum">
+            <strong>52,12 € / <span class="total">300,00 €</span></strong>
+          </p></span
+        >
+        <div class="edit">
+          <button class="editBtn"
+            ><i class="fa-solid fa-pen-to-square"></i></button
+          >
+          <button class="deleteBtn"
+            ><i class="fa-solid fa-trash-can"></i></button
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Category right -->
+    <section class="right">
+      <div class="categoryDescription1">
+        <span
+          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
+          ></i></span
+        >
+        <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
+        <span
+          ><p class="sum1">
+            <strong>152,12 € / <span class="total1">300,00 €</span></strong>
+          </p></span
+        >
+        <div class="edit">
+          <button class="editBtn"
+            ><i class="fa-solid fa-pen-to-square"></i></button
+          >
+          <button class="deleteBtn"
+            ><i class="fa-solid fa-trash-can"></i></button
+          >
+        </div>
+      </div>
+    </section>
   </section>
 </main>

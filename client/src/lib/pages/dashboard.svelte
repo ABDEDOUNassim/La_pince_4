@@ -1,39 +1,95 @@
 <script>
-  import shop from "../../assets/icon/shop.png";
+  import DonutChart from "../components/components/donutChart.svelte";
+
+  let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
+  let values = [300, 150, 80, 200];
 </script>
 
-<main>
-  <h1>Tableau de bord</h1>
+<main class="main">
+  <!-- Left -->
+  <section class="leftBlock">
+    <h1>Tableau de bord</h1>
 
-  <section class="expensesTotal">
-    <p>Dépenses total</p>
-    <span><p>125.58 €</p></span>
+    <section class="expensesTotalLeft">
+      <p class="expenseTitle">Dépenses total</p>
+      <span class="expense"><p><strong>1125,58 €</strong></p></span>
+    </section>
+
+    <section class="search">
+      <div class="searchBar">
+        <button class="searchBtn"><i class="fa-solid fa-sliders"></i></button>
+        <div class="searchBarMiddle">
+          <label for="searchBar"></label>
+          <input type="text" id="searchBar" placeholder="Rechercher ..." />
+        </div>
+        <button class="searchBtn"><i class="fa-solid fa-filter"></i></button>
+      </div>
+      <div class="addExpense">
+        <button><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </section>
+
+    <!-- Expenses -->
+
+    <section class="expensesDetailed">
+      <p class="date">Mercredi 14 Janvier 2025</p>
+
+      <div class="expensesDescription">
+        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
+        <span><p class="description">Achat Leroy merlin</p></span>
+        <span><p class="montant"><strong>52,12 €</strong></p></span>
+      </div>
+
+      <div class="expensesDescription1">
+        <span
+          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
+          ></i></span
+        >
+        <span><p class="description">Facture élctricité</p></span>
+        <span><p class="montant"><strong>152,12 €</strong></p></span>
+      </div>
+    </section>
   </section>
 
-  <section class="search">
-    <div class="searchBar">
-      <i class="fa-solid fa-sliders"></i>
-      <i class="fa-solid fa-filter"></i>
-      <div class="searchBarMiddle">
-        <label for="searchBar"></label>
-        <input type="text" id="searchBar" placeholder="Rechercher ..." />
+  <!-- Right -->
 
-        <button type="submit" aria-label="LancerlaRacherche"
-          ><i class="fa-solid fa-magnifying-glass"></i></button
+  <section class="rightBlock">
+    <section class="expensesTotalRight">
+      <p class="expenseTitle">Dépenses total</p>
+      <span class="expense"><p><strong>1125,58 €</strong></p></span>
+    </section>
+
+    <!-- Diagrame -->
+
+    <section class="diagrame">
+      <DonutChart {labels} {values} />
+    </section>
+
+    <!-- -- -->
+
+    <section class="categoryDetailed">
+      <div class="categoryDescription">
+        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
+        <span><p class="nameCategory"><strong>Courses</strong></p></span>
+        <span
+          ><p class="sum">
+            <strong>52,12 € / <span class="total">300,00 €</span></strong>
+          </p></span
         >
       </div>
-    </div>
-    <div class="addExpense">
-      <button><i class="fa-solid fa-plus"></i></button>
-    </div>
-  </section>
 
-  <section class="expensesDetailed">
-    <p class="date">Mercredi 14 Janvier 2025</p>
-    <div class="expensesDescription">
-      <span><i><img src={shop} alt="shop" /></i></span>
-      <span><p class="description">Achat Leroy merlin</p></span>
-      <span><p class="montant">52,12 €</p></span>
-    </div>
+      <div class="categoryDescription1">
+        <span
+          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
+          ></i></span
+        >
+        <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
+        <span
+          ><p class="sum1">
+            <strong>152,12 € / <span class="total1">300,00 €</span></strong>
+          </p></span
+        >
+      </div>
+    </section>
   </section>
 </main>
