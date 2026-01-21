@@ -1,5 +1,6 @@
 <script>
   import logo from "../../../assets/logo/La_pince.png";
+  import HomeSidebar from "../sideBar/homeSidebar.svelte";
   export let currentPage;
   let open = false;
 </script>
@@ -58,44 +59,12 @@
 
     <button id="sidebar" on:click={() => (open = !open)}>☰</button>
   </section>
-
-  <!-- Burger -->
-
-  {#if open}
-    <nav class="menu">
-      <button
-        on:click={() => {
-          currentPage = "home";
-          open = false;
-        }}>Home</button
-      >
-      <button
-        on:click={() => {
-          currentPage = "login";
-          open = false;
-        }}>Login</button
-      >
-      <button
-        on:click={() => {
-          currentPage = "dashboard";
-          open = false;
-        }}>Dashboard</button
-      >
-      <button
-        on:click={() => {
-          currentPage = "register";
-          open = false;
-        }}>Register</button
-      >
-      <button
-        on:click={() => {
-          currentPage = "category";
-          open = false;
-        }}>Category</button
-      >
-    </nav>
-  {/if}
 </header>
+
+<!-- Burger -->
+{#if open}
+  <HomeSidebar bind:currentPage bind:open />
+{/if}
 
 <!-- style -->
 

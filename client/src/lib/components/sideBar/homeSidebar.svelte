@@ -1,89 +1,167 @@
 <script>
   export let currentPage;
-  let open = false;
-  let close = true;
+  export let open;
 </script>
 
-<header>
-  <a class="close" href="" aria-label="Fermer le menu">
+<!-- Overlay pour fermer au clic à l'extérieur -->
+<div
+  class="overlay"
+  on:click={() => (open = false)}
+  role="button"
+  tabindex="0"
+></div>
+
+<aside class="sidebar">
+  <button
+    class="close"
+    on:click={() => (open = false)}
+    aria-label="Fermer le menu"
+  >
     <i class="fa-solid fa-xmark"></i>
-  </a>
-  <section class="header">
+  </button>
+
+  <section class="content">
     <nav class="menu">
       <button
         class="btnhome"
         on:click={() => {
-          currentPage = "Home";
+          currentPage = "home";
           open = false;
-        }}>Acceuil</button
+        }}>Accueil</button
       >
+
       <button
         class="btnhome"
         on:click={() => {
-          currentPage = "Login";
+          currentPage = "login";
           open = false;
         }}>Connexion</button
       >
+
       <button
         class="btnhome"
         on:click={() => {
-          currentPage = "Register";
+          currentPage = "register";
           open = false;
         }}>S'inscrire</button
       >
+
+      <button
+        class="btnhome"
+        on:click={() => {
+          currentPage = "dashboard";
+          open = false;
+        }}>Tableau de bord</button
+      >
+
+      <button
+        class="btnhome"
+        on:click={() => {
+          currentPage = "category";
+          open = false;
+        }}>Catégorie</button
+      >
     </nav>
   </section>
-</header>
+</aside>
 
 <style>
   @import "../../css/settings.css";
 
-  .header {
-    display: flex;
+  /* Overlay sombre derrière la sidebar */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    animation: fadeIn 0.3s ease;
   }
 
-  .menu {
-    display: flex;
-    box-shadow: 0 4 6px var(--Bordure);
-    flex-direction: column;
-    padding: 1em;
-    gap: 2em;
-    min-width: 200px;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
-  .btnhome {
-    max-width: 90%;
-    display: flex;
-    margin-bottom: 5rem;
-    justify-content: center;
-    padding: 1.2em 7em;
-    min-width: 200px;
-    font-size: 1.2rem;
-    transform: translateY(0);
-    transition:
-      transform 0.08s ease,
-      box-shadow 0.08s ease;
+  /* Sidebar qui glisse depuis la droite */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: var(--backgroundHeaderFooter, #1a1a1a);
+    z-index: 999;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+    overflow-y: auto;
+    border-left: 2px solid var(--bouttonPrincipal);
   }
 
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
   .close {
-    text-decoration: none;
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 20px;
+    right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 10;
+    z-index: 1000;
+    background: transparent;
+    border: none;
+    padding: 0.5em;
+    transition: transform 0.2s ease;
   }
+
   .close i {
     color: #ffffff;
-    font-size: 28px;
+    font-size: 32px;
   }
-  .close:hover i {
-    color: #e0e0e0;
+
+  /* Contenu de la sidebar */
+  .content {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 1em;
+  }
+
+  /* Menu de navigation */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Boutons du menu */
+  .btnhome {
+    width: 100%;
+    padding: 1em 1.5em;
+    font-size: 1.1rem;
+    background-color: var(--buttonBackground, #2a2a2a);
+    color: var(--textPrincipal, #ffffff);
+    border: 2px solid var(--bordure, #444);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
   }
 </style>

@@ -13,7 +13,7 @@
   import HomeSidebar from "./lib/components/sideBar/homeSidebar.svelte";
   import MenuSidebar from "./lib/components/sideBar/menuSidebar.svelte";
 
-  let currentPage = "category";
+  let currentPage = "home";
 
   $: showLayout = ![
     "homeSidebar",

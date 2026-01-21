@@ -4,7 +4,7 @@
   import independant from "../../assets/logo/independant.png";
 </script>
 
-<main>
+<main class="homeMain">
   <h1 class="headline">Reprenez le contrôle de votre budget !</h1>
 
   <section class="targets">
