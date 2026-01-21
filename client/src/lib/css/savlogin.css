@@ -1,0 +1,68 @@
+@import "./pageHome.css";
+
+/*ATTENTION DANS INPUT LE BACKGROUD COLOR LIST NE FONCTIONNE PAS*/
+
+.mainLogin {
+  display: grid;
+}
+
+/*Conteneur du formulaire*/
+.formLogin {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  flex: 1;
+}
+
+/*Groupe de champs*/
+.formGroupLogin {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/*Labels*/
+.formGroupLogin label {
+  font-size: 0.95rem;
+  color: var(--TextPrincipal);
+  font-family: text, sans-serif;
+}
+
+.formGroupLogin input {
+  width: 100%;
+  padding: 0.8em;
+  background-color: var(--BackgroundListe);
+  border: 1px solid var(--Bordure);
+  color: var(--TextSecondairePlaceholder);
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: text, sans-serif;
+}
+
+/* Focus */
+.formGroupLogin input:focus {
+  outline: none;
+  border-color: var(--BouttonPrincipal);
+}
+
+/* Bouton */
+.btnLogin {
+  margin: 2rem auto;
+  padding: 14px 32px;
+  align-self: center;
+  min-width: 200px;
+  font-size: 1.1rem;
+  font-family: text, sans-serif;
+}
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+}

@@ -1,17 +1,23 @@
+<script>
+  import student from "../../assets/logo/etudiant.png";
+  import family from "../../assets/logo/famille.png";
+  import independant from "../../assets/logo/independant.png";
+</script>
+
 <main>
   <h1 class="headline">Reprenez le contrôle de votre budget !</h1>
 
   <section class="targets">
     <div class="target">
-      <img src="" alt="Avatar d'un étudiant" />
+      <img src={student} alt="Etudiant" />
     </div>
 
     <div class="target">
-      <img src="familles.png" alt="Avatar d'une famille" />
+      <img src={family} alt="Avatar d'une famille" />
     </div>
 
     <div class="target">
-      <img src="indépendants.png" alt="Avatar d'un indépendant" />
+      <img src={independant} alt="Avatar d'un independant" />
     </div>
   </section>
 

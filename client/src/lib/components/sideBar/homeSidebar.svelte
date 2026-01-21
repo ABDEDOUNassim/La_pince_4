@@ -1,0 +1,89 @@
+<script>
+  export let currentPage;
+  let open = false;
+  let close = true;
+</script>
+
+<header>
+  <a class="close" href="" aria-label="Fermer le menu">
+    <i class="fa-solid fa-xmark"></i>
+  </a>
+  <section class="header">
+    <nav class="menu">
+      <button
+        class="btnhome"
+        on:click={() => {
+          currentPage = "Home";
+          open = false;
+        }}>Acceuil</button
+      >
+      <button
+        class="btnhome"
+        on:click={() => {
+          currentPage = "Login";
+          open = false;
+        }}>Connexion</button
+      >
+      <button
+        class="btnhome"
+        on:click={() => {
+          currentPage = "Register";
+          open = false;
+        }}>S'inscrire</button
+      >
+    </nav>
+  </section>
+</header>
+
+<style>
+  @import "../../css/settings.css";
+
+  .header {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu {
+    display: flex;
+    box-shadow: 0 4 6px var(--Bordure);
+    flex-direction: column;
+    padding: 1em;
+    gap: 2em;
+    min-width: 200px;
+  }
+
+  .btnhome {
+    max-width: 90%;
+    display: flex;
+    margin-bottom: 5rem;
+    justify-content: center;
+    padding: 1.2em 10em;
+    min-width: 200px;
+    font-size: 1.2rem;
+    transform: translateY(0);
+    transition:
+      transform 0.08s ease,
+      box-shadow 0.08s ease;
+  }
+
+  .close {
+    text-decoration: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .close i {
+    color: #ffffff;
+    font-size: 28px;
+  }
+  .close:hover i {
+    color: #e0e0e0;
+  }
+</style>
