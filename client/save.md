@@ -1,5 +1,8 @@
 <!-- categorie 22.01.26 13:27 -->
 
+test ^^
+test ^^
+
 <script>
 
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
