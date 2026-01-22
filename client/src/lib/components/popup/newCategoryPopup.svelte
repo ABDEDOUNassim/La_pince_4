@@ -1,60 +1,82 @@
-<main class="sidebarCategory">
-  <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
+<script>
+  export let currentPage;
+  export let onClose = () => {};
+</script>
 
-  <h1>Création catégorie</h1>
+<a class="close" href="/" on:click|preventDefault={onClose}>X</a>
 
-  <form class="formNewCategory">
-    <div class="formGroup">
-      <label for="libelle">Nom</label>
-      <input type="text" id="libelle" placeholder="Facture EDF" />
-    </div>
+<div
+  class="overlay"
+  on:click={() => (open = false)}
+  role="button"
+  tabindex="0"
+></div>
 
-    <div class="formGroup">
-      <label for="montant">Montant</label>
-      <input type="text" id="montant" placeholder="60.00€" />
-    </div>
+<aside class="sidebar">
+  <main class="sidebarCategory">
+    <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
 
-    <div class="formGroup">
-      <label>Couleur</label>
-      <ul class="formGroupColor">
-        <li class="color1"></li>
-        <li class="color2"></li>
-        <li class="color3"></li>
-        <li class="color4"></li>
-        <li class="color5"></li>
-        <li class="color6"></li>
-        <li class="color7"></li>
-        <li class="color8"></li>
-        <li class="color9"></li>
-      </ul>
+    <h1>Création catégorie</h1>
 
+    <form class="formNewCategory">
       <div class="formGroup">
-        <label>Icône</label>
-        <ul class="formGroupIcon">
-          <li><i class="fa-solid fa-cart-plus" style="color: #B197FC;"></i></li>
-          <li><i class="fa-solid fa-car" style="color: #63E6BE;"></i></li>
-          <li><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i></li>
-          <li>
-            <i class="fa-solid fa-faucet-drip" style="color: #B197FC;"></i>
-          </li>
-          <li>
-            <i class="fa-solid fa-screwdriver-wrench" style="color: #63E6BE;"
-            ></i>
-          </li>
-          <li><i class="fa-solid fa-hospital" style="color: #FFD43B;"></i></li>
-          <li>
-            <i class="fa-solid fa-money-bill-trend-up" style="color: #B197FC;"
-            ></i>
-          </li>
-          <li><i class="fa-solid fa-house" style="color: #63E6BE;"></i></li>
-          <li><i class="fa-solid fa-gas-pump" style="color: #FFD43B;"></i></li>
-        </ul>
+        <label for="libelle">Nom</label>
+        <input type="text" id="libelle" placeholder="Facture EDF" />
       </div>
 
-      <button type="submit" class="btn-ajouter">Ajouter</button>
-    </div>
-  </form>
-</main>
+      <div class="formGroup">
+        <label for="montant">Montant</label>
+        <input type="text" id="montant" placeholder="60.00€" />
+      </div>
+
+      <div class="formGroup">
+        <label>Couleur</label>
+        <ul class="formGroupColor">
+          <li class="color1"></li>
+          <li class="color2"></li>
+          <li class="color3"></li>
+          <li class="color4"></li>
+          <li class="color5"></li>
+          <li class="color6"></li>
+          <li class="color7"></li>
+          <li class="color8"></li>
+          <li class="color9"></li>
+        </ul>
+
+        <div class="formGroup">
+          <label>Icône</label>
+          <ul class="formGroupIcon">
+            <li>
+              <i class="fa-solid fa-cart-plus" style="color: #B197FC;"></i>
+            </li>
+            <li><i class="fa-solid fa-car" style="color: #63E6BE;"></i></li>
+            <li><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i></li>
+            <li>
+              <i class="fa-solid fa-faucet-drip" style="color: #B197FC;"></i>
+            </li>
+            <li>
+              <i class="fa-solid fa-screwdriver-wrench" style="color: #63E6BE;"
+              ></i>
+            </li>
+            <li>
+              <i class="fa-solid fa-hospital" style="color: #FFD43B;"></i>
+            </li>
+            <li>
+              <i class="fa-solid fa-money-bill-trend-up" style="color: #B197FC;"
+              ></i>
+            </li>
+            <li><i class="fa-solid fa-house" style="color: #63E6BE;"></i></li>
+            <li>
+              <i class="fa-solid fa-gas-pump" style="color: #FFD43B;"></i>
+            </li>
+          </ul>
+        </div>
+
+        <button type="submit" class="btn-ajouter">Ajouter</button>
+      </div>
+    </form>
+  </main>
+</aside>
 
 <style>
   @import "../../css/settings.css";
@@ -72,7 +94,7 @@
   /* Croix de fermeture */
   .close {
     position: absolute;
-    top: 10px;
+    top: 20px;
     right: 10px;
     display: flex;
     align-items: center;
@@ -98,7 +120,7 @@
     text-align: center;
     padding: 1em 0 0.5em 0;
     font-size: 1.5em;
-    margin: 0;
+    margin-top: 30px;
   }
 
   /* Formulaire */
@@ -145,9 +167,9 @@
   /* ====== COULEURS ====== */
   .formGroupColor {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
-    gap: 6px;
+    gap: 15px;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -195,7 +217,7 @@
   /* ====== ICÔNES ====== */
   .formGroupIcon {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 6px;
     padding: 0;
     margin: 0;
@@ -249,5 +271,67 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  /* sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: var(--backgroundHeaderFooter, #1a1a1a);
+    z-index: 999;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+    overflow-y: auto;
+    border-left: 2px solid var(--bouttonPrincipal);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .close i {
+    color: #ffffff;
+    font-size: 32px;
+  }
+
+  /* Contenu de la sidebar */
+  .content {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 1em;
+  }
+
+  /* Menu de navigation */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Boutons du menu */
+  .btnhome {
+    width: 100%;
+    padding: 1em 1.5em;
+    font-size: 1.1rem;
+    background-color: var(--buttonBackground, #2a2a2a);
+    color: var(--textPrincipal, #ffffff);
+    border: 2px solid var(--bordure, #444);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
   }
 </style>

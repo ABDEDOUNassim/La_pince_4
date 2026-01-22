@@ -1,12 +1,19 @@
 <script>
+  import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
+  let open = false;
+  let currentPage = "category";
 </script>
+
+{#if open}
+  <NewCategoryPopup {currentPage} onClose={() => (open = false)} />
+{/if}
 
 <main>
   <h1>Catégorie</h1>
 
   <div class="nav">
     <button class="filterBtn">Filtre</button>
-    <button class="addBtn">Ajouter</button>
+    <button id="sidebar" on:click={() => (open = !open)}></button>
   </div>
 
   <!-- Category -->
@@ -58,3 +65,6 @@
     </section>
   </section>
 </main>
+
+<style>
+</style>

@@ -1,7 +1,21 @@
-<main>
-  <h1>Nouvelle dépense</h1>
+<script>
+  export let currentPage;
+  export let onClose = () => {};
+</script>
 
-  <section class="formPopupNewExpense">
+<a class="close" href="/" on:click|preventDefault={onClose}>X</a>
+
+<div
+  class="overlay"
+  on:click={() => (open = false)}
+  role="button"
+  tabindex="0"
+></div>
+
+<aside class="formPopupNewExpense">
+  <main>
+    <h1>Nouvelle dépense</h1>
+
     <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
     <form class="formExpense">
       <div class="formExpense">
@@ -15,6 +29,11 @@
       </div>
 
       <div class="formExpense">
+        <label for="date">Date</label>
+        <input type="text" id="date" placeholder=" JJ/MM/AAAA" />
+      </div>
+
+      <div class="formExpense">
         <label for="text">Catégorie</label>
         <input
           type="text"
@@ -24,15 +43,11 @@
         />
       </div>
 
-      <div class="formExpense">
-        <label for="date">Date</label>
-        <input type="text" id="date" placeholder=" JJ/MM/AAAA" />
-      </div>
-
       <button class="btn" type="submit ">Ajouter</button>
     </form>
-  </section>
-</main>
+  </main>
+</aside>
+s
 
 <style>
   main {
@@ -139,5 +154,67 @@
     h1 {
       font-size: 3rem;
     }
+  }
+
+  /* sidebar */
+  .formPopupNewExpense {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 350px;
+    height: 100vh;
+    background-color: var(--backgroundHeaderFooter, #1a1a1a);
+    z-index: 999;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+    overflow-y: auto;
+    border-left: 2px solid var(--bouttonPrincipal);
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .close i {
+    color: #ffffff;
+    font-size: 32px;
+  }
+
+  /* Contenu de la sidebar */
+  .content {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 1em;
+  }
+
+  /* Menu de navigation */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Boutons du menu */
+  .btnhome {
+    width: 100%;
+    padding: 1em 1.5em;
+    font-size: 1.1rem;
+    background-color: var(--buttonBackground, #2a2a2a);
+    color: var(--textPrincipal, #ffffff);
+    border: 2px solid var(--bordure, #444);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
   }
 </style>
