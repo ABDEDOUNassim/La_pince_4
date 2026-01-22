@@ -77,15 +77,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-<<<<<<< HEAD
     height: 10vh;
-=======
->>>>>>> origin/dev
   }
   img {
     height: 100px;
   }
-<<<<<<< HEAD
   .deskstop i {
     font-size: 25px;
   }
@@ -97,18 +93,10 @@
     padding: 0.5em;
     background-color: var(--backgroundHeaderFooter);
     color: var(--textPrincipal);
-=======
-  #sidebar {
-    margin-right: 0.5em;
-    padding: 0.5em;
-    background-color: var(--BackgroundHeaderFooter);
-    color: var(--TextPrincipal);
->>>>>>> origin/dev
     cursor: pointer;
     font-size: 2em;
     border: none;
   }
-<<<<<<< HEAD
   .deskstop {
     margin-right: 2rem;
   }
@@ -125,6 +113,4 @@
       display: none;
     }
   }
-=======
->>>>>>> origin/dev
 </style>
