@@ -1,13 +1,31 @@
 @import "./pageHome.css";
 @import "./settings.css";
 
-/* .categoryDetail {
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-} */
 .categoryDescription {
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 48px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 3px solid var(--bordure);
+}
+
+.categoryCard {
+  width: 100%;
+  margin: 0 auto;
+}
+.categoryDetail {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  color: white;
+  text-shadow:
+    -1px -1px 0 #0000006c,
+    1px -1px 0 #00000073,
+    -1px 1px 0 #0000005e,
+    1px 1px 0 #00000073;
 }
 
 .nav {
@@ -28,12 +46,32 @@
 
 .editBtn,
 .deleteBtn {
-  font-size: 10px;
+  cursor: pointer;
+  background: var(--bouttonPrincipal);
+  border: none;
+  color: #c8d4e4;
+  font-size: 18px;
+}
+.edit {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.deleteBtn:hover {
+  color: #d43636;
+}
+
+.editBtn:hover {
+  color: #000000;
+}
+.error {
+  color: #ff6b6b;
+  margin-top: 1rem;
 }
 
 @media (max-width: 800px) {
   .nameCategory,
-  .sum,
+  .categoryCard .sum,
   .total {
     display: block;
   }

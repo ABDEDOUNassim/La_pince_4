@@ -79,7 +79,7 @@ export const categories = {
     return request("/categories");
   },
   get(id) {
-    return request(`/categories/${id}`); // ← CORRIGÉ (backticks)
+    return request(`/categories/${id}`);
   },
   create({ name, color, icon, max_budget, user_id }) {
     return request("/categories", {

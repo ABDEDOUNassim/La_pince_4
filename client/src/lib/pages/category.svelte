@@ -62,10 +62,7 @@
     <section class="categoryDetail">
       {#each categories as c (c.id)}
         <section class="categoryCard">
-          <div
-            class="categoryDescription"
-            style="border-left: 6px solid {c.color}"
-          >
+          <div class="categoryDescription" style="background-color: {c.color}">
             <span class="icon">
               <img src={c.icon} alt="" width="32" height="32" />
             </span>
@@ -104,47 +101,4 @@
 </main>
 
 <style>
-  .error {
-    color: #ff6b6b;
-    margin-top: 1rem;
-  }
-
-  .categoryDetail {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .categoryDescription {
-    display: grid;
-    grid-template-columns: 48px 1fr auto auto;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #20232e;
-  }
-
-  .edit {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-  }
-
-  .editBtn,
-  .deleteBtn {
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    color: #c8d4e4;
-    font-size: 18px;
-  }
-
-  .deleteBtn:hover {
-    color: #ff6b6b;
-  }
-
-  .editBtn:hover {
-    color: #74c0fc;
-  }
 </style>
