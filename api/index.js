@@ -12,7 +12,7 @@ import { handleError } from './middlewares/common.middleware.js';
 const app = express();
 
 // Here CORS is enable for Frontend port. If cors() is called with no argument, CORS is enabled for all origin
-app.use(cors({origin: "http://localhost:5173"}));
+app.use(cors());
 // To use json in request body
 app.use(express.json()); 
 
