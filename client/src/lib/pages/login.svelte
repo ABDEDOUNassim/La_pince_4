@@ -1,20 +1,60 @@
 <script>
+  import { auth } from "../../api";
+  let email = "";
+  let password = "";
+  let error = "";
+  let loading = false;
+
+  // Pour la redirection après login
+  export let currentPage;
+
+  async function handleLogin(event) {
+    event.preventDefault();
+    error = "";
+
+    if (!email || !password) {
+      error = "Veuillez remplir tous les champs";
+      return;
+    }
+
+    try {
+      loading = true;
+
+      const response = await auth.login({ email, password });
+      console.log("✅ Réponse login :", response);
+
+      // Le token est automatiquement stocké par auth.login
+      // Rediriger vers le dashboard
+      currentPage = "dashboard";
+    } catch (err) {
+      console.error("❌ ERREUR login :", err);
+      error = err.message || "Erreur lors de la connexion";
+    } finally {
+      loading = false;
+    }
+  }
 </script>
 
 <main class="mainLogin">
   <h1>Connexion</h1>
 
-  <form class="form">
+  <form class="form" on:submit={handleLogin}>
     <div class="formGroup">
       <label for="email">Email</label>
-      <input type="email" id="email" />
+      <input type="email" id="email" bind:value={email} />
     </div>
 
     <div class="formGroup">
       <label for="password">Mot de passe</label>
-      <input type="password" id="password" />
+      <input type="password" id="password" bind:value={password} />
     </div>
 
-    <button type="submit" class="btnConnect">Se connecter</button>
+    {#if error}
+      <p style="color:red;">{error}</p>
+    {/if}
+
+    <button type="submit" class="btnConnect" disabled={loading}>
+      {#if loading}Connexion...{:else}Se connecter{/if}
+    </button>
   </form>
 </main>

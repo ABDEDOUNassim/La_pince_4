@@ -6,6 +6,19 @@
   let values = [300, 150, 80, 200];
   let open = false;
   let currentPage = "category";
+
+  import { auth } from "../../api";
+
+  async function checkMe() {
+    try {
+      const me = await auth.me();
+      console.log("Infos utilisateur connecté :", me);
+    } catch (err) {
+      console.error("Erreur /auth/me :", err);
+    }
+  }
+
+  checkMe();
 </script>
 
 {#if open}

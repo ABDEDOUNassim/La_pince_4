@@ -1,279 +1,199 @@
 <script>
+  import { auth, categories } from "../../../api.js";
+
   export let currentPage;
   export let onClose = () => {};
+  export let onCreated = () => {};
+
+  let name = "";
+  let max_budget = "";
+  let color = "";
+  let icon = "";
+
+  let loading = false;
+  let error = "";
+
+  const colors = [
+    "#ff4d4d",
+    "#ffa64d",
+    "#ffff4d",
+    "#6aff4d",
+    "#4c68f7",
+    "#a64dff",
+    "#ff4da6",
+    "#4dc3ff",
+    "#ff3333",
+  ];
+
+  const icons = [
+    {
+      fa: "fa-cart-plus",
+      url: "https://placehold.co/32x32.png",
+      color: "#B197FC",
+    },
+    { fa: "fa-car", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
+    { fa: "fa-bolt", url: "https://placehold.co/32x32.png", color: "#FFD43B" },
+    {
+      fa: "fa-faucet-drip",
+      url: "https://placehold.co/32x32.png",
+      color: "#B197FC",
+    },
+    {
+      fa: "fa-screwdriver-wrench",
+      url: "https://placehold.co/32x32.png",
+      color: "#63E6BE",
+    },
+    {
+      fa: "fa-hospital",
+      url: "https://placehold.co/32x32.png",
+      color: "#FFD43B",
+    },
+    {
+      fa: "fa-money-bill-trend-up",
+      url: "https://placehold.co/32x32.png",
+      color: "#B197FC",
+    },
+    { fa: "fa-house", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
+    {
+      fa: "fa-gas-pump",
+      url: "https://placehold.co/32x32.png",
+      color: "#FFD43B",
+    },
+  ];
+
+  function selectColor(hex) {
+    color = hex;
+  }
+
+  function selectIcon(url) {
+    icon = url;
+  }
+
+  async function submit() {
+    try {
+      error = "";
+
+      const trimmed = name.trim();
+      if (!trimmed) throw new Error("Le nom est obligatoire.");
+
+      // accepte "60", "60.5", "60,5"
+      const budget = Number(
+        String(max_budget).replace(",", ".").replace("€", "").trim(),
+      );
+      if (!Number.isFinite(budget) || budget <= 0) {
+        throw new Error("Le montant doit être un nombre > 0 (ex: 60.00).");
+      }
+
+      if (!color) throw new Error("Choisis une couleur.");
+      if (!icon) throw new Error("Choisis une icône.");
+
+      loading = true;
+
+      // user_id obligatoire sur POST
+      const me = await auth.me();
+
+      await categories.create({
+        name: trimmed,
+        color,
+        icon,
+        max_budget: budget,
+        user_id: 1,
+      });
+
+      onCreated();
+      onClose();
+    } catch (e) {
+      error = e.message ?? "Erreur inconnue";
+    } finally {
+      loading = false;
+    }
+  }
 </script>
 
-<a class="close" href="/" on:click|preventDefault={onClose}>X</a>
-
-<div
-  class="overlay"
-  on:click={() => (open = false)}
-  role="button"
-  tabindex="0"
-></div>
+<div class="overlay"></div>
 
 <aside class="sidebar">
-  <main class="sidebarCategory">
-    <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
+  <main class="sidebarCategory" on:click|stopPropagation>
+    <a class="close" href="/" on:click|preventDefault={onClose}>
+      <i class="fa-solid fa-xmark"></i>
+    </a>
 
     <h1>Création catégorie</h1>
 
-    <form class="formNewCategory">
+    <form class="formNewCategory" on:submit|preventDefault={submit}>
       <div class="formGroup">
         <label for="libelle">Nom</label>
-        <input type="text" id="libelle" placeholder="Facture EDF" />
+        <input
+          type="text"
+          id="libelle"
+          placeholder="Facture EDF"
+          bind:value={name}
+        />
       </div>
 
       <div class="formGroup">
         <label for="montant">Montant</label>
-        <input type="text" id="montant" placeholder="60.00€" />
+        <input
+          type="text"
+          id="montant"
+          placeholder="60.00"
+          bind:value={max_budget}
+          inputmode="decimal"
+        />
       </div>
 
       <div class="formGroup">
         <label>Couleur</label>
         <ul class="formGroupColor">
-          <li class="color1"></li>
-          <li class="color2"></li>
-          <li class="color3"></li>
-          <li class="color4"></li>
-          <li class="color5"></li>
-          <li class="color6"></li>
-          <li class="color7"></li>
-          <li class="color8"></li>
-          <li class="color9"></li>
+          {#each colors as c}
+            <li
+              style="background-color:{c}"
+              class:selected={color === c}
+              on:click={() => selectColor(c)}
+              role="button"
+              tabindex="0"
+            />
+          {/each}
         </ul>
-
-        <div class="formGroup">
-          <label>Icône</label>
-          <ul class="formGroupIcon">
-            <li>
-              <i class="fa-solid fa-cart-plus" style="color: #B197FC;"></i>
-            </li>
-            <li><i class="fa-solid fa-car" style="color: #63E6BE;"></i></li>
-            <li><i class="fa-solid fa-bolt" style="color: #FFD43B;"></i></li>
-            <li>
-              <i class="fa-solid fa-faucet-drip" style="color: #B197FC;"></i>
-            </li>
-            <li>
-              <i class="fa-solid fa-screwdriver-wrench" style="color: #63E6BE;"
-              ></i>
-            </li>
-            <li>
-              <i class="fa-solid fa-hospital" style="color: #FFD43B;"></i>
-            </li>
-            <li>
-              <i class="fa-solid fa-money-bill-trend-up" style="color: #B197FC;"
-              ></i>
-            </li>
-            <li><i class="fa-solid fa-house" style="color: #63E6BE;"></i></li>
-            <li>
-              <i class="fa-solid fa-gas-pump" style="color: #FFD43B;"></i>
-            </li>
-          </ul>
-        </div>
-
-        <button type="submit" class="btn-ajouter">Ajouter</button>
       </div>
+
+      <div class="formGroup">
+        <label>Icône</label>
+        <ul class="formGroupIcon">
+          {#each icons as it}
+            <li
+              class:selected={icon === it.url}
+              on:click={() => selectIcon(it.url)}
+              role="button"
+              tabindex="0"
+            >
+              <i class={`fa-solid ${it.fa}`} style={`color:${it.color};`}></i>
+            </li>
+          {/each}
+        </ul>
+      </div>
+
+      {#if error}
+        <p class="error">{error}</p>
+      {/if}
+
+      <button type="submit" class="btn-ajouter" disabled={loading}>
+        {loading ? "Ajout..." : "Ajouter"}
+      </button>
     </form>
   </main>
 </aside>
 
 <style>
   @import "../../css/settings.css";
-  main {
-    width: 90%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1em;
-    position: relative;
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 998;
   }
 
-  /* Croix de fermeture */
-  .close {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    text-decoration: none;
-  }
-
-  .close i {
-    color: #ffffff;
-    font-size: 24px;
-  }
-
-  .close:hover i {
-    color: #e0e0e0;
-  }
-
-  /* Titre */
-  h1 {
-    color: #c8d4e4;
-    font-family: title, sans-serif;
-    text-align: center;
-    padding: 1em 0 0.5em 0;
-    font-size: 1.5em;
-    margin-top: 30px;
-  }
-
-  /* Formulaire */
-  .formNewCategory {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    flex: 1;
-  }
-
-  /* Groupes de champs */
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-
-  /* Labels */
-  .formGroup label {
-    font-size: 0.9rem;
-    color: #c8d4e4;
-    font-family: text, sans-serif;
-    padding-left: 0.3em;
-  }
-
-  /* Inputs */
-  .formGroup input {
-    width: 100%;
-    padding: 0.8em;
-    background-color: #141720;
-    border: 1px solid #3c4154;
-    color: #e1e1e1;
-    border-radius: 8px;
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-
-  .formGroup input:hover,
-  .formGroup input:focus {
-    border-color: #559cd2;
-    outline: none;
-  }
-
-  /* ====== COULEURS ====== */
-  .formGroupColor {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
-    gap: 15px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  .formGroupColor li {
-    width: 28px;
-    height: 28px;
-  }
-
-  /* Couleurs sur chaque bouton */
-  .color1 {
-    background-color: #ff4d4d;
-  }
-  .color2 {
-    background-color: #ffa64d;
-  }
-  .color3 {
-    background-color: #ffff4d;
-  }
-  .color4 {
-    background-color: #6aff4d;
-  }
-  .color5 {
-    background-color: #4c68f7;
-  }
-  .color6 {
-    background-color: #a64dff;
-  }
-  .color7 {
-    background-color: #ff4da6;
-  }
-  .color8 {
-    background-color: #4dc3ff;
-  }
-  .color9 {
-    background-color: #ff3333;
-  }
-
-  .formGroupColor li:hover {
-    transform: scale(1.1);
-    border-color: #559cd2;
-  }
-
-  /* ====== ICÔNES ====== */
-  .formGroupIcon {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  .formGroupIcon li {
-    width: 100%;
-    background-color: #20232e;
-    border: 2px solid #3c4154;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 1.5em 0;
-  }
-
-  .formGroupIcon li:hover {
-    transform: scale(1.05);
-    border-color: #559cd2;
-  }
-  .formGroupIcon i {
-    font-size: 30px;
-    color: #c8d4e4;
-  }
-  /* Bouton Ajouter */
-  .btn-ajouter {
-    cursor: pointer;
-    background-color: #559cd2;
-    border: none;
-    padding: 0.8em;
-    color: #e1e1e1;
-    border-radius: 5px;
-    font-family: bouton, sans-serif;
-    font-weight: bold;
-    margin-top: 2em;
-    width: 60%;
-    align-self: center;
-  }
-  .btn-ajouter:hover {
-    background-color: #1d6fdb;
-  }
-  .sidebarCategory {
-    min-width: 90%;
-  }
-
-  @media (max-width: 550px) {
-    .formGroupIcon {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  /* sidebar */
   .sidebar {
     position: fixed;
     top: 0;
@@ -298,40 +218,161 @@
     }
   }
 
-  .close i {
-    color: #ffffff;
-    font-size: 32px;
-  }
-
-  /* Contenu de la sidebar */
-  .content {
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    padding: 2em 1em;
-  }
-
-  /* Menu de navigation */
-  .menu {
+  main.sidebarCategory {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    position: relative;
+    min-height: auto;
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
-    width: 100%;
-    max-width: 280px;
   }
 
-  /* Boutons du menu */
-  .btnhome {
-    width: 100%;
-    padding: 1em 1.5em;
-    font-size: 1.1rem;
-    background-color: var(--buttonBackground, #2a2a2a);
-    color: var(--textPrincipal, #ffffff);
-    border: 2px solid var(--bordure, #444);
-    border-radius: 8px;
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    z-index: 10;
+    text-decoration: none;
+  }
+
+  .close i {
+    color: #ffffff;
+    font-size: 24px;
+  }
+
+  h1 {
+    color: #c8d4e4;
+    font-family: title, sans-serif;
     text-align: center;
+    padding: 1em 0 0.5em 0;
+    font-size: 1.5em;
+    margin-top: 30px;
+  }
+
+  .formNewCategory {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    flex: 1;
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .formGroup label {
+    font-size: 0.9rem;
+    color: #c8d4e4;
+    font-family: text, sans-serif;
+    padding-left: 0.3em;
+  }
+
+  .formGroup input {
+    width: 100%;
+    padding: 0.8em;
+    background-color: #141720;
+    border: 1px solid #3c4154;
+    color: #e1e1e1;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .formGroup input:hover,
+  .formGroup input:focus {
+    border-color: #559cd2;
+    outline: none;
+  }
+
+  .formGroupColor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .formGroupColor li {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .formGroupColor li.selected {
+    outline: 2px solid #559cd2;
+    transform: scale(1.1);
+  }
+
+  .formGroupIcon {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .formGroupIcon li {
+    width: 100%;
+    background-color: #20232e;
+    border: 2px solid #3c4154;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 1.5em 0;
+  }
+
+  .formGroupIcon li.selected {
+    border-color: #559cd2;
+  }
+
+  .formGroupIcon i {
+    font-size: 30px;
+    color: #c8d4e4;
+  }
+
+  .btn-ajouter {
+    cursor: pointer;
+    background-color: #559cd2;
+    border: none;
+    padding: 0.8em;
+    color: #e1e1e1;
+    border-radius: 5px;
+    font-family: bouton, sans-serif;
+    font-weight: bold;
+    margin-top: 2em;
+    width: 60%;
+    align-self: center;
+  }
+
+  .btn-ajouter:hover {
+    background-color: #1d6fdb;
+  }
+
+  .error {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 0.25rem;
+    font-family: text, sans-serif;
+  }
+
+  @media (max-width: 550px) {
+    .formGroupIcon {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>

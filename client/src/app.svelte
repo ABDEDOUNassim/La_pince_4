@@ -31,11 +31,11 @@
 {#if currentPage === "home"}
   <Home />
 {:else if currentPage === "login"}
-  <Login />
+  <Login bind:currentPage />
 {:else if currentPage === "dashboard"}
   <Dashboard />
 {:else if currentPage === "register"}
-  <Register />
+  <Register bind:currentPage />
 {:else if currentPage === "category"}
   <Category />
 {:else if currentPage === "HomeSidebar"}

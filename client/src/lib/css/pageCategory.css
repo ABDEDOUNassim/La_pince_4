@@ -1,11 +1,11 @@
 @import "./pageHome.css";
 @import "./settings.css";
 
-.categoryDetail {
+/* .categoryDetail {
   display: flex;
   justify-content: space-between;
   gap: 2em;
-}
+} */
 .categoryDescription {
   justify-content: space-between;
 }
