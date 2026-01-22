@@ -13,7 +13,7 @@
 
   <div class="nav">
     <button class="filterBtn">Filtre</button>
-    <button id="sidebar" on:click={() => (open = !open)}></button>
+    <button class="addBtn" on:click={() => (open = !open)}>Ajouter</button>
   </div>
 
   <!-- Category -->
