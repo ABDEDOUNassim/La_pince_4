@@ -7,7 +7,7 @@
   let open = false;
   let currentPage = "category";
 
-  import { auth } from "../../api";
+  import { auth } from "../services/auth.service";
 
   async function checkMe() {
     try {

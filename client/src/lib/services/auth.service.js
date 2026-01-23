@@ -3,11 +3,12 @@ import { request, setToken, clearToken } from './api.js';
 // --- Auth endpoints ---
 export const auth = {
   async register({ name, email, password }) {
-    console.log("📨 auth.register appelé avec:", { name, email, password });
-    return request("/auth/register", {
+    const data = await request("/auth/register", {
       method: "POST",
       body: { name, email, password },
     });
+    if (data?.token) setToken(data.token);
+    return data;
   },
   async login({ email, password }) {
     const data = await request("/auth/login", {

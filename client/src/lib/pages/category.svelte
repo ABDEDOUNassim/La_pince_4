@@ -1,6 +1,6 @@
 <script>
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
-  import { categories as categoriesApi } from "../../api";
+  import { categories as categoriesApi } from "../services/category.service";
 
   let open = false;
   let currentPage = "category";
