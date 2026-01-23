@@ -1,4 +1,4 @@
-import { Category, User } from '../models/index.js';
+import { Category, Expense } from '../models/index.js';
 import HttpError from '../utils/HttpError.js';
 
 class CategoryController {
@@ -59,8 +59,6 @@ class CategoryController {
             if (nbElementsDestroyed === 0){
                 throw new HttpError("Category Not Found", 404);
             }
-
-
 
             res.status(204).end();
         }
