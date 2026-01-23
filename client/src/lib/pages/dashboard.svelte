@@ -1,9 +1,29 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
+  import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
 
   let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
   let values = [300, 150, 80, 200];
+  let open = false;
+  let currentPage = "category";
+
+  import { auth } from "../../api";
+
+  async function checkMe() {
+    try {
+      const me = await auth.me();
+      console.log("Infos utilisateur connecté :", me);
+    } catch (err) {
+      console.error("Erreur /auth/me :", err);
+    }
+  }
+
+  checkMe();
 </script>
+
+{#if open}
+  <NewExpensesPopup {currentPage} onClose={() => (open = false)} />
+{/if}
 
 <main class="main">
   <!-- Left -->
@@ -25,7 +45,9 @@
         <button class="searchBtn"><i class="fa-solid fa-filter"></i></button>
       </div>
       <div class="addExpense">
-        <button><i class="fa-solid fa-plus"></i></button>
+        <button class="btn" on:click={() => (open = !open)}
+          ><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button
+        >
       </div>
     </section>
 

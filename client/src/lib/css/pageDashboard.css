@@ -78,6 +78,9 @@
   margin-top: -0.1em;
   background-color: var(--backgroundPrincipal);
 }
+.searchBtn:hover {
+  background: none;
+}
 
 /* Expenses detail */
 

@@ -31,11 +31,11 @@
 {#if currentPage === "home"}
   <Home />
 {:else if currentPage === "login"}
-  <Login />
+  <Login bind:currentPage />
 {:else if currentPage === "dashboard"}
-  <Dashboard />
+  <Dashboard bind:currentPage />
 {:else if currentPage === "register"}
-  <Register />
+  <Register bind:currentPage />
 {:else if currentPage === "category"}
   <Category />
 {:else if currentPage === "HomeSidebar"}
@@ -43,7 +43,7 @@
 {:else if currentPage === "warningPopup"}
   <WarningPopup />
 {:else if currentPage === "newExpensesPopup"}
-  <NewExpensesPopup />
+  <NewExpensesPopup onClose={() => (currentPage = "dashboard")} />
 {:else if currentPage === "newCategoryPopup"}
   <NewCategoryPopup />
 {:else if currentPage === "homeSidebar"}

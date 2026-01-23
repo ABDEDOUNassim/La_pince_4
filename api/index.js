@@ -1,11 +1,11 @@
-import express from 'express';
-import 'dotenv/config';
+import express from "express";
+import "dotenv/config";
 
-import cors from 'cors';
+import cors from "cors";
 
-import categoryRouter from './routes/category.router.js'; 
+import categoryRouter from "./routes/category.router.js";
 import expenseRouter from "./routes/expense.router.js";
-import authRouter from './routes/auth.router.js';
+import authRouter from "./routes/auth.router.js";
 
 import { validateToken } from './middlewares/auth.middleware.js';
 import { handleError } from './middlewares/common.middleware.js';
@@ -17,18 +17,16 @@ app.use(cors());
 // To use json in request body
 app.use(express.json()); 
 
-///// Routers /////
 app.use(authRouter);
 // Auth system, validateToken put user_id in the request if token is valid
 app.use(validateToken);
 app.use(categoryRouter);
 app.use(expenseRouter);
-///// End routers //////
 
 app.use(handleError);
 
 const port = process.env.PORT;
 const base_url = process.env.BASE_URL;
 app.listen(port, () => {
-    console.log(`Server Listening on ${base_url}:${port}`)
+  console.log(`Server Listening on ${base_url}:${port}`);
 });
