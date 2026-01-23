@@ -86,7 +86,10 @@ class AuthController {
                 throw new HttpError("Internal Server Error", 500);
             }
 
-            res.status(200).json({ name: user.name});
+            res.status(200).json({
+                user_id: userId,
+                name: user.name
+            });
         }
         catch(error) {
             next(error);

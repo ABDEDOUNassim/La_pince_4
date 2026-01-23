@@ -7,6 +7,7 @@ import categoryRouter from './routes/category.router.js';
 import expenseRouter from "./routes/expense.router.js";
 import authRouter from './routes/auth.router.js';
 
+import { validateToken } from './middlewares/auth.middleware.js';
 import { handleError } from './middlewares/common.middleware.js';
 
 const app = express();
@@ -18,6 +19,8 @@ app.use(express.json());
 
 ///// Routers /////
 app.use(authRouter);
+// Auth system, validateToken put user_id in the request if token is valid
+app.use(validateToken);
 app.use(categoryRouter);
 app.use(expenseRouter);
 ///// End routers //////
