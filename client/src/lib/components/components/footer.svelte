@@ -32,8 +32,8 @@
   @import "../../css/settings.css";
   .footer {
     background-color: var(--backgroundHeaderFooter);
-    border-top: solid 2px var(--bordure);
-    box-shadow: 0 0 0 0;
+    border-top: solid 2px var(--bouttonPrincipal);
+    box-shadow: 1px 2px 11px var(--bouttonPrincipal);
     padding: 1.5em;
     height: 8vh;
   }

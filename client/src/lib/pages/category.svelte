@@ -1,13 +1,27 @@
 <script>
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
   import { categories as categoriesApi } from "../../api";
+  import EditCategoryPopup from "../components/popup/editCategorie.svelte";
 
+  let openEdit = false;
+  let editingCategory = null;
   let open = false;
   let currentPage = "category";
 
   let categories = [];
   let loading = true;
   let error = "";
+
+  function openEditPopup(cat) {
+    open = false;
+    editingCategory = cat;
+    openEdit = true;
+  }
+  async function handleSaved() {
+    openEdit = false;
+    editingCategory = null;
+    await loadCategories();
+  }
 
   async function loadCategories() {
     try {
@@ -20,8 +34,9 @@
       loading = false;
     }
   }
-
   loadCategories();
+
+  // création category
 
   async function handleCreated() {
     open = false;
@@ -43,6 +58,16 @@
     {currentPage}
     onClose={() => (open = false)}
     onCreated={handleCreated}
+  />
+{/if}
+{#if openEdit}
+  <EditCategoryPopup
+    category={editingCategory}
+    onClose={() => {
+      openEdit = false;
+      editingCategory = null;
+    }}
+    onSaved={handleSaved}
   />
 {/if}
 
@@ -81,7 +106,11 @@
             </span>
 
             <div class="edit">
-              <button class="editBtn" title="Modifier">
+              <button
+                class="editBtn"
+                title="Modifier"
+                on:click={() => openEditPopup(c)}
+              >
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
 

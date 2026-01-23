@@ -1,9 +1,12 @@
 <script>
   import { auth, categories } from "../../../api.js";
+  import { onMount } from "svelte";
 
   export let currentPage;
   export let onClose = () => {};
   export let onCreated = () => {};
+  export let onSaved = () => {};
+  export let category = null;
 
   let name = "";
   let max_budget = "";
@@ -28,47 +31,35 @@
   const icons = [
     {
       fa: "fa-cart-plus",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#B197FC",
     },
-    {
-      fa: "fa-car",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-bolt",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#FFD43B",
-    },
+    { fa: "fa-car", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
+    { fa: "fa-bolt", url: "https://placehold.co/32x32.png", color: "#FFD43B" },
     {
       fa: "fa-faucet-drip",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#B197FC",
     },
     {
       fa: "fa-screwdriver-wrench",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#63E6BE",
     },
     {
       fa: "fa-hospital",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#FFD43B",
     },
     {
       fa: "fa-money-bill-trend-up",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#B197FC",
     },
-    {
-      fa: "fa-house",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#63E6BE",
-    },
+    { fa: "fa-house", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
     {
       fa: "fa-gas-pump",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
+      url: "https://placehold.co/32x32.png",
       color: "#FFD43B",
     },
   ];
@@ -80,6 +71,14 @@
   function selectIcon(url) {
     icon = url;
   }
+
+  onMount(() => {
+    if (!category) return;
+    name = category.name ?? "";
+    max_budget = String(category.max_budget ?? "");
+    color = category.color ?? "";
+    icon = category.icon ?? "";
+  });
 
   async function submit() {
     try {
@@ -104,14 +103,14 @@
       // user_id obligatoire sur POST
       const me = await auth.me();
 
-      await categories.create({
+      await categories.update(category.id, {
         name: trimmed,
         color,
         icon,
         max_budget: budget,
-        user_id: 1,
       });
 
+      onSaved();
       onCreated();
       onClose();
     } catch (e) {
@@ -130,7 +129,7 @@
       <i class="fa-solid fa-xmark"></i>
     </a>
 
-    <h1>Création catégorie</h1>
+    <h1>Edition de catégorie</h1>
 
     <form class="formNewCategory" on:submit|preventDefault={submit}>
       <div class="formGroup">
@@ -190,7 +189,7 @@
       {/if}
 
       <button type="submit" class="btn-ajouter" disabled={loading}>
-        {loading ? "Ajout..." : "Ajouter"}
+        {loading ? "Enregistrement..." : "Enregistrer"}
       </button>
     </form>
   </main>

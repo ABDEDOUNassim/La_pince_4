@@ -29,7 +29,13 @@
 }
 
 body {
-  background-color: var(--backgroundPrincipal);
+  background: #20222d;
+  background: linear-gradient(
+    164deg,
+    rgba(32, 34, 45, 1) 0%,
+    rgba(60, 65, 84, 1) 45%,
+    rgba(85, 156, 210, 1) 100%
+  );
 }
 main {
   width: 90%;

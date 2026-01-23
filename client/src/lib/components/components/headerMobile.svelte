@@ -72,8 +72,8 @@
   @import "../../css/settings.css";
   .head {
     background-color: var(--backgroundHeaderFooter);
-    border-bottom: solid 2px var(--bordure);
-    box-shadow: 0 0 0 0;
+    border-bottom: solid 2px var(--bouttonPrincipal);
+    box-shadow: 1px 2px 11px var(--bouttonPrincipal);
     display: flex;
     justify-content: space-between;
     align-items: center;

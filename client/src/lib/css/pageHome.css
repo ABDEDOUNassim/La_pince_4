@@ -33,7 +33,7 @@
   align-content: center;
 }
 .serviceDesc {
-  background-color: #20232e;
+  background-color: var(--backgroundCarte);
   border: 1px solid #3c4154;
   border-radius: 10px;
   padding: 50px 100px;
@@ -53,6 +53,7 @@
 @media (max-width: 1270px) {
   .serviceDesc {
     padding: 50px 10px;
+    background-color: #20232e;
   }
 }
 @media (max-width: 1060px) {
@@ -63,7 +64,7 @@
     align-items: stretch;
   }
 
-.serviceDesc {
-  background-color: var(--BackgroundCarte);
-}
+  .serviceDesc {
+    background-color: var(--backgroundCarte);
+  }
 }

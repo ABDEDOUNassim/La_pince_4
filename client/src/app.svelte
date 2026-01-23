@@ -12,6 +12,7 @@
   import NewCategoryPopup from "./lib/components/popup/newCategoryPopup.svelte";
   import HomeSidebar from "./lib/components/sideBar/homeSidebar.svelte";
   import MenuSidebar from "./lib/components/sideBar/menuSidebar.svelte";
+  import EditCategorie from "./lib/components/popup/editCategorie.svelte";
 
   let currentPage = "home";
 
@@ -21,6 +22,7 @@
     "newCategoryPopup",
     "newExpensesPopup",
     "warningPopup",
+    "editCategorie",
   ].includes(currentPage);
 </script>
 
@@ -50,6 +52,8 @@
   <HomeSidebar />
 {:else if currentPage === "menuSidebar"}
   <MenuSidebar />
+{:else if currentPage === "editCategorie"}
+  <EditCategorie bind:currentPage />
 {/if}
 
 {#if showLayout}
