@@ -36,11 +36,12 @@ class ExpenseController {
     
     getByCategory = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryId = req.params.id;
 
             const expenseList = await Expense.findAll({
                 where: {
-                    user_id: this.userId,
+                    user_id: userId,
                     category_id: categoryId,},
                 order: [["date", "DESC"]],
                 include: [{ model: Category, as: "category" }], 
