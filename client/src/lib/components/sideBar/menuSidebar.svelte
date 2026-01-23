@@ -1,7 +1,22 @@
 <script>
+import {auth} from "../../../api"
+// ← importer auth pour logout
   export let currentPage;
   let open = false;
   let close = true;
+
+  // Fonction de déconnexion
+  async function handleLogout() {
+    try {
+      await auth.logout();             // Appel backend pour logout
+      localStorage.removeItem("token"); // Supprime le token
+      currentPage = "login";            // Redirige vers login
+      open = false;
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion :", err);
+    }
+  }
+
 </script>
 
 <header>

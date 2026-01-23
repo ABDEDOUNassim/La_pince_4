@@ -8,6 +8,8 @@
   let error = "";
   let loading = false;
 
+  export let currentPage; 
+
   async function handleSubmit(event) {
     event.preventDefault(); // bloque le submit HTML
     if (!mentions) {
@@ -29,7 +31,6 @@
         password,
       });
 
-      console.log("✅ Réponse API:", response);
       alert("Inscription réussie !");
     } catch (err) {
       console.error("❌ ERREUR:", err);

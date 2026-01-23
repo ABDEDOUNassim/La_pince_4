@@ -1,6 +1,6 @@
 <script>
   export let currentPage;
-  export let open;
+  z
 </script>
 
 <!-- Overlay pour fermer au clic à l'extérieur -->

@@ -7,6 +7,7 @@
 
   // Pour la redirection après login
   export let currentPage;
+  export let isLoggedIn;
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -24,6 +25,7 @@
 
       // Le token est automatiquement stocké par auth.login
       // Rediriger vers le dashboard
+      isLoggedIn = true; 
       currentPage = "dashboard";
     } catch (err) {
       console.error("❌ ERREUR login :", err);

@@ -1,14 +1,15 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
+  import {auth} from "../../api"
+
 
   let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
   let values = [300, 150, 80, 200];
   let open = false;
   let currentPage = "category";
 
-  import { auth } from "../../api";
-
+// Récup l'utilisateur connecté 
   async function checkMe() {
     try {
       const me = await auth.me();
@@ -19,6 +20,7 @@
   }
 
   checkMe();
+
 </script>
 
 {#if open}

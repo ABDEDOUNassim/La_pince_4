@@ -47,7 +47,7 @@ async function request(path, { method = "GET", body, headers = {} } = {}) {
 // --- Auth endpoints ---
 export const auth = {
   async register({ name, email, password }) {
-    console.log("📨 auth.register appelé avec:", { name, email, password });
+    console.log("📨 auth.register appelé avec:", { name, email, password:"******" });
     return request("/auth/register", {
       method: "POST",
       body: { name, email, password },
