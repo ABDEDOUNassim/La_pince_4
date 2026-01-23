@@ -1,5 +1,6 @@
 <script>
   import { auth } from "../../api";
+  export let currentPage;
 
   let pseudo = "";
   let email = "";

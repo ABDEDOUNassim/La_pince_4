@@ -137,12 +137,26 @@
     margin: 0% auto;
     height: 82vh;
   }
+  input {
+    color-scheme: dark;
+  }
 
   /*Conteneur du formulaire*/
   .formPopupNewExpense {
     display: flex;
     flex-direction: column;
     gap: 25px;
+  }
+  #category {
+    width: 100%;
+    padding: 0.8em;
+    background-color: var(--backgroundListe);
+    border: 1px solid #3c4154;
+    color: #e1e1e1;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: text, sans-serif;
   }
 
   /*Groupe de champs*/
