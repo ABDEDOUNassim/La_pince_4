@@ -5,16 +5,10 @@ import { Op } from 'sequelize';
 
 class ExpenseController {
 
-    // TODO: handling auth user to get user_id
-    // This id will be replace by the auth user 
-    userId = 1;
-
-    
       getAllByMonth = async (req, res, next) => {
     
         try {
-          const userId = 1;
-    
+          const userId = req.user_id;
           const RequestedDate = req.params.date;
           
           const expenses = await Expense.findAll({
@@ -40,16 +34,38 @@ class ExpenseController {
     
       }
     
+    getByCategory = async (req, res, next) => {
+        try {
+            const categoryId = req.params.id;
 
+            const expenseList = await Expense.findAll({
+                where: {
+                    user_id: this.userId,
+                    category_id: categoryId,},
+                order: [["date", "DESC"]],
+                include: [{ model: Category, as: "category" }], 
+            });
+            if(!expenses) {
+              throw new HttpError("Internal Server Error", 500);
+          }
+      
+          res.status(200).json(expenses);
+        }
+        catch(error) {
+          next(error)
+        }
+    
+      }
+    
+    
     getAll = async (req, res, next) => {
         try {
-
-            
+            const userId = req.user_id;
             const limit = req.query.limit;
 
             if(limit) 
                 {const expenseListLimit = await Expense.findAll({
-                where: { user_id: this.userId},
+                where: { user_id: userId},
                 order: [["date", "DESC"]],
                 include: [{ model: Category, as: "category" }],
                 limit: limit
@@ -82,11 +98,12 @@ class ExpenseController {
 
     getById = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const expenseId = req.params.id;
             const expenseList = await Expense.findOne({
                 where: {
                     id: expenseId,
-                    user_id: this.userId
+                    user_id: userId
                 },
                 include: [{ model: Category, as: "category" }],
 
@@ -104,12 +121,14 @@ class ExpenseController {
     }
 
     delete = async (req, res, next) => {
+
         try {
+            const userId = req.user_id;
             const expenseId = req.params.id;
             const nbElementsDestroyed = await Expense.destroy({
                 where: {
                     id: expenseId,
-                    user_id: this.userId
+                    user_id: userId
                 }
             });
 
@@ -128,10 +147,11 @@ class ExpenseController {
 
     create = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const expenseToAdd = req.body;
 
             const result = await Expense.create({
-                user_id: this.userId,
+                user_id: userId,
                 title: expenseToAdd.title,
                 amount: expenseToAdd.amount,
                 date: expenseToAdd.date,
@@ -151,13 +171,14 @@ class ExpenseController {
 
     update = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const expenseId = req.params.id;
             const fieldToEdit = req.body;
 
             const result = await Expense.update(fieldToEdit, {
                 where: {
                     id: expenseId,
-                    user_id: this.userId
+                    user_id: userId
                 },
                 returning: true
             });

@@ -3,15 +3,12 @@ import HttpError from '../utils/HttpError.js';
 
 class CategoryController {
 
-    // TODO: handling auth user to get user_id
-    // This id will be replace by the auth user 
-    userId = 1;
-
     getAll = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryList = await Category.findAll({
                 where: {
-                    user_id: this.userId
+                    user_id: userId
                 }
             });
 
@@ -28,11 +25,12 @@ class CategoryController {
 
     getById = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryId = req.params.id;
             const categoryList = await Category.findOne({
                 where: {
                     id: categoryId,
-                    user_id: this.userId
+                    user_id: userId
                 }
             });
 
@@ -49,11 +47,12 @@ class CategoryController {
 
     delete = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryId = req.params.id;
             const nbElementsDestroyed = await Category.destroy({
                 where: {
                     id: categoryId,
-                    user_id: this.userId
+                    user_id: userId
                 }
             });
 
@@ -72,10 +71,11 @@ class CategoryController {
 
     create = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryToAdd = req.body;
 
             const result = await Category.create({
-                user_id: this.userId,
+                user_id: userId,
                 name: categoryToAdd.name,
                 color: categoryToAdd.color,
                 icon: categoryToAdd.icon,
@@ -95,13 +95,14 @@ class CategoryController {
 
     update = async (req, res, next) => {
         try {
+            const userId = req.user_id;
             const categoryId = req.params.id;
             const fieldToEdit = req.body;
 
             const result = await Category.update(fieldToEdit, {
                 where: {
                     id: categoryId,
-                    user_id: this.userId
+                    user_id: userId
                 },
                 returning: true
             });
