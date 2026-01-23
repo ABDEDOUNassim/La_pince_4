@@ -8,7 +8,7 @@ class ExpenseController {
     // TODO: handling auth user to get user_id
     // This id will be replace by the auth user 
     userId = 1;
-
+    
     
       getAllByMonth = async (req, res, next) => {
     
@@ -40,7 +40,30 @@ class ExpenseController {
     
       }
     
+    getByCategory = async (req, res, next) => {
+        try {
+            const categoryId = req.params.id;
 
+            const expenseList = await Expense.findAll({
+                where: {
+                    user_id: this.userId,
+                    category_id: categoryId,},
+                order: [["date", "DESC"]],
+                include: [{ model: Category, as: "category" }], 
+            });
+            if(!expenses) {
+              throw new HttpError("Internal Server Error", 500);
+          }
+      
+          res.status(200).json(expenses);
+        }
+        catch(error) {
+          next(error)
+        }
+    
+      }
+    
+    
     getAll = async (req, res, next) => {
         try {
 
