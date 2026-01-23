@@ -33,7 +33,7 @@
 {:else if currentPage === "login"}
   <Login bind:currentPage />
 {:else if currentPage === "dashboard"}
-  <Dashboard />
+  <Dashboard bind:currentPage />
 {:else if currentPage === "register"}
   <Register bind:currentPage />
 {:else if currentPage === "category"}
@@ -43,7 +43,7 @@
 {:else if currentPage === "warningPopup"}
   <WarningPopup />
 {:else if currentPage === "newExpensesPopup"}
-  <NewExpensesPopup />
+  <NewExpensesPopup onClose={() => (currentPage = "dashboard")} />
 {:else if currentPage === "newCategoryPopup"}
   <NewCategoryPopup />
 {:else if currentPage === "homeSidebar"}

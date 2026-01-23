@@ -1,6 +1,57 @@
 <script>
-  export let currentPage;
-  export let onClose = () => {};
+  import { expenses, categories as categoriesApi } from "../../../api";
+  export let onClose; // Fonction pour fermer le popup
+
+  // Variables du formulaire
+  let title = "";
+  let amount = 0;
+  let date = new Date().toISOString().split("T")[0];
+  let category_id = "";
+  let categories = [];
+  let error = null;
+  let success = false;
+  let loading = false;
+
+  // Charger les catégories au montage
+  async function loadCategories() {
+    try {
+      categories = await categoriesApi.list();
+    } catch (err) {
+      console.error("Erreur lors du chargement des catégories :", err);
+    }
+  }
+
+  loadCategories();
+
+  // Soumettre le formulaire
+  async function handleSubmit() {
+    error = null;
+    success = false;
+    loading = true;
+
+    try {
+      // Récupérer l'ID de l'utilisateur (à adapter selon votre système d'authentification)
+      const user_id = 1; // Remplacez par la logique pour récupérer l'ID de l'utilisateur connecté
+
+      // Appel à l'API pour ajouter la dépense
+      await expenses.create({ title, user_id, category_id, amount, date });
+      success = true;
+
+      // Réinitialiser et fermer après 2 secondes
+      setTimeout(() => {
+        title = "";
+        amount = 0;
+        category_id = "";
+        date = new Date().toISOString().split("T")[0];
+        onClose(); // Ferme le popup
+      }, 2000);
+    } catch (err) {
+      error = err.message;
+      console.error("Erreur :", err);
+    } finally {
+      loading = false;
+    }
+  }
 </script>
 
 <a class="close" href="/" on:click|preventDefault={onClose}>X</a>
@@ -12,42 +63,72 @@
   tabindex="0"
 ></div>
 
+<a class="close" on:click|preventDefault={onClose}
+  ><i class="fa-solid fa-xmark"></i></a
+>
+
 <aside class="formPopupNewExpense">
   <main>
     <h1>Nouvelle dépense</h1>
-
-    <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
-    <form class="formExpense">
+    <form class="formExpense" on:submit|preventDefault={handleSubmit}>
+      <!-- Libellé -->
       <div class="formExpense">
-        <label for="libelle"> Libellé </label>
-        <input type="text" id="libelle" placeholder="Facture EDF" />
-      </div>
-
-      <div class="formExpense">
-        <label for="text">Montant</label>
-        <input type="text" id="text" placeholder="60.00€" />
-      </div>
-
-      <div class="formExpense">
-        <label for="date">Date</label>
-        <input type="text" id="date" placeholder=" JJ/MM/AAAA" />
-      </div>
-
-      <div class="formExpense">
-        <label for="text">Catégorie</label>
+        <label for="title">Libellé</label>
         <input
           type="text"
-          id="text"
-          placeholder="Electricité"
-          style="background-color:orange"
+          id="title"
+          bind:value={title}
+          placeholder="Facture EDF"
+          required
         />
       </div>
 
-      <button class="btn" type="submit ">Ajouter</button>
+      <!-- Montant -->
+      <div class="formExpense">
+        <label for="amount">Montant (€)</label>
+        <input
+          type="number"
+          id="amount"
+          bind:value={amount}
+          placeholder="60.00"
+          min="0"
+          step="0.01"
+          required
+        />
+      </div>
+
+      <!-- Catégorie -->
+      <div class="formExpense">
+        <label for="category">Catégorie</label>
+        <select id="category" bind:value={category_id} required>
+          <option value="" disabled selected>Sélectionnez une catégorie</option>
+          {#each categories as category}
+            <option value={category.id}>{category.name}</option>
+          {/each}
+        </select>
+      </div>
+
+      <!-- Date -->
+      <div class="formExpense">
+        <label for="date">Date</label>
+        <input type="date" id="date" bind:value={date} required />
+      </div>
+
+      <!-- Bouton Ajouter -->
+      <button class="btn" type="submit" disabled={loading}>
+        {#if loading}Envoi...{:else}Ajouter{/if}
+      </button>
+
+      <!-- Messages d'erreur/succès -->
+      {#if error}
+        <p class="error">{error}</p>
+      {/if}
+      {#if success}
+        <p class="success">Dépense ajoutée avec succès !</p>
+      {/if}
     </form>
   </main>
 </aside>
-s
 
 <style>
   main {

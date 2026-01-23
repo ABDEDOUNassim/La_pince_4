@@ -21,7 +21,6 @@
       loading = true;
 
       const response = await auth.login({ email, password });
-      console.log("✅ Réponse login :", response);
 
       // Le token est automatiquement stocké par auth.login
       // Rediriger vers le dashboard
