@@ -109,7 +109,7 @@ class AuthController {
     }
 
     logout = async (req, res, next) => {
-        // To logout the client, send a new token but empty
+        // To logout the client, send a new token but empty (and client delete the token)
         // It's not perfect because the token is still valid. (blocklist?)
         const token = "";
         res.status(200).json({ token });
