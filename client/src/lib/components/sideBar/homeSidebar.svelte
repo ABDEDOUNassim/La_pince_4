@@ -1,6 +1,6 @@
 <script>
   export let currentPage;
-  z
+  export let open;
 </script>
 
 <!-- Overlay pour fermer au clic à l'extérieur -->
@@ -44,22 +44,6 @@
           currentPage = "register";
           open = false;
         }}>S'inscrire</button
-      >
-
-      <button
-        class="btnhome"
-        on:click={() => {
-          currentPage = "dashboard";
-          open = false;
-        }}>Tableau de bord</button
-      >
-
-      <button
-        class="btnhome"
-        on:click={() => {
-          currentPage = "category";
-          open = false;
-        }}>Catégorie</button
       >
     </nav>
   </section>
