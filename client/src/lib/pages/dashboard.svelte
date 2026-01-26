@@ -1,54 +1,87 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
-  import { auth, categories as categoriesApi } from "../../api";
+  import {
+    auth,
+    categories as categoriesApi,
+    expenses as expensesApi,
+  } from "../../api";
 
-  let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
-  let values = [300, 150, 80, 200];
+  let loading = true;
+  let error = "";
+  let expensesList = [];
+  let categoriesList = [];
+  let categoriesById = new Map();
 
-  let open = false;
-  let currentPage = "category";
-
-  // ✅ panneau filtres
+  // recherche + filtres
+  let search = "";
   let showFilters = false;
-
-  // ✅ données filtres
-  let categories = [];
-  let categoryId = ""; // string
+  let categoryId = "";
   let dateFrom = "";
   let dateTo = "";
-  let search = "";
 
-  async function checkMe() {
-    try {
-      const me = await auth.me();
-      console.log("Infos utilisateur connecté :", me);
-    } catch (err) {
-      console.error("Erreur /auth/me :", err);
-    }
+  let open = false;
+  let currentPage = "dashboard";
+
+  // si tu ne les utilises pas encore, laisse-les en dur
+  let labels = [];
+  let values = [];
+
+  function applyFilters() {
+    // rien à faire : le filtre est déjà réactif via $:
   }
 
-  async function loadCategories() {
+  async function loadData() {
     try {
-      categories = await categoriesApi.list();
+      loading = true;
+      error = "";
+
+      const [exp, cats] = await Promise.all([
+        expensesApi.list(),
+        categoriesApi.list(),
+      ]);
+
+      expensesList = (exp ?? []).map((e) => ({
+        ...e,
+        title: String(e.title ?? ""),
+        amount: Number(String(e.amount).replace(",", ".")),
+        date: String(e.date ?? "").slice(0, 10), // YYYY-MM-DD
+      }));
+
+      categoriesList = cats ?? [];
+      categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
-      console.error("Erreur categories:", e);
+      error = e.message ?? "Erreur API";
+    } finally {
+      loading = false;
     }
   }
 
-  checkMe();
-  loadCategories();
+  loadData();
+
+  // ✅ filtrage live (nom ou montant + catégorie + dates)
+  $: filteredExpenses = expensesList.filter((e) => {
+    const q = search.trim().toLowerCase();
+
+    const matchSearch =
+      !q ||
+      e.title.toLowerCase().includes(q) ||
+      String(e.amount).includes(q.replace(",", "."));
+
+    const matchCategory =
+      !categoryId || String(e.category_id) === String(categoryId);
+
+    const matchFrom = !dateFrom || e.date >= dateFrom;
+    const matchTo = !dateTo || e.date <= dateTo;
+
+    return matchSearch && matchCategory && matchFrom && matchTo;
+  });
 
   function resetFilters() {
+    search = "";
     categoryId = "";
     dateFrom = "";
     dateTo = "";
-    search = "";
-  }
-
-  function applyFilters() {
-    // Ici tu brancheras la requête API (expenses.list avec query params)
-    console.log("APPLY FILTERS:", { search, categoryId, dateFrom, dateTo });
   }
 </script>
 
@@ -108,7 +141,7 @@
               <label for="cat">Catégorie</label>
               <select id="cat" bind:value={categoryId}>
                 <option value="">Toutes</option>
-                {#each categories as c (c.id)}
+                {#each categoriesList as c (c.id)}
                   <option value={c.id}>{c.name}</option>
                 {/each}
               </select>
@@ -134,6 +167,34 @@
             >
           </div>
         </div>
+      {/if}
+      {#if search.trim() || categoryId || dateFrom || dateTo}
+        <section class="searchResults">
+          {#if filteredExpenses.length === 0}
+            <p class="empty">Aucun résultat.</p>
+          {:else}
+            {#each filteredExpenses as e (e.id)}
+              {@const cat = categoriesById.get(String(e.category_id))}
+              <div class="resultRow">
+                <div class="resultLeft">
+                  {#if cat}
+                    <span class="dot" style="background:{cat.color}"></span>
+                    <img
+                      class="miniIcon"
+                      src={cat.icon}
+                      alt=""
+                      width="18"
+                      height="18"
+                    />
+                  {/if}
+                  <span class="resultTitle">{e.title}</span>
+                </div>
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span
+                >
+              </div>
+            {/each}
+          {/if}
+        </section>
       {/if}
     </section>
 

@@ -1,9 +1,6 @@
 // src/lib/api.js
 const BASE = import.meta.env.VITE_API_URL;
 
-update: (id, data) =>
-  request(`/categories/${id}`, { method: "PATCH", body: data });
-
 // --- Token helpers ---
 export function getToken() {
   return localStorage.getItem("token");
