@@ -1,67 +1,69 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import { Chart, DoughnutController, ArcElement } from "chart.js";
+import { onMount, onDestroy } from "svelte";
+  // On utilise "auto" pour éviter les erreurs d'enregistrement de contrôleurs
+  import Chart from "chart.js/auto";
 
-  Chart.register(DoughnutController, ArcElement);
-
-  export let labels = ["Courses", "Electricité", "Loisir"];
-  export let values = [300, 150, 80];
+  export let labels = [];
+  export let values = [];
+  export let colors = [];
 
   let canvas;
   let chart;
 
-  const colors = [
-    "#22c55e",
-    "#facc15",
-    "#ef4444",
-    "#3b82f6",
-    "#a855f7",
-    "#14b8a6",
-  ];
-
+  // Fonction pour mettre à jour le graphique sans le recréer entièrement
   function updateChart() {
     if (!chart) return;
-
+    
     chart.data.labels = labels;
     chart.data.datasets[0].data = values;
-    chart.data.datasets[0].backgroundColor = labels.map(
-      (_, i) => colors[i % colors.length],
-    );
+    
+    // Si on a des couleurs, on les met, sinon on met du gris par sécurité
+    if (colors && colors.length > 0) {
+      chart.data.datasets[0].backgroundColor = colors;
+    } else {
+      chart.data.datasets[0].backgroundColor = ["#cccccc"];
+    }
 
     chart.update();
   }
 
   onMount(() => {
+    // Sécurité : si le canvas n'existe pas, on arrête tout
+    if (!canvas) return;
+
     chart = new Chart(canvas, {
       type: "doughnut",
       data: {
-        labels,
+        labels: labels,
         datasets: [
           {
             data: values,
             borderWidth: 0,
-            backgroundColor: labels.map((_, i) => colors[i % colors.length]),
+            // Couleur par défaut au chargement pour éviter le crash
+            backgroundColor: (colors && colors.length > 0) ? colors : ["#e5e7eb"],
+            hoverOffset: 4
           },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: "65%",
+        cutout: "70%",
         plugins: {
           legend: { display: false },
-          tooltip: { enabled: false },
+          tooltip: { enabled: true } // Réactivé pour voir les montants au survol
         },
-        events: [],
       },
     });
   });
 
-  $: labels, values, updateChart();
+  // Réactivité : dès que labels, values ou colors changent, on met à jour
+  $: if (chart && labels.length > 0) updateChart();
 
   onDestroy(() => {
-    chart?.destroy();
+    if (chart) chart.destroy();
   });
+  
 </script>
 
 <div class="chartBox">

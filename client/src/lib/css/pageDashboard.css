@@ -119,24 +119,21 @@
   margin-top: 3em;
 }
 
-.categoryDescription,
-.categoryDescription1 {
+.categoryDescription{
+  background-color: var(--bg-color); 
+  color: white;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #4caf50;
-  margin: 0 0 0.5em 0;
   border-radius: 10px;
-  padding: 0.3em;
+  margin-bottom: 8px;
+  padding: 12px;
   letter-spacing: 0.1em;
-}
-.categoryDescription1 {
-  background-color: #f59e0b;
+  border: none; /* On enlève les bordures inutiles */
 }
 
-.categoryDescription i,
-.categoryDescription1 i {
+.categoryDescription i{
   font-size: 2em;
 }
 
@@ -152,6 +149,8 @@
 .total1 {
   color: rgb(255, 255, 255);
   letter-spacing: 0.1em;
+  opacity: 0.9;
+  margin: 0;
 }
 
 /* Media query */
