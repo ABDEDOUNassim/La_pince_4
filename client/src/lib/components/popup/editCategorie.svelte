@@ -1,10 +1,7 @@
 <script>
-  import { auth, categories } from "../../../api.js";
-  import { onMount } from "svelte";
+  import { categories } from "../../../api.js";
 
-  export let currentPage;
   export let onClose = () => {};
-  export let onCreated = () => {};
   export let onSaved = () => {};
   export let category = null;
 
@@ -72,22 +69,22 @@
     icon = url;
   }
 
-  onMount(() => {
-    if (!category) return;
+  $: if (category) {
     name = category.name ?? "";
     max_budget = String(category.max_budget ?? "");
     color = category.color ?? "";
     icon = category.icon ?? "";
-  });
+  }
 
   async function submit() {
     try {
       error = "";
 
+      if (!category?.id) throw new Error("Catégorie introuvable.");
+
       const trimmed = name.trim();
       if (!trimmed) throw new Error("Le nom est obligatoire.");
 
-      // accepte "60", "60.5", "60,5"
       const budget = Number(
         String(max_budget).replace(",", ".").replace("€", "").trim(),
       );
@@ -100,9 +97,6 @@
 
       loading = true;
 
-      // user_id obligatoire sur POST
-      const me = await auth.me();
-
       await categories.update(category.id, {
         name: trimmed,
         color,
@@ -110,9 +104,8 @@
         max_budget: budget,
       });
 
-      onSaved();
-      onCreated();
-      onClose();
+      onSaved(); // ✅ recharge côté parent
+      onClose(); // ✅ ferme le popup
     } catch (e) {
       error = e.message ?? "Erreur inconnue";
     } finally {

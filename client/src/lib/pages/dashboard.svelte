@@ -1,5 +1,6 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
+  import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
   import {
     auth,
@@ -27,8 +28,24 @@
   let labels = [];
   let values = [];
 
+  let openEdit = false;
+  let editingExpense = null;
+
   function applyFilters() {
     // rien à faire : le filtre est déjà réactif via $:
+  }
+
+  // supression d'une dépense
+  async function handleDeleteExpense(id) {
+    if (!confirm("Supprimer cette dépense ?")) return;
+
+    try {
+      error = "";
+      await expensesApi.remove(id);
+      await loadData();
+    } catch (e) {
+      error = e.message ?? "Erreur lors de la suppression";
+    }
   }
 
   async function loadData() {
@@ -59,6 +76,16 @@
 
   loadData();
 
+  function formatDay(yyyyMmDd) {
+    const d = new Date(yyyyMmDd);
+    return d.toLocaleDateString("fr-FR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  }
+
   // ✅ filtrage live (nom ou montant + catégorie + dates)
   $: filteredExpenses = expensesList.filter((e) => {
     const q = search.trim().toLowerCase();
@@ -83,10 +110,53 @@
     dateFrom = "";
     dateTo = "";
   }
+
+  // groupement plus limite
+
+  const MAX_ROWS = 5;
+
+  // tri du plus récent au plus ancien (important pour la limite)
+  $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
+    String(b.date).localeCompare(String(a.date)),
+  );
+
+  // on limite à 5 lignes
+  $: limitedExpenses = sortedExpenses.slice(0, MAX_ROWS);
+
+  // groupé par date: { "YYYY-MM-DD": [expense, ...] }
+  $: groupedByDay = limitedExpenses.reduce((acc, e) => {
+    const key = String(e.date).slice(0, 10);
+    (acc[key] ||= []).push(e);
+    return acc;
+  }, {});
+
+  // editExpense
+
+  function openEditExpense(expense) {
+    editingExpense = expense;
+    openEdit = true;
+  }
+
+  async function handleExpenseSaved() {
+    openEdit = false;
+    editingExpense = null;
+    await loadData();
+  }
 </script>
 
 {#if open}
   <NewExpensesPopup {currentPage} onClose={() => (open = false)} />
+{/if}
+
+{#if openEdit}
+  <EditExpensePopup
+    expense={editingExpense}
+    onClose={() => {
+      openEdit = false;
+      editingExpense = null;
+    }}
+    onSaved={handleExpenseSaved}
+  />
 {/if}
 
 <main class="main">
@@ -168,55 +238,58 @@
           </div>
         </div>
       {/if}
-      {#if search.trim() || categoryId || dateFrom || dateTo}
-        <section class="searchResults">
-          {#if filteredExpenses.length === 0}
-            <p class="empty">Aucun résultat.</p>
-          {:else}
-            {#each filteredExpenses as e (e.id)}
-              {@const cat = categoriesById.get(String(e.category_id))}
-              <div class="resultRow">
-                <div class="resultLeft">
-                  {#if cat}
-                    <span class="dot" style="background:{cat.color}"></span>
-                    <img
-                      class="miniIcon"
-                      src={cat.icon}
-                      alt=""
-                      width="18"
-                      height="18"
-                    />
-                  {/if}
-                  <span class="resultTitle">{e.title}</span>
-                </div>
-                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span
-                >
-              </div>
-            {/each}
-          {/if}
-        </section>
-      {/if}
+      {#if search.trim() || categoryId || dateFrom || dateTo}{/if}
     </section>
 
     <!-- Expenses -->
 
     <section class="expensesDetailed">
-      <p class="date">Mercredi 14 Janvier 2025</p>
+      {#each Object.entries(groupedByDay) as [day, items]}
+        <p class="date">{formatDay(day)}</p>
 
-      <div class="expensesDescription">
-        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
-        <span><p class="description">Achat Leroy merlin</p></span>
-        <span><p class="montant"><strong>52,12 €</strong></p></span>
-      </div>
+        {#each items as e (e.id)}
+          {@const cat = categoriesById.get(String(e.category_id))}
 
-      <div class="expensesDescription1">
-        <span
-          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
-          ></i></span
-        >
-        <span><p class="description">Facture élctricité</p></span>
-        <span><p class="montant"><strong>152,12 €</strong></p></span>
-      </div>
+          <div
+            class="resultRow expenseRow"
+            style="--cat-color: {cat?.color || '#555'}"
+          >
+            <div class="resultLeft">
+              {#if cat}
+                <img
+                  class="miniIcon"
+                  src={cat.icon}
+                  alt=""
+                  width="18"
+                  height="18"
+                />
+              {/if}
+              <span class="resultTitle">{e.title}</span>
+            </div>
+            <div class="amountDashboard">
+              <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+            </div>
+
+            <div class="btnEdit">
+              <button
+                class="editBtn"
+                title="Modifier"
+                on:click={() => openEditExpense(e)}
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+
+              <button
+                class="deleteBtn"
+                title="Supprimer"
+                on:click={() => handleDeleteExpense(e.id)}
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        {/each}
+      {/each}
     </section>
   </section>
 
@@ -235,30 +308,5 @@
     </section>
 
     <!-- -- -->
-
-    <section class="categoryDetailed">
-      <div class="categoryDescription">
-        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
-        <span><p class="nameCategory"><strong>Courses</strong></p></span>
-        <span
-          ><p class="sum">
-            <strong>52,12 € / <span class="total">300,00 €</span></strong>
-          </p></span
-        >
-      </div>
-
-      <div class="categoryDescription1">
-        <span
-          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
-          ></i></span
-        >
-        <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
-        <span
-          ><p class="sum1">
-            <strong>152,12 € / <span class="total1">300,00 €</span></strong>
-          </p></span
-        >
-      </div>
-    </section>
   </section>
 </main>
