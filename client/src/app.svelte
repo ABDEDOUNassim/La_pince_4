@@ -13,10 +13,10 @@
   import MenuSidebar from "./lib/components/sideBar/menuSidebar.svelte";
 
   let currentPage = "home";
-
+  
   // Variable pour gérer l'état de connexion de l'utilisateur
   let isLoggedIn = false;
-
+  
   // Au chargement de l'app, vérifier si un token existe dans le localStorage
   // Si oui, l'utilisateur est déjà connecté
   if (typeof window !== 'undefined') {
