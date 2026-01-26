@@ -1,7 +1,6 @@
 <script>
   import HeaderMobile from "./lib/components/components/headerMobile.svelte";
   import Footer from "./lib/components/components/footer.svelte";
-
   import Home from "./lib/pages/home.svelte";
   import Login from "./lib/pages/login.svelte";
   import Dashboard from "./lib/pages/dashboard.svelte";
@@ -15,6 +14,18 @@
 
   let currentPage = "home";
 
+  // Variable pour gérer l'état de connexion de l'utilisateur
+  let isLoggedIn = false;
+
+  // Au chargement de l'app, vérifier si un token existe dans le localStorage
+  // Si oui, l'utilisateur est déjà connecté
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('token');
+    if (token) {
+      isLoggedIn = true;
+    }
+  }
+
   $: showLayout = ![
     "homeSidebar",
     "menuSidebar",
@@ -25,19 +36,32 @@
 </script>
 
 {#if showLayout}
-  <HeaderMobile bind:currentPage />
+  <!-- Passer isLoggedIn au header pour gérer l'affichage des boutons -->
+  <HeaderMobile bind:currentPage bind:isLoggedIn />
 {/if}
 
 {#if currentPage === "home"}
   <Home />
 {:else if currentPage === "login"}
-  <Login bind:currentPage />
+  <!-- Passer isLoggedIn au login pour le mettre à jour après connexion -->
+  <Login bind:currentPage bind:isLoggedIn />
 {:else if currentPage === "dashboard"}
-  <Dashboard bind:currentPage />
+  <!-- Vérifier si l'utilisateur est connecté avant d'afficher le dashboard -->
+  {#if isLoggedIn}
+    <Dashboard bind:currentPage />
+  {:else}
+    <!-- Si pas connecté, rediriger vers login -->
+    {currentPage = "login"}
+  {/if}
 {:else if currentPage === "register"}
   <Register bind:currentPage />
 {:else if currentPage === "category"}
-  <Category />
+  <!-- Vérifier si l'utilisateur est connecté avant d'afficher les catégories -->
+  {#if isLoggedIn}
+    <Category />
+  {:else}
+    {currentPage = "login"}
+  {/if}
 {:else if currentPage === "HomeSidebar"}
   <HomeSidebar />
 {:else if currentPage === "warningPopup"}

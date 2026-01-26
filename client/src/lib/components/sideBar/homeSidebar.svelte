@@ -1,6 +1,26 @@
 <script>
+  import { auth } from "../../../api";
+  
   export let currentPage;
   export let open;
+  export let isLoggedIn; // Recevoir l'état de connexion
+
+  // Fonction de déconnexion
+  async function handleLogout() {
+    try {
+      await auth.logout();
+      localStorage.removeItem("token");
+      isLoggedIn = false;
+      currentPage = "home";
+      open = false; // Fermer le menu
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion :", err);
+      localStorage.removeItem("token");
+      isLoggedIn = false;
+      currentPage = "home";
+      open = false;
+    }
+  }
 </script>
 
 <!-- Overlay pour fermer au clic à l'extérieur -->
@@ -22,36 +42,60 @@
 
   <section class="content">
     <nav class="menu">
-      <button
-        class="btnhome"
-        on:click={() => {
-          currentPage = "home";
-          open = false;
-        }}>Accueil</button
-      >
+      
+      <!-- Si l'utilisateur n'est PAS connecté -->
+      {#if !isLoggedIn}
+        <button
+          class="btnhome"
+          on:click={() => {
+            currentPage = "home";
+            open = false;
+          }}>Accueil</button
+        >
+        <button
+          class="btnhome"
+          on:click={() => {
+            currentPage = "login";
+            open = false;
+          }}>Connexion</button
+        >
+        <button
+          class="btnhome"
+          on:click={() => {
+            currentPage = "register";
+            open = false;
+          }}>S'inscrire</button
+        >
+      
+      <!-- Si l'utilisateur EST connecté -->
+      {:else}
+        <button
+          class="btnhome"
+          on:click={() => {
+            currentPage = "dashboard";
+            open = false;
+          }}>Tableau de bord</button
+        >
+        <button
+          class="btnhome"
+          on:click={() => {
+            currentPage = "category";
+            open = false;
+          }}>Catégories</button
+        >
+        <button
+          class="btnhome"
+          on:click={handleLogout}
+        >Se déconnecter</button
+        >
+      {/if}
 
-      <button
-        class="btnhome"
-        on:click={() => {
-          currentPage = "login";
-          open = false;
-        }}>Connexion</button
-      >
-
-      <button
-        class="btnhome"
-        on:click={() => {
-          currentPage = "register";
-          open = false;
-        }}>S'inscrire</button
-      >
     </nav>
   </section>
 </aside>
 
 <style>
   @import "../../css/settings.css";
-
   /* Overlay sombre derrière la sidebar */
   .overlay {
     position: fixed;
@@ -63,7 +107,6 @@
     z-index: 998;
     animation: fadeIn 0.3s ease;
   }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -72,7 +115,6 @@
       opacity: 1;
     }
   }
-
   /* Sidebar qui glisse depuis la droite */
   .sidebar {
     position: fixed;
@@ -88,7 +130,6 @@
     overflow-y: auto;
     border-left: 2px solid var(--bouttonPrincipal);
   }
-
   @keyframes slideIn {
     from {
       transform: translateX(100%);
@@ -111,12 +152,10 @@
     padding: 0.5em;
     transition: transform 0.2s ease;
   }
-
   .close i {
     color: #ffffff;
     font-size: 32px;
   }
-
   /* Contenu de la sidebar */
   .content {
     display: flex;
@@ -125,7 +164,6 @@
     align-items: center;
     padding: 2em 1em;
   }
-
   /* Menu de navigation */
   .menu {
     display: flex;
@@ -134,7 +172,6 @@
     width: 100%;
     max-width: 280px;
   }
-
   /* Boutons du menu */
   .btnhome {
     width: 100%;

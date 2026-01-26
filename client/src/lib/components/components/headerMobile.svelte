@@ -1,73 +1,87 @@
 <script>
   import logo from "../../../assets/logo/La_pince.png";
   import HomeSidebar from "../sideBar/homeSidebar.svelte";
+  import { auth } from "../../../api";
+
   export let currentPage;
+  export let isLoggedIn; // Recevoir l'état de connexion
+  
   let open = false;
+
+  // Fonction de déconnexion
+  async function handleLogout() {
+    try {
+      // Appel à l'API backend pour déconnecter
+      await auth.logout();
+      
+      // Supprimer le token du localStorage
+      localStorage.removeItem("token");
+      
+      // Mettre à jour l'état de connexion
+      isLoggedIn = false;
+      
+      // Rediriger vers la page d'accueil
+      currentPage = "home";
+      
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion :", err);
+      // Même en cas d'erreur API, on déconnecte côté client
+      localStorage.removeItem("token");
+      isLoggedIn = false;
+      currentPage = "home";
+    }
+  }
 </script>
 
 <header>
   <section class="head">
     <img src={logo} alt="Logo" />
-
     <section class="deskstop">
-      <!-- home -->
-      {#if currentPage === "home"}
-        <button class="btn" on:click={() => (currentPage = "dashboard")}
-          >Tableau de bord</button
-        >
-        <button class="btn" on:click={() => (currentPage = "register")}
-          >Inscription</button
-        >
-        <button class="btn" on:click={() => (currentPage = "login")}
-          >Connexion</button
-        >
-        <!-- dashboard -->
-      {:else if currentPage === "dashboard"}
-        <button class="btn" on:click={() => (currentPage = "home")}>Home</button
-        >
-        <button class="btn" on:click={() => (currentPage = "category")}
-          >Catégorie</button
-        >
-        <button class="btn" on:click={() => (currentPage = "home")}
-          >Se déconnecter</button
-        >
-        <!-- category -->
-      {:else if currentPage === "category"}
-        <button class="btn" on:click={() => (currentPage = "home")}>Home</button
-        >
-        <button class="btn" on:click={() => (currentPage = "dashboard")}
-          >Tableau de bord</button
-        >
-        <button class="btn" on:click={() => (currentPage = "home")}
-          >Se déconnecter</button
-        >
-        <!-- login -->
-      {:else if currentPage === "login"}
-        <button class="btn" on:click={() => (currentPage = "home")}>Home</button
-        >
-        <!-- register -->
-      {:else if currentPage === "register"}
-        <button class="btn" on:click={() => (currentPage = "home")}>Home</button
-        >
-        <button class="btn" on:click={() => (currentPage = "login")}
-          >Connexion</button
-        >
+      
+      <!-- Si l'utilisateur n'est PAS connecté (page home, login, register) -->
+      {#if !isLoggedIn}
+        <button class="btn" on:click={() => (currentPage = "register")}>
+          Inscription
+        </button>
+        <button class="btn" on:click={() => (currentPage = "login")}>
+          Connexion
+        </button>
+      
+      <!-- Si l'utilisateur EST connecté (dashboard, category) -->
+      {:else}
+        <!-- Afficher "Tableau de bord" seulement si on n'est pas déjà dessus -->
+        {#if currentPage !== "dashboard"}
+          <button class="btn" on:click={() => (currentPage = "dashboard")}>
+            Tableau de bord
+          </button>
+        {/if}
+        
+        <!-- Afficher "Catégorie" seulement si on n'est pas déjà dessus -->
+        {#if currentPage !== "category"}
+          <button class="btn" on:click={() => (currentPage = "category")}>
+            Catégorie
+          </button>
+        {/if}
+        
+        <!-- Bouton de déconnexion -->
+        <button class="btn" on:click={handleLogout}>
+          Se déconnecter
+        </button>
+        
+        <i class="iconUser fa-solid fa-user-check"></i>
       {/if}
 
-      <i class=" iconUser fa-solid fa-user-check"></i>
     </section>
-
     <button id="sidebar" on:click={() => (open = !open)}>☰</button>
   </section>
 </header>
 
 <!-- Burger -->
 {#if open}
-  <HomeSidebar bind:currentPage bind:open />
+  <HomeSidebar bind:currentPage bind:open bind:isLoggedIn />
 {/if}
 
 <!-- style -->
-
 <style>
   @import "../../css/settings.css";
   .head {
@@ -114,3 +128,4 @@
     }
   }
 </style>
+

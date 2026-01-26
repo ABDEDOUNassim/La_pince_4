@@ -1,25 +1,44 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
-  import {auth} from "../../api"
+  import { auth } from "../../api";
+  import { onMount } from "svelte";
 
   let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
   let values = [300, 150, 80, 200];
   let open = false;
-  let currentPage = "category";
+  export let currentPage;
 
-// Récup l'utilisateur connecté 
+  // Variable pour stocker les informations de l'utilisateur connecté
+  let userName = "";
+  let userId = null;
+
+  // Fonction pour récupérer les infos de l'utilisateur connecté
+  // L'endpoint /auth/me permet de vérifier que le token est valide
+  // et de récupérer l'id et le nom de l'utilisateur
   async function checkMe() {
     try {
       const me = await auth.me();
-      console.log("Infos utilisateur connecté :", me);
+      console.log("✅ Infos utilisateur connecté :", me);
+      
+      // Stocker les infos de l'utilisateur
+      userName = me.name || me.user?.name || "Utilisateur";
+      userId = me.id || me.user?.id;
+      
     } catch (err) {
-      console.error("Erreur /auth/me :", err);
+      console.error("❌ Erreur /auth/me :", err);
+      // Si l'appel échoue, le token est peut-être expiré
+      // Rediriger vers la page de login
+      localStorage.removeItem("token");
+      currentPage = "login";
     }
   }
 
-  checkMe();
-
+  // Appeler checkMe au montage du composant
+  // onMount s'exécute une fois que le composant est affiché
+  onMount(() => {
+    checkMe();
+  });
 </script>
 
 {#if open}
@@ -30,6 +49,11 @@
   <!-- Left -->
   <section class="leftBlock">
     <h1>Tableau de bord</h1>
+    
+    <!-- Afficher le nom de l'utilisateur si disponible -->
+    {#if userName}
+      <p>Bienvenue, <strong>{userName}</strong> !</p>
+    {/if}
 
     <section class="expensesTotalLeft">
       <p class="expenseTitle">Dépenses total</p>
@@ -53,16 +77,13 @@
     </section>
 
     <!-- Expenses -->
-
     <section class="expensesDetailed">
       <p class="date">Mercredi 14 Janvier 2025</p>
-
       <div class="expensesDescription">
         <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
         <span><p class="description">Achat Leroy merlin</p></span>
         <span><p class="montant"><strong>52,12 €</strong></p></span>
       </div>
-
       <div class="expensesDescription1">
         <span
           ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
@@ -75,7 +96,6 @@
   </section>
 
   <!-- Right -->
-
   <section class="rightBlock">
     <section class="expensesTotalRight">
       <p class="expenseTitle">Dépenses total</p>
@@ -83,13 +103,11 @@
     </section>
 
     <!-- Diagrame -->
-
     <section class="diagrame">
       <DonutChart {labels} {values} />
     </section>
 
     <!-- -- -->
-
     <section class="categoryDetailed">
       <div class="categoryDescription">
         <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
@@ -100,7 +118,6 @@
           </p></span
         >
       </div>
-
       <div class="categoryDescription1">
         <span
           ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
