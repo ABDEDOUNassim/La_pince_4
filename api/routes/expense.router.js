@@ -6,9 +6,12 @@ import { validateCreateExpense, validateUpdateExpense } from '../middlewares/exp
 
 const router = Router();
 
-
 router.get("/expenses", expenseController.getAll);
 router.get("/expenses/:id", validateId, expenseController.getById);
+
+router.get("/expenses/total", expenseController.getTotalAmount);
+router.get("/expenses/total/by-category/:id", validateId, expenseController.getTotalAmountByCategory);
+
 router.get("/expenses/by-month/:date", validateDate, expenseController.getAllByMonth);
 router.get("/expenses/by-category/:id", validateId, expenseController.getAllByCategory);
 router.post("/expenses", validateCreateExpense, expenseController.create);
@@ -16,3 +19,4 @@ router.patch("/expenses/:id", validateId, validateUpdateExpense, expenseControll
 router.delete("/expenses/:id", expenseController.delete);
 
 export default router;
+
