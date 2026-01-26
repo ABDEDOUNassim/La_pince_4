@@ -3,12 +3,13 @@
 
 .categoryDescription {
   display: grid;
-  grid-template-columns: 48px 1fr auto auto;
+  grid-template-columns: 0px 3fr auto auto;
   align-items: center;
   gap: 12px;
   padding: 12px;
   border-radius: 10px;
-  border: 3px solid var(--bordure);
+  border: 1px solid var(--bouttonPrincipal);
+  box-shadow: 1px 1px 2px var(--bouttonPrincipal);
 }
 
 .categoryCard {
@@ -22,9 +23,9 @@
   margin-top: 1rem;
   color: white;
   text-shadow:
-    -1px -1px 0 #0000006c,
+    -1px -1px 0 #000000,
     1px -1px 0 #00000073,
-    -1px 1px 0 #0000005e,
+    -1px 1px 0 #000000,
     1px 1px 0 #00000073;
 }
 
@@ -38,8 +39,7 @@
 .right {
   width: 100%;
 }
-
-.filterBtn,
+<i class="fa-solid fa-pen-to-square" > </i > .filterBtn,
 .addBtn {
   padding: 0.5em 2em;
 }
@@ -50,7 +50,7 @@
   background: var(--bouttonPrincipal);
   border: none;
   color: #c8d4e4;
-  font-size: 18px;
+  font-size: 10px;
 }
 .edit {
   display: flex;
@@ -67,6 +67,9 @@
 .error {
   color: #ff6b6b;
   margin-top: 1rem;
+}
+.nane {
+  display: none;
 }
 
 @media (max-width: 800px) {

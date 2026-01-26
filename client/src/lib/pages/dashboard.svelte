@@ -1,6 +1,7 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
+  import { auth } from "../../api";
 
   let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
   let values = [300, 150, 80, 200];
