@@ -64,11 +64,10 @@
   tabindex="0"
 ></div>
 
-<a class="close" on:click|preventDefault={onClose}
-  ><i class="fa-solid fa-xmark"></i></a
->
-
 <aside class="formPopupNewExpense">
+  <a class="close" on:click|preventDefault={onClose}
+    ><i class="fa-solid fa-xmark"></i></a
+  >
   <main>
     <h1>Nouvelle dépense</h1>
     <form class="formExpense" on:submit|preventDefault={handleSubmit}>

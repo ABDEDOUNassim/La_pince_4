@@ -1,14 +1,23 @@
 <script>
   import DonutChart from "../components/components/donutChart.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
-  import { auth } from "../../api";
+  import { auth, categories as categoriesApi } from "../../api";
 
   let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
   let values = [300, 150, 80, 200];
+
   let open = false;
   let currentPage = "category";
 
-  import { auth } from "../services/auth.service";
+  // ✅ panneau filtres
+  let showFilters = false;
+
+  // ✅ données filtres
+  let categories = [];
+  let categoryId = ""; // string
+  let dateFrom = "";
+  let dateTo = "";
+  let search = "";
 
   async function checkMe() {
     try {
@@ -19,7 +28,28 @@
     }
   }
 
+  async function loadCategories() {
+    try {
+      categories = await categoriesApi.list();
+    } catch (e) {
+      console.error("Erreur categories:", e);
+    }
+  }
+
   checkMe();
+  loadCategories();
+
+  function resetFilters() {
+    categoryId = "";
+    dateFrom = "";
+    dateTo = "";
+    search = "";
+  }
+
+  function applyFilters() {
+    // Ici tu brancheras la requête API (expenses.list avec query params)
+    console.log("APPLY FILTERS:", { search, categoryId, dateFrom, dateTo });
+  }
 </script>
 
 {#if open}
@@ -38,18 +68,73 @@
 
     <section class="search">
       <div class="searchBar">
-        <button class="searchBtn"><i class="fa-solid fa-sliders"></i></button>
-        <div class="searchBarMiddle">
-          <label for="searchBar"></label>
-          <input type="text" id="searchBar" placeholder="Rechercher ..." />
-        </div>
-        <button class="searchBtn"><i class="fa-solid fa-filter"></i></button>
-      </div>
-      <div class="addExpense">
-        <button class="btn" on:click={() => (open = !open)}
-          ><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button
+        <!-- ✅ bouton gauche: toggle filtres -->
+        <button
+          class="searchBtn"
+          on:click={() => (showFilters = !showFilters)}
+          aria-expanded={showFilters}
         >
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+
+        <div class="searchBarMiddle">
+          <label for="searchBar" class="srOnly">Recherche</label>
+          <input
+            type="text"
+            id="searchBar"
+            placeholder="Rechercher ..."
+            bind:value={search}
+            on:keydown={(e) => e.key === "Enter" && applyFilters()}
+          />
+        </div>
+
+        <!-- (tu peux garder ton bouton filter à droite ou le recycler) -->
+        <button class="searchBtn" on:click={applyFilters} title="Appliquer">
+          <i class="fa-solid fa-filter"></i>
+        </button>
       </div>
+
+      <div class="addExpense">
+        <button class="btn" on:click={() => (open = !open)}>
+          <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+        </button>
+      </div>
+
+      <!-- ✅ panneau qui apparaît sous la barre -->
+      {#if showFilters}
+        <div class="filtersPanel" on:click|stopPropagation>
+          <div class="filtersRow">
+            <div class="field">
+              <label for="cat">Catégorie</label>
+              <select id="cat" bind:value={categoryId}>
+                <option value="">Toutes</option>
+                {#each categories as c (c.id)}
+                  <option value={c.id}>{c.name}</option>
+                {/each}
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="from">Du</label>
+              <input id="from" type="date" bind:value={dateFrom} />
+            </div>
+
+            <div class="field">
+              <label for="to">Au</label>
+              <input id="to" type="date" bind:value={dateTo} />
+            </div>
+          </div>
+
+          <div class="filtersActions">
+            <button type="button" class="btnSecondary" on:click={resetFilters}
+              >Réinitialiser</button
+            >
+            <button type="button" class="btnPrimary" on:click={applyFilters}
+              >Appliquer</button
+            >
+          </div>
+        </div>
+      {/if}
     </section>
 
     <!-- Expenses -->

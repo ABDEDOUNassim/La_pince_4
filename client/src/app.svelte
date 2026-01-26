@@ -15,7 +15,7 @@
   import EditCategorie from "./lib/components/popup/editCategorie.svelte";
   import FilterCategorie from "./lib/components/popup/filterCategorie.svelte";
 
-  let currentPage = "filterCategorie";
+  let currentPage = "home";
 
   $: showLayout = ![
     "homeSidebar",
