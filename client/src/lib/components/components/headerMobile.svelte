@@ -5,7 +5,7 @@
 
   export let currentPage;
   export let isLoggedIn; // Recevoir l'état de connexion
-  
+
   let open = false;
 
   // Fonction de déconnexion

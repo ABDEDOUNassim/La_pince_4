@@ -1,5 +1,14 @@
 <script>
-  import { auth, categories } from "../../../api.js";
+  // import { auth, categories } from "../../../api.js";
+  // import cartIcon from "../../../assets/iconNewCategory/bolt-solid-full.png";
+  // import carIcon from "../../../assets/iconNewCategory/car.png";
+  // import boltIcon from "../../../assets/iconNewCategory/bolt.png";
+  // import faucetIcon from "../../../assets/iconNewCategory/faucet.png";
+  // import wrenchIcon from "../../../assets/iconNewCategory/wrench.png";
+  // import hospitalIcon from "../../../assets/iconNewCategory/hospital.png";
+  // import moneyIcon from "../../../assets/iconNewCategory/money.png";
+  // import houseIcon from "../../../assets/iconNewCategory/house.png";
+  // import gasIcon from "../../../assets/iconNewCategory/gas.png";
 
   export let currentPage;
   export let onClose = () => {};
@@ -25,41 +34,45 @@
     "#ff3333",
   ];
 
-  const icons = [
-    {
-      fa: "fa-cart-plus",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    { fa: "fa-car", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
-    { fa: "fa-bolt", url: "https://placehold.co/32x32.png", color: "#FFD43B" },
-    {
-      fa: "fa-faucet-drip",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    {
-      fa: "fa-screwdriver-wrench",
-      url: "https://placehold.co/32x32.png",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-hospital",
-      url: "https://placehold.co/32x32.png",
-      color: "#FFD43B",
-    },
-    {
-      fa: "fa-money-bill-trend-up",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    { fa: "fa-house", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
-    {
-      fa: "fa-gas-pump",
-      url: "https://placehold.co/32x32.png",
-      color: "#FFD43B",
-    },
-  ];
+// <ul>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={cartIcon} alt="un panier" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={carIcon} alt="une voiture" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={boltIcon} alt="un éclair" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={faucetIcon} alt="un robinet" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={wrenchIcon} alt="une clé à molette" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={hospitalIcon} alt="un hôpital" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={moneyIcon} alt="de l'argent" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={houseIcon} alt="une maison" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={gasIcon} alt="du gaz" />
+//   </li>
+// </ul>
+
 
   function selectColor(hex) {
     color = hex;
