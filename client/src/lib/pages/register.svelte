@@ -1,6 +1,5 @@
 <script>
-  import { auth } from "../../api";
-  export let currentPage;
+  import { auth } from "../services/auth.service";
 
   let pseudo = "";
   let email = "";
@@ -8,6 +7,8 @@
   let mentions = false;
   let error = "";
   let loading = false;
+
+  export let currentPage;
 
   async function handleSubmit(event) {
     event.preventDefault(); // bloque le submit HTML
@@ -29,6 +30,8 @@
         email,
         password,
       });
+
+      currentPage = "dashboard";
 
       console.log("✅ Réponse API:", response);
       alert("Inscription réussie !");

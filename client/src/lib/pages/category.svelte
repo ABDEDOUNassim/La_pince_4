@@ -1,7 +1,6 @@
 <script>
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
-  import { categories as categoriesApi } from "../../api";
-  import EditCategoryPopup from "../components/popup/editCategorie.svelte";
+  import { categories as categoriesApi } from "../services/category.service";
 
   let openEdit = false;
   let editingCategory = null;

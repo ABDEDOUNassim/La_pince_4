@@ -3,7 +3,6 @@ import { Sequelize, Model, DataTypes } from 'sequelize';
 
 
 class Category extends Model {
-
 //methodes
 }
 

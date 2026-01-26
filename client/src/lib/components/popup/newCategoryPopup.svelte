@@ -1,5 +1,6 @@
 <script>
-  import { auth, categories } from "../../../api.js";
+  import { auth } from "../../services/auth.service";
+  import { categories } from "../../services/category.service.js";
 
   export let currentPage;
   export let onClose = () => {};

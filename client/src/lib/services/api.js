@@ -11,6 +11,7 @@ export function clearToken() {
   localStorage.removeItem("token");
 }
 
+
 // --- Core request ---
 export async function request(path, { method = "GET", body, headers = {} } = {}) {
   const finalHeaders = {

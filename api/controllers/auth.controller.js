@@ -11,7 +11,6 @@ class AuthController {
     register = async (req, res, next) => {
 
         try {
-            // TODO: redirect to "/auth/login" if succeed
             const newUserJson = req.body;
 
             const hashedPassword = await argon2.hash(newUserJson.password);
@@ -26,7 +25,20 @@ class AuthController {
                 throw new HttpError("Bad Request", 400);
             }
 
-            res.status(201).end(); // the res doesn't include any user data
+            // Registering succeed
+            // To connect the user right after, sending token to the client
+            const newUser = await User.findOne({
+                where: { email: newUserJson.email }
+            });
+
+            // sign() arguments : token payload, api secret, token expiration time
+            const token = jwt.sign(
+                { user_id: newUser.id },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" }
+            );
+            
+            res.status(201).json({ token });
         }
         catch(error) {
             next(error);
@@ -97,7 +109,7 @@ class AuthController {
     }
 
     logout = async (req, res, next) => {
-        // To logout the client, send a new token but empty
+        // To logout the client, send a new token but empty (and client delete the token)
         // It's not perfect because the token is still valid. (blocklist?)
         const token = "";
         res.status(200).json({ token });

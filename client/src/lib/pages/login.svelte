@@ -1,5 +1,5 @@
 <script>
-  import { auth } from "../../api";
+  import { auth } from "../services/auth.service";
   let email = "";
   let password = "";
   let error = "";
