@@ -30,6 +30,7 @@
   let listCategories = [];
   let totalAmount = 0;
 
+  $: totalAmount = expensesList.reduce((sum, e) => sum + e.amount, 0);
   $: labels = categoriesList.map((cat) => cat.name);
   $: values = categoriesList.map((cat) => {
     const catExpenses = expensesList.filter(
@@ -42,6 +43,7 @@
     return totalSpent;
   });
   $: colors = categoriesList.map((cat) => cat.color);
+  
 
   let labels = [];
   let values = [];
@@ -54,18 +56,15 @@
   // supression d'une dépense
   async function handleDeleteExpense(id) {
     if (!confirm("Supprimer cette dépense ?")) return;
-    async function loadTotal() {
-      try {
-        const result = await expensesApi.getTotal();
-
-        // On vérifie juste si on a reçu un total valide
-        if (result && result.total !== undefined) {
-          totalAmount = result.total;
-        }
-      } catch (err) {
-        console.error("Erreur chargement total :", err);
-      }
+    
+    try {
+      error = "";
+      await expensesApi.remove(id);
+      await loadData();
+    } catch (e) {
+      error = e.message ?? "Erreur lors de la suppression";
     }
+  
 
     async function loadCategories() {
       try {
