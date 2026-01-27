@@ -183,7 +183,7 @@
     text-align: center;
     padding: 1em 0 0.5em 0;
     font-size: 1.5em;
-    margin-top: 30px;
+    margin: 30px 0 40px 0;
   }
 
   .formNewCategory {

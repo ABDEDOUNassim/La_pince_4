@@ -150,17 +150,14 @@
 
   // groupement plus limite
 
-  const MAX_ROWS = 5;
-
   // tri du plus récent au plus ancien (important pour la limite)
+  // tri du plus récent au plus ancien
   $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
     String(b.date).localeCompare(String(a.date)),
   );
 
-  // on limite à 5 lignes
-  $: limitedExpenses = sortedExpenses.slice(0, MAX_ROWS);
-
-  $: groupedByDay = limitedExpenses.reduce((acc, e) => {
+  // groupement par jour SANS limite
+  $: groupedByDay = sortedExpenses.reduce((acc, e) => {
     const key = String(e.date).slice(0, 10);
     (acc[key] ||= []).push(e);
     return acc;
@@ -168,7 +165,7 @@
 
   // limite de 3 categorie sur le dashboard
 
-  const MAX_CATEGORIES = 3;
+  const MAX_CATEGORIES = 6;
 
   $: categoryTotals = categoriesList.map((cat) => {
     const totalSpent = expensesList
