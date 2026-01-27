@@ -1,16 +1,6 @@
 <script>
   import { auth } from "../../services/auth.service";
   import { categories } from "../../services/category.service.js";
-  // import { auth, categories } from "../../../api.js";
-  // import cartIcon from "../../../assets/iconNewCategory/bolt-solid-full.png";
-  // import carIcon from "../../../assets/iconNewCategory/car.png";
-  // import boltIcon from "../../../assets/iconNewCategory/bolt.png";
-  // import faucetIcon from "../../../assets/iconNewCategory/faucet.png";
-  // import wrenchIcon from "../../../assets/iconNewCategory/wrench.png";
-  // import hospitalIcon from "../../../assets/iconNewCategory/hospital.png";
-  // import moneyIcon from "../../../assets/iconNewCategory/money.png";
-  // import houseIcon from "../../../assets/iconNewCategory/house.png";
-  // import gasIcon from "../../../assets/iconNewCategory/gas.png";
 
   export let currentPage;
   export let onClose = () => {};
@@ -25,64 +15,34 @@
   let error = "";
 
   const colors = [
+    "#ff3333",
     "#ff4d4d",
     "#ffa64d",
     "#ffff4d",
     "#6aff4d",
+    "#2ecc71",
+    "#1abc9c",
+    "#4dc3ff",
     "#4c68f7",
     "#a64dff",
+    "#6f2cff",
     "#ff4da6",
-    "#4dc3ff",
-    "#ff3333",
   ];
 
   const icons = [
-    {
-      fa: "fa-cart-plus",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#B197FC",
-    },
-    {
-      fa: "fa-car",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-bolt",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#FFD43B",
-    },
-    {
-      fa: "fa-faucet-drip",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#B197FC",
-    },
-    {
-      fa: "fa-screwdriver-wrench",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-hospital",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#FFD43B",
-    },
-    {
-      fa: "fa-money-bill-trend-up",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#B197FC",
-    },
-    {
-      fa: "fa-house",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-gas-pump",
-      url: "https://fontawesome.com/icons/shop?f=classic&s=solid",
-      color: "#FFD43B",
-    },
-  ];
+  { url: "/assets/categoryIcons/bank.PNG" },
+  { url: "/assets/categoryIcons/bolt.PNG" },
+  { url: "/assets/categoryIcons/car.PNG" },
+  { url: "/assets/categoryIcons/cart-plus.PNG" },
+  { url: "/assets/categoryIcons/hospital.PNG" },
+  { url: "/assets/categoryIcons/faucet-drip.PNG" },
+  { url: "/assets/categoryIcons/gamepad.PNG" },
+  { url: "/assets/categoryIcons/gas-pump.PNG" },
+  { url: "/assets/categoryIcons/house.PNG" },
+  { url: "/assets/categoryIcons/plane.PNG" },
+  { url: "/assets/categoryIcons/pot-food.PNG" },
+  { url: "/assets/categoryIcons/screwdriver-wrench.PNG" }
+];
 // <ul>
 //   <li>
 //     <a href="https://www.google.com/"></a>
@@ -229,7 +189,7 @@
               role="button"
               tabindex="0"
             >
-              <i class={`fa-solid ${it.fa}`} style={`color:${it.color};`}></i>
+            <img class="category_icon" src={it.url} alt="" />
             </li>
           {/each}
         </ul>
@@ -386,7 +346,6 @@
   }
 
   .formGroupIcon li {
-    width: 100%;
     background-color: #20232e;
     border: 2px solid #3c4154;
     border-radius: 6px;
@@ -395,7 +354,12 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 1.5em 0;
+    padding: 1em 0;
+  }
+
+  .category_icon{
+    width: 70%;
+    filter: brightness(1.8);
   }
 
   .formGroupIcon li.selected {
