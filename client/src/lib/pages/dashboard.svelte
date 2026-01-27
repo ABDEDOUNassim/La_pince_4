@@ -275,7 +275,13 @@
       <div class="addExpense">
         <button
           class="btn"
-          on:click={() => (open = !open)}
+          on:click={() => {
+            if (categoriesList.length !== 0){
+              (open = !open)
+              }
+              else {
+                alert("Veuillez créer au moins une dépense/catégorie pour afficher le graphique !");
+              }}}
           aria-label="Ajouter une dépense"
         >
           <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
@@ -387,7 +393,7 @@
           <DonutChart {labels} {values} {colors} />
         {/key}
       {:else}
-        <p>Chargement du graphique...</p>
+        <p class="graphe-warning">Veuillez ajouter une dépense pour que le graphique s'affiche !</p>
       {/if}
     </section>
 
