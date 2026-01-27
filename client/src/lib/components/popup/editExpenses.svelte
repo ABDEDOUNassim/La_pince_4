@@ -1,5 +1,5 @@
 <script>
-  import { expenses as expensesApi } from "../../../api.js";
+  import { expenses as expensesApi } from "../../services/expense.service";
 
   export let onClose = () => {};
   export let onSaved = () => {};

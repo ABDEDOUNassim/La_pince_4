@@ -1,5 +1,5 @@
 <script>
-  import { categories } from "../../../api.js";
+  import { categories } from "../../services/category.service";
 
   export let onClose = () => {};
   export let onSaved = () => {};

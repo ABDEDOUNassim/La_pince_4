@@ -1,5 +1,6 @@
 <script>
-  import { expenses, categories as categoriesApi } from "../../../api";
+  import {categories as categoriesApi } from "../../services/category.service";
+  import { expenses } from "../../services/expense.service";
   export let onClose; // Fonction pour fermer le popup
 
   // Variables du formulaire

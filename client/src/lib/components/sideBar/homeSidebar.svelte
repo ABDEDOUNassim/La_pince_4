@@ -1,6 +1,6 @@
 
 <script>
-  import { auth } from "../../../api";
+  import { auth } from "../../services/auth.service";
 
   export let currentPage;
   export let open;

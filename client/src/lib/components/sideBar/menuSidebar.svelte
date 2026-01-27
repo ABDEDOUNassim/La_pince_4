@@ -1,5 +1,5 @@
 <script>
-  import { auth } from "../../../api";
+  import { auth } from "../../services/auth.service";
   // ← importer auth pour logout
   export let currentPage;
   let open = false;
