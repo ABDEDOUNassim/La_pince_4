@@ -3,7 +3,7 @@
 
 .categoryDescription {
   display: grid;
-  grid-template-columns: 0px 3fr auto auto;
+  grid-template-columns: 50px 3fr auto auto;
   align-items: center;
   gap: 12px;
   padding: 12px;

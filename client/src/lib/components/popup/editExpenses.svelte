@@ -40,7 +40,6 @@
 
       loading = true;
 
-      // ✅ PATCH uniquement title + amount
       await expensesApi.update(expense.id, {
         title: trimmed,
         amount: parsedAmount,

@@ -123,7 +123,7 @@
     });
   }
 
-  // Filtre
+  // ✅ filtrage live (nom ou montant + catégorie + dates)
   $: filteredExpenses = expensesList.filter((e) => {
     const q = search.trim().toLowerCase();
 
@@ -271,7 +271,6 @@
           />
         </div>
 
-        <!-- (tu peux garder ton bouton filter à droite ou le recycler) -->
         <button class="searchBtn" on:click={applyFilters} title="Appliquer">
           <i class="fa-solid fa-filter"></i>
         </button>
@@ -287,7 +286,7 @@
         </button>
       </div>
 
-      <!-- ✅ panneau qui apparaît sous la barre -->
+      <!--  panneau qui apparaît sous la barre -->
       {#if showFilters}
         <div class="filtersPanel" on:click|stopPropagation>
           <div class="filtersRow">
