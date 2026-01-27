@@ -8,14 +8,15 @@
   // Fonction de déconnexion
   async function handleLogout() {
     try {
-      await auth.logout(); // Appel backend pour logout
+      await auth.logout();             // Appel backend pour logout
       localStorage.removeItem("token"); // Supprime le token
-      currentPage = "login"; // Redirige vers login
+      currentPage = "login";            // Redirige vers login
       open = false;
     } catch (err) {
       console.error("Erreur lors de la déconnexion :", err);
     }
   }
+
 </script>
 
 <header>

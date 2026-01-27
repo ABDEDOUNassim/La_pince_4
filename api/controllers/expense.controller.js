@@ -34,12 +34,12 @@ class ExpenseController {
     
       }
     
-    getByCategory = async (req, res, next) => {
+    getAllByCategory = async (req, res, next) => {
         try {
             const userId = req.user_id;
             const categoryId = req.params.id;
 
-            const expenseList = await Expense.findAll({
+            const expenses = await Expense.findAll({
                 where: {
                     user_id: userId,
                     category_id: categoryId,},
@@ -55,7 +55,6 @@ class ExpenseController {
         catch(error) {
           next(error)
         }
-    
       }
     
     
@@ -63,6 +62,8 @@ class ExpenseController {
         try {
             const userId = req.user_id;
             const limit = req.query.limit;
+
+            console.log("JE SUIS DANS GETALL :", userId);
 
             if(limit) 
                 {const expenseListLimit = await Expense.findAll({
@@ -80,7 +81,7 @@ class ExpenseController {
             }
 
             const expenseList = await Expense.findAll({
-                where: { user_id: this.userId},
+                where: { user_id: userId},
                 order: [["date", "DESC"]],
                 include: [{ model: Category, as: "category" }]
                 
@@ -192,6 +193,78 @@ class ExpenseController {
         }
         catch(error){
             next(error);
+        }
+    }
+
+    getTotalAmount = async (req, res, next) => {
+        try {
+            const userId = req.user_id;
+
+            const currentDate = new Date(Date.now()).toLocaleDateString('fr-FR'); // JJ/MM/AAAA
+            const currentMonth= currentDate.slice(6,10) + "-" + currentDate.slice(3,5); // AAAA-MM
+
+            const expenses = await Expense.findAll({
+                where : { 
+                        user_id: userId,
+                        date: {
+                            [Op.startsWith]: currentMonth,
+                        }
+                        },
+                order: [["date", "DESC"]],
+                include: [{ model: Category, as: "category" }],
+            });
+
+            if(!expenses) {
+                throw new HttpError("Internal Server Error", 500);
+            }
+
+            
+            let total = 0;
+            for (let expense of expenses) {
+                total += Number(expense.amount);
+            }
+            
+            res.status(200).json({ total });
+        }
+        catch(error){
+            throw new HttpError("Internal Server Error", 500);
+        }
+    }
+
+        getTotalAmountByCategory = async (req, res, next) => {
+        try {
+            const userId = req.user_id;
+            const categoryId = req.params.id;
+
+            const currentDate = new Date(Date.now()).toLocaleDateString('fr-FR'); // JJ/MM/AAAA
+            const currentMonth= currentDate.slice(6,10) + "-" + currentDate.slice(3,5); // AAAA-MM
+
+            const expenses = await Expense.findAll({
+                where : { 
+                        user_id: userId,
+                        category_id: categoryId,
+                        date: {
+                            [Op.startsWith]: currentMonth,
+                        }
+                        },
+                order: [["date", "DESC"]],
+                include: [{ model: Category, as: "category" }],
+            });
+
+            if(!expenses) {
+                throw new HttpError("Internal Server Error", 500);
+            }
+
+            
+            let total = 0;
+            for (let expense of expenses) {
+                total += Number(expense.amount);
+            }
+            
+            res.status(200).json({ total });
+        }
+        catch(error){
+            throw new HttpError("Internal Server Error", 500);
         }
     }
 }

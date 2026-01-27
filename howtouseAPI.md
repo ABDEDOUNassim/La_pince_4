@@ -50,10 +50,12 @@ Pour les requetes POST, tous les champs du body sont **obligatoires**
 | GET    | /expenses        | Requête pour récupérer toutes les dépenses                     |
 | GET    | /expenses?limit=        | Requête pour récupérer un nombre fini de dépenses à inscrire après 'limit='                     |
 | GET    | /expenses/by-month/:date | Requête pour récupérer les dépenses d'un mois. Le format de ':date' est 'AAAA-MM'                 |
+| GET    | /expenses/by-category/:date | Requête pour récupérer les dépenses d'une catégorie. id est celui de la catégorie                |
 | POST   | /expenses        | Requête pour ajouter une dépense                               |
 | PATCH  | /expenses/:id    | Requête pour modifier une dépense. id est un entier positif >= 1                              |
-| DELETE  | /expenses/:id    | Requête pour supprimer une dépense. id est un entier positif >= 1                            |
-
+| DELETE  | /expenses/:id    | Requête pour supprimer une dépense. id est un entier positif >= 1
+| GET    | /expenses/total    | Requête pour récupérer le total des dépenses du mois en cours. (Stocker dans la clé 'total')
+| GET    | /expenses/total/by-category/:id    | Requête pour récupérer le total des dépenses du mois en cours pour une catégorie en particulier. (Stocker dans la clé 'total')
 ### Body attendu pour POST/UPDATE :
 ```
 {

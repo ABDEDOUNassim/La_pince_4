@@ -10,6 +10,10 @@
 
 input {
   color-scheme: dark;
+/* left grid */
+.username{
+  color: var(--textSecondairePlaceholder);
+  font-family: text, sans-serif;
 }
 
 /* Accessibilité (label invisible) */
