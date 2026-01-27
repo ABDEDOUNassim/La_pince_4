@@ -14,52 +14,34 @@
   let error = "";
 
   const colors = [
-    "#ff4d4d",
-    "#ffa64d",
-    "#ffff4d",
-    "#6aff4d",
-    "#4c68f7",
-    "#a64dff",
-    "#ff4da6",
-    "#4dc3ff",
-    "#ff3333",
+    "#e63946",
+    "#f77f00",
+    "#ffbe0b",
+    "#8ac926",
+    "#1982c4",
+    "#6a4c93",
+    "#f72585",
+    "#3a86ff",
+    "#06d6a0",
+    "#ff5722",
+    "#9b5de5",
+    "#ffb4a2",
   ];
 
   const icons = [
-    {
-      fa: "fa-cart-plus",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    { fa: "fa-car", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
-    { fa: "fa-bolt", url: "https://placehold.co/32x32.png", color: "#FFD43B" },
-    {
-      fa: "fa-faucet-drip",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    {
-      fa: "fa-screwdriver-wrench",
-      url: "https://placehold.co/32x32.png",
-      color: "#63E6BE",
-    },
-    {
-      fa: "fa-hospital",
-      url: "https://placehold.co/32x32.png",
-      color: "#FFD43B",
-    },
-    {
-      fa: "fa-money-bill-trend-up",
-      url: "https://placehold.co/32x32.png",
-      color: "#B197FC",
-    },
-    { fa: "fa-house", url: "https://placehold.co/32x32.png", color: "#63E6BE" },
-    {
-      fa: "fa-gas-pump",
-      url: "https://placehold.co/32x32.png",
-      color: "#FFD43B",
-    },
-  ];
+  { url: "/assets/categoryIcons/bank.PNG" },
+  { url: "/assets/categoryIcons/bolt.PNG" },
+  { url: "/assets/categoryIcons/car.PNG" },
+  { url: "/assets/categoryIcons/cart-plus.PNG" },
+  { url: "/assets/categoryIcons/hospital.PNG" },
+  { url: "/assets/categoryIcons/faucet-drip.PNG" },
+  { url: "/assets/categoryIcons/gamepad.PNG" },
+  { url: "/assets/categoryIcons/gas-pump.PNG" },
+  { url: "/assets/categoryIcons/house.PNG" },
+  { url: "/assets/categoryIcons/plane.PNG" },
+  { url: "/assets/categoryIcons/pot-food.PNG" },
+  { url: "/assets/categoryIcons/screwdriver-wrench.PNG" }
+];
 
   function selectColor(hex) {
     color = hex;
@@ -126,7 +108,6 @@
 
     <form class="formNewCategory" on:submit|preventDefault={submit}>
       <div class="formGroup">
-        <label for="libelle">Nom</label>
         <input
           type="text"
           id="libelle"
@@ -136,7 +117,6 @@
       </div>
 
       <div class="formGroup">
-        <label for="montant">Montant</label>
         <input
           type="text"
           id="montant"
@@ -147,7 +127,6 @@
       </div>
 
       <div class="formGroup">
-        <label>Couleur</label>
         <ul class="formGroupColor">
           {#each colors as c}
             <li
@@ -162,7 +141,6 @@
       </div>
 
       <div class="formGroup">
-        <label>Icône</label>
         <ul class="formGroupIcon">
           {#each icons as it}
             <li
@@ -171,7 +149,7 @@
               role="button"
               tabindex="0"
             >
-              <i class={`fa-solid ${it.fa}`} style={`color:${it.color};`}></i>
+              <img class="category_icon" src={it.url} alt="" />
             </li>
           {/each}
         </ul>
@@ -328,7 +306,6 @@
   }
 
   .formGroupIcon li {
-    width: 100%;
     background-color: #20232e;
     border: 2px solid #3c4154;
     border-radius: 6px;
@@ -337,7 +314,12 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 1.5em 0;
+    padding: 1em 0;
+  }
+
+  .category_icon{
+    width: 70%;
+    filter: brightness(2.0);
   }
 
   .formGroupIcon li.selected {

@@ -16,134 +16,134 @@
       "password": "Admin3!!"
     }
   ],
-  "categories": [
-    {
-      "user_id": 1,
-      "name": "Alimentation",
-      "color": "#F4A261",
-      "icon": "/assets/categoryIcons/pot-food.PNG",
-      "max_budget": 320
-    },
-    {
-      "user_id": 1,
-      "name": "Voiture",
-      "color": "#2A9D8F",
-      "icon": "/assets/categoryIcons/car.PNG",
-      "max_budget": 250
-    },
-    {
-      "user_id": 1,
-      "name": "Loisir",
-      "color": "#E76F51",
-      "icon": "/assets/categoryIcons/gamepad.PNG",
-      "max_budget": 180
-    },
-    {
-      "user_id": 1,
-      "name": "Energie",
-      "color": "#264653",
-      "icon": "/assets/categoryIcons/bolt.PNG",
-      "max_budget": 140
-    },
-    {
-      "user_id": 1,
-      "name": "Santé",
-      "color": "#F94144",
-      "icon": "/assets/categoryIcons/hospital.PNG",
-      "max_budget": 120
-    },
-    {
-      "user_id": 1,
-      "name": "Transport",
-      "color": "#90BE6D",
-      "icon": "/assets/categoryIcons/car.PNG",
-      "max_budget": 200
-    },
-    {
-      "user_id": 1,
-      "name": "Abonnements",
-      "color": "#577590",
-      "icon": "/assets/categoryIcons/screwdriver-wrench.PNG",
-      "max_budget": 80
-    },
-    {
-      "user_id": 2,
-      "name": "Energie",
-      "color": "#6A4C93",
-      "icon": "/assets/categoryIcons/bolt.PNG",
-      "max_budget": 160
-    },
-    {
-      "user_id": 2,
-      "name": "Banque",
-      "color": "#8D99AE",
-      "icon": "/assets/categoryIcons/bank.PNG",
-      "max_budget": 40
-    },
-    {
-      "user_id": 2,
-      "name": "Maison",
-      "color": "#457B9D",
-      "icon": "/assets/categoryIcons/house.PNG",
-      "max_budget": 300
-    },
-    {
-      "user_id": 2,
-      "name": "Courses",
-      "color": "#F3722C",
-      "icon": "/assets/categoryIcons/cart-plus.PNG",
-      "max_budget": 350
-    },
-    {
-      "user_id": 2,
-      "name": "Loisir",
-      "color": "#43AA8B",
-      "icon": "/assets/categoryIcons/gamepad.PNG",
-      "max_budget": 150
-    },
-    {
-      "user_id": 2,
-      "name": "Santé",
-      "color": "#FF6D00",
-      "icon": "/assets/categoryIcons/hospital.PNG",
-      "max_budget": 120
-    },
-    {
-      "user_id": 3,
-      "name": "Restaurants",
-      "color": "#FFB703",
-      "icon": "/assets/categoryIcons/pot-food.PNG",
-      "max_budget": 220
-    },
-    {
-      "user_id": 3,
-      "name": "Loisir",
-      "color": "#8ECAE6",
-      "icon": "/assets/categoryIcons/gamepad.PNG",
-      "max_budget": 200
-    },
-    {
-      "user_id": 3,
-      "name": "Courses",
-      "color": "#219EBC",
-      "icon": "/assets/categoryIcons/cart-plus.PNG",
-      "max_budget": 300
-    },
-    {
-      "user_id": 3,
-      "name": "Santé",
-      "color": "#023047",
-      "icon": "/assets/categoryIcons/hospital.PNG",
-      "max_budget": 150
-    },
-    {
-      "user_id": 3,
-      "name": "Transport",
-      "color": "#FFB4A2",
-      "icon": "/assets/categoryIcons/car.PNG",
-      "max_budget": 180
-    }
-  ],
+"categories": [
+  {
+    "user_id": 1,
+    "name": "Alimentation",
+    "color": "#e63946",
+    "icon": "/assets/categoryIcons/pot-food.PNG",
+    "max_budget": 320
+  },
+  {
+    "user_id": 1,
+    "name": "Voiture",
+    "color": "#f77f00",
+    "icon": "/assets/categoryIcons/car.PNG",
+    "max_budget": 250
+  },
+  {
+    "user_id": 1,
+    "name": "Loisir",
+    "color": "#ffbe0b",
+    "icon": "/assets/categoryIcons/gamepad.PNG",
+    "max_budget": 180
+  },
+  {
+    "user_id": 1,
+    "name": "Energie",
+    "color": "#8ac926",
+    "icon": "/assets/categoryIcons/bolt.PNG",
+    "max_budget": 140
+  },
+  {
+    "user_id": 1,
+    "name": "Santé",
+    "color": "#1982c4",
+    "icon": "/assets/categoryIcons/hospital.PNG",
+    "max_budget": 120
+  },
+  {
+    "user_id": 1,
+    "name": "Transport",
+    "color": "#6a4c93",
+    "icon": "/assets/categoryIcons/car.PNG",
+    "max_budget": 200
+  },
+  {
+    "user_id": 1,
+    "name": "Abonnements",
+    "color": "#f72585",
+    "icon": "/assets/categoryIcons/screwdriver-wrench.PNG",
+    "max_budget": 80
+  },
+  {
+    "user_id": 2,
+    "name": "Energie",
+    "color": "#3a86ff",
+    "icon": "/assets/categoryIcons/bolt.PNG",
+    "max_budget": 160
+  },
+  {
+    "user_id": 2,
+    "name": "Banque",
+    "color": "#06d6a0",
+    "icon": "/assets/categoryIcons/bank.PNG",
+    "max_budget": 40
+  },
+  {
+    "user_id": 2,
+    "name": "Maison",
+    "color": "#ff5722",
+    "icon": "/assets/categoryIcons/house.PNG",
+    "max_budget": 300
+  },
+  {
+    "user_id": 2,
+    "name": "Courses",
+    "color": "#9b5de5",
+    "icon": "/assets/categoryIcons/cart-plus.PNG",
+    "max_budget": 350
+  },
+  {
+    "user_id": 2,
+    "name": "Loisir",
+    "color": "#ffb4a2",
+    "icon": "/assets/categoryIcons/gamepad.PNG",
+    "max_budget": 150
+  },
+  {
+    "user_id": 2,
+    "name": "Santé",
+    "color": "#e63946",
+    "icon": "/assets/categoryIcons/hospital.PNG",
+    "max_budget": 120
+  },
+  {
+    "user_id": 3,
+    "name": "Restaurants",
+    "color": "#f77f00",
+    "icon": "/assets/categoryIcons/pot-food.PNG",
+    "max_budget": 220
+  },
+  {
+    "user_id": 3,
+    "name": "Loisir",
+    "color": "#ffbe0b",
+    "icon": "/assets/categoryIcons/gamepad.PNG",
+    "max_budget": 200
+  },
+  {
+    "user_id": 3,
+    "name": "Courses",
+    "color": "#8ac926",
+    "icon": "/assets/categoryIcons/cart-plus.PNG",
+    "max_budget": 300
+  },
+  {
+    "user_id": 3,
+    "name": "Santé",
+    "color": "#1982c4",
+    "icon": "/assets/categoryIcons/hospital.PNG",
+    "max_budget": 150
+  },
+  {
+    "user_id": 3,
+    "name": "Transport",
+    "color": "#6a4c93",
+    "icon": "/assets/categoryIcons/car.PNG",
+    "max_budget": 180
+  }
+],
   "expenses": [
     {
       "title": "Course Auchan",

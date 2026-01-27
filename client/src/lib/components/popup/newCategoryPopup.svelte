@@ -15,19 +15,20 @@
   let error = "";
 
   const colors = [
-    "#ff3333",
-    "#ff4d4d",
-    "#ffa64d",
-    "#ffff4d",
-    "#6aff4d",
-    "#2ecc71",
-    "#1abc9c",
-    "#4dc3ff",
-    "#4c68f7",
-    "#a64dff",
-    "#6f2cff",
-    "#ff4da6",
+    "#e63946",
+    "#f77f00",
+    "#ffbe0b",
+    "#8ac926",
+    "#1982c4",
+    "#6a4c93",
+    "#f72585",
+    "#3a86ff",
+    "#06d6a0",
+    "#ff5722",
+    "#9b5de5",
+    "#ffb4a2",
   ];
+
 
   const icons = [
   { url: "/assets/categoryIcons/bank.PNG" },
@@ -144,28 +145,25 @@
 
     <form class="formNewCategory" on:submit|preventDefault={submit}>
       <div class="formGroup">
-        <label for="libelle">Nom</label>
         <input
           type="text"
           id="libelle"
-          placeholder="Facture EDF"
+          placeholder="Nom de la dépense"
           bind:value={name}
         />
       </div>
 
       <div class="formGroup">
-        <label for="montant">Montant</label>
         <input
           type="text"
           id="montant"
-          placeholder="60.00"
+          placeholder="Budget max (€)"
           bind:value={max_budget}
           inputmode="decimal"
         />
       </div>
 
       <div class="formGroup">
-        <label>Couleur</label>
         <ul class="formGroupColor">
           {#each colors as c}
             <li
@@ -180,7 +178,6 @@
       </div>
 
       <div class="formGroup">
-        <label>Icône</label>
         <ul class="formGroupIcon">
           {#each icons as it}
             <li
@@ -189,7 +186,7 @@
               role="button"
               tabindex="0"
             >
-            <img class="category_icon" src={it.url} alt="" />
+              <img class="category_icon" src={it.url} alt="" />
             </li>
           {/each}
         </ul>
@@ -359,7 +356,7 @@
 
   .category_icon{
     width: 70%;
-    filter: brightness(1.8);
+    filter: brightness(2.0);
   }
 
   .formGroupIcon li.selected {

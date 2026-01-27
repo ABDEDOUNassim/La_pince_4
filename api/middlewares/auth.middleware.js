@@ -27,7 +27,6 @@ export function validateRegisterUser(req, res, next) {
     next();
 }
 
-
 export function validateToken(req, res, next) {
 
     try {
