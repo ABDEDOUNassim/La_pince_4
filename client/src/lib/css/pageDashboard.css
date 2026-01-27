@@ -306,9 +306,7 @@ input {
   background-color: var(--bg-color);
   color: white;
   width: 100%;
-
   align-items: center;
-
   margin: 0 0 0.5em 0;
   border-radius: 10px;
   margin-bottom: 8px;
@@ -317,7 +315,7 @@ input {
 }
 
 .categoryDescription i {
-  border: none; /* On enlève les bordures inutiles */
+  border: none;
 }
 
 .categoryDescription i {
