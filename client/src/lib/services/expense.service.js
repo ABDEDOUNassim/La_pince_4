@@ -13,6 +13,9 @@ export const expenses = {
   get(id) {
     return request(`/expenses/${id}`);
   },
+  getTotal() {
+    return request("/expenses/total");
+  },
   create({ title, user_id, category_id, amount, date }) {
     return request("/expenses", {
       method: "POST",

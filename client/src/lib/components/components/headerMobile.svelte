@@ -2,11 +2,35 @@
   import logo from "../../../assets/logo/La_pince.png";
   import HomeSidebar from "../../components/sideBar/homeSidebar.svelte";
   import { auth } from "../../services/auth.service";
+  import { onMount } from "svelte";
 
   export let currentPage;
   export let isLoggedIn; // Recevoir l'état de connexion
 
   let open = false;
+  let userName = "";
+
+  // Fonction  our affichage du nom du user quand il est connecté
+  async function loadUserName() {
+    if (!isLoggedIn) return;
+
+    try {
+      const me = await auth.me();
+      userName = me.name || me.user?.name || "Utilisateur";
+    } catch (err) {
+      console.error("Erreur récupération nom:", err);
+    }
+  }
+
+  onMount(() => {
+    loadUserName();
+  });
+
+  $: if (isLoggedIn) {
+    loadUserName();
+  } else {
+    userName = "";
+  }
 
   // Fonction de déconnexion
   async function handleLogout() {
@@ -34,7 +58,19 @@
 
 <header>
   <section class="head">
-    <img src={logo} alt="Logo" />
+    <button
+      style="background: none; border: none; padding: 0; cursor: pointer;"
+      on:click={() => (currentPage = "home")}
+    >
+      <img src={logo} alt="Logo" />
+    </button>
+
+    <!--affichage du nom du user quand il est connecté -->
+
+    {#if isLoggedIn && userName}
+      <p class="textwelcome">Bienvenue {userName}</p>
+    {/if}
+
     <section class="deskstop">
       <!-- Si l'utilisateur n'est PAS connecté (page home, login, register) -->
       {#if !isLoggedIn}

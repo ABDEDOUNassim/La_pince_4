@@ -45,16 +45,6 @@
         <button
           class="btnhome"
           on:click={() => {
-            currentPage = "home";
-            open = false;
-          }}
-        >
-          Accueil
-        </button>
-
-        <button
-          class="btnhome"
-          on:click={() => {
             currentPage = "login";
             open = false;
           }}

@@ -1,13 +1,18 @@
 <script>
+  import { onMount } from "svelte";
+
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
   import EditCategoryPopup from "../components/popup/editCategorie.svelte";
+
   import { categories as categoriesApi } from "../services/category.service";
+  import { expenses as expensesApi } from "../services/expense.service";
 
   let openEdit = false;
   let editingCategory = null;
   let open = false;
   let currentPage = "category";
 
+  let expensesList = [];
   let categories = [];
   let loading = true;
   let error = "";
@@ -17,38 +22,62 @@
     editingCategory = cat;
     openEdit = true;
   }
-  async function handleSaved() {
-    openEdit = false;
-    editingCategory = null;
-    await loadCategories();
-  }
 
-  async function loadCategories() {
+  async function loadData() {
     try {
       loading = true;
       error = "";
-      categories = await categoriesApi.list();
+
+      const [cats, exps] = await Promise.all([
+        categoriesApi.list(),
+        expensesApi.list(),
+      ]);
+
+      categories = cats ?? [];
+      expensesList = (exps ?? []).map((e) => ({
+        ...e,
+        amount: Number(String(e.amount).replace(",", ".")),
+      }));
     } catch (e) {
-      error = e.message;
+      error = e.message ?? "Erreur API";
     } finally {
       loading = false;
     }
   }
-  loadCategories();
 
-  // création category
+  onMount(loadData);
+
+  // total dépensé par catégorie
+  $: categoriesWithTotals = categories.map((c) => {
+    const totalSpent = expensesList
+      .filter((e) => String(e.category_id) === String(c.id))
+      .reduce((sum, e) => sum + Number(e.amount), 0);
+
+    return { ...c, total_spent: totalSpent };
+  });
+
+  // tri décroissant (plus dépensé en premier)
+  $: sortedCategories = [...categoriesWithTotals].sort(
+    (a, b) => b.total_spent - a.total_spent,
+  );
+
+  async function handleSaved() {
+    openEdit = false;
+    editingCategory = null;
+    await loadData();
+  }
 
   async function handleCreated() {
     open = false;
-    await loadCategories();
+    await loadData();
   }
 
   async function handleDelete(id) {
     try {
       await categoriesApi.remove(id);
-      await loadCategories();
+      await loadData();
     } catch (e) {
-      error = e.message;
+      error = e.message ?? "Erreur suppression";
     }
   }
 </script>
@@ -60,6 +89,7 @@
     onCreated={handleCreated}
   />
 {/if}
+
 {#if openEdit}
   <EditCategoryPopup
     category={editingCategory}
@@ -84,7 +114,7 @@
     <p class="error">{error}</p>
   {:else}
     <section class="categoryDetail">
-      {#each categories as c (c.id)}
+      {#each sortedCategories as c (c.id)}
         <section class="categoryCard">
           <div class="categoryDescription" style="background-color: {c.color}">
             <span class="icon">
@@ -98,8 +128,10 @@
             <span class="budget">
               <p class="sum">
                 <strong>
-                  0,00 € /
-                  <span class="total">{Number(c.max_budget).toFixed(2)} €</span>
+                  {c.total_spent.toFixed(2).replace(".", ",")} € /
+                  <span class="total">
+                    {Number(c.max_budget).toFixed(2).replace(".", ",")} €
+                  </span>
                 </strong>
               </p>
             </span>
@@ -127,6 +159,3 @@
     </section>
   {/if}
 </main>
-
-<style>
-</style>

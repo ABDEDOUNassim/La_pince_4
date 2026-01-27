@@ -306,8 +306,7 @@ input {
   background-color: var(--bg-color);
   color: white;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+
   align-items: center;
 
   margin: 0 0 0.5em 0;

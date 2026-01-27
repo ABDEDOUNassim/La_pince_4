@@ -22,11 +22,6 @@
   gap: 1rem;
   margin-top: 1rem;
   color: white;
-  text-shadow:
-    -1px -1px 0 #000000,
-    1px -1px 0 #00000073,
-    -1px 1px 0 #000000,
-    1px 1px 0 #00000073;
 }
 
 .nav {
@@ -39,7 +34,7 @@
 .right {
   width: 100%;
 }
-<i class="fa-solid fa-pen-to-square" > </i > .filterBtn,
+.filterBtn,
 .addBtn {
   padding: 0.5em 2em;
 }

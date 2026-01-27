@@ -31,7 +31,16 @@
   let totalAmount = 0;
 
   $: labels = categoriesList.map((cat) => cat.name);
-  $: values = categoriesList.map((cat) => Number(cat.max_budget));
+  $: values = categoriesList.map((cat) => {
+    const catExpenses = expensesList.filter(
+      (e) => String(e.category_id) === String(cat.id),
+    );
+    const totalSpent = catExpenses.reduce(
+      (sum, expense) => sum + expense.amount,
+      0,
+    );
+    return totalSpent;
+  });
   $: colors = categoriesList.map((cat) => cat.color);
 
   let labels = [];
@@ -67,9 +76,6 @@
         console.error("Erreur de chargement :", err);
       }
     }
-
-    // Dès que le composant est prêt, on lance le chargement
-
     try {
       error = "";
       await expensesApi.remove(id);
@@ -117,7 +123,7 @@
     });
   }
 
-  // ✅ filtrage live (nom ou montant + catégorie + dates)
+  // Filtre
   $: filteredExpenses = expensesList.filter((e) => {
     const q = search.trim().toLowerCase();
 
@@ -147,12 +153,9 @@
   const MAX_ROWS = 5;
 
   // tri du plus récent au plus ancien (important pour la limite)
-  $: sortedExpenses = [...filteredExpenses].sort((a, b) => {
-    if (b.date !== a.date) {
-      return b.date.localeCompare(a.date);
-    }
-    return Number(b.id) - Number(a.id);
-  });
+  $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
+    String(b.date).localeCompare(String(a.date)),
+  );
 
   // on limite à 5 lignes
   $: limitedExpenses = sortedExpenses.slice(0, MAX_ROWS);
@@ -162,6 +165,25 @@
     (acc[key] ||= []).push(e);
     return acc;
   }, {});
+
+  // limite de 3 categorie sur le dashboard
+
+  const MAX_CATEGORIES = 3;
+
+  $: categoryTotals = categoriesList.map((cat) => {
+    const totalSpent = expensesList
+      .filter((e) => String(e.category_id) === String(cat.id))
+      .reduce((sum, e) => sum + Number(e.amount), 0);
+
+    return {
+      ...cat,
+      total_spent: totalSpent,
+    };
+  });
+
+  $: topCategories = categoryTotals
+    .sort((a, b) => b.total_spent - a.total_spent)
+    .slice(0, MAX_CATEGORIES);
 
   // editExpense
 
@@ -208,17 +230,6 @@
       editingExpense = null;
     }}
     onSaved={handleExpenseSaved}
-  />
-{/if}
-
-{#if open}
-  <NewExpensesPopup
-    {currentPage}
-    onClose={() => (open = false)}
-    on:saved={async () => {
-      open = false;
-      await Promise.all([loadData(), loadTotal(), loadCategories()]);
-    }}
   />
 {/if}
 
@@ -387,17 +398,26 @@
 
     <!-- -- -->
     <section class="categoryDetailed">
-      {#each listCategories as cat}
+      {#each topCategories as cat (cat.id)}
         <div class="categoryDescription" style="--bg-color: {cat.color};">
+          <span>
+            <i class={cat.icon} style="color: {cat.color};"></i>
+          </span>
+
           <p class="nameCategory"><strong>{cat.name}</strong></p>
+
           <p class="sum">
-            <strong
-              >0.00 € / <span class="total">{cat.max_budget} €</span></strong
-            >
+            <span class="resultAmount">
+              {Number(cat.total_spent).toFixed(2)} €
+            </span>
+          </p>
+
+          <p class="sum">
+            <span class="total">
+              / {Number(cat.max_budget).toFixed(2)} €
+            </span>
           </p>
         </div>
-      {:else}
-        <p>Chargement des catégories...</p>
       {/each}
     </section>
   </section>
