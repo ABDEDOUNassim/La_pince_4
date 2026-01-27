@@ -5,6 +5,10 @@
 }
 
 /* left grid */
+.username{
+  color: var(--textSecondairePlaceholder);
+  font-family: text, sans-serif;
+}
 
 /* Expense */
 

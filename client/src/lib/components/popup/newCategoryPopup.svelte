@@ -1,6 +1,16 @@
 <script>
   import { auth } from "../../services/auth.service";
   import { categories } from "../../services/category.service.js";
+  // import { auth, categories } from "../../../api.js";
+  // import cartIcon from "../../../assets/iconNewCategory/bolt-solid-full.png";
+  // import carIcon from "../../../assets/iconNewCategory/car.png";
+  // import boltIcon from "../../../assets/iconNewCategory/bolt.png";
+  // import faucetIcon from "../../../assets/iconNewCategory/faucet.png";
+  // import wrenchIcon from "../../../assets/iconNewCategory/wrench.png";
+  // import hospitalIcon from "../../../assets/iconNewCategory/hospital.png";
+  // import moneyIcon from "../../../assets/iconNewCategory/money.png";
+  // import houseIcon from "../../../assets/iconNewCategory/house.png";
+  // import gasIcon from "../../../assets/iconNewCategory/gas.png";
 
   export let currentPage;
   export let onClose = () => {};
@@ -73,6 +83,45 @@
       color: "#FFD43B",
     },
   ];
+// <ul>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={cartIcon} alt="un panier" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={carIcon} alt="une voiture" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={boltIcon} alt="un éclair" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={faucetIcon} alt="un robinet" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={wrenchIcon} alt="une clé à molette" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={hospitalIcon} alt="un hôpital" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={moneyIcon} alt="de l'argent" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={houseIcon} alt="une maison" />
+//   </li>
+//   <li>
+//     <a href="https://www.google.com/"></a>
+//     <img src={gasIcon} alt="du gaz" />
+//   </li>
+// </ul>
+
 
   function selectColor(hex) {
     color = hex;
