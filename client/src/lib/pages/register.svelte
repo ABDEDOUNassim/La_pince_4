@@ -8,10 +8,13 @@
   let error = "";
   let loading = false;
 
-  export let currentPage; 
+  export let currentPage;
+  export let isLoggedIn;
 
   async function handleSubmit(event) {
     event.preventDefault(); // bloque le submit HTML
+
+    // vérif de base
     if (!mentions) {
       error = "Veuillez accepter les mentions légales";
       return;
@@ -25,13 +28,18 @@
       loading = true;
       error = "";
 
+      // appel l'api pour créer le compte
       const response = await auth.register({
         name: pseudo,
         email,
         password,
       });
 
-      alert("Inscription réussie !");
+      // Mettre à jour l'état de connexion
+      isLoggedIn = true;
+
+      // Rediriger vers le dashboard
+      currentPage = "dashboard";
     } catch (err) {
       console.error("❌ ERREUR:", err);
       error = err.message || "Erreur lors de l'inscription";

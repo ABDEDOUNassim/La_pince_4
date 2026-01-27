@@ -40,8 +40,8 @@
 
   <section class="content">
     <nav class="menu">
-      <!-- UTILISATEUR NON CONNECTÉ -->
       {#if !isLoggedIn}
+        <!-- UTILISATEUR NON CONNECTÉ -->
         <button
           class="btnhome"
           on:click={() => {
@@ -61,11 +61,9 @@
         >
           S'inscrire
         </button>
-
-        <!-- UTILISATEUR CONNECTÉ -->
       {:else}
-        <!-- Si on est sur CATEGORY → bouton Dashboard -->
-        {#if currentPage === "category"}
+        <!-- UTILISATEUR CONNECTÉ -->
+        {#if currentPage !== "dashboard"}
           <button
             class="btnhome"
             on:click={() => {
@@ -77,8 +75,7 @@
           </button>
         {/if}
 
-        <!-- Si on est sur DASHBOARD → bouton Catégories -->
-        {#if currentPage === "dashboard"}
+        {#if currentPage !== "category"}
           <button
             class="btnhome"
             on:click={() => {
@@ -90,7 +87,6 @@
           </button>
         {/if}
 
-        <!-- Déconnexion -->
         <button class="btnhome" on:click={handleLogout}>
           Se déconnecter
         </button>

@@ -21,126 +21,126 @@
       "user_id": 1,
       "name": "Alimentation",
       "color": "#F4A261",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/pot-food.PNG",
       "max_budget": 320
     },
     {
       "user_id": 1,
       "name": "Voiture",
       "color": "#2A9D8F",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/car.PNG",
       "max_budget": 250
     },
     {
       "user_id": 1,
       "name": "Loisir",
       "color": "#E76F51",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/gamepad.PNG",
       "max_budget": 180
     },
     {
       "user_id": 1,
       "name": "Energie",
       "color": "#264653",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/bolt.PNG",
       "max_budget": 140
     },
     {
       "user_id": 1,
       "name": "Santé",
       "color": "#F94144",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/hospital.PNG",
       "max_budget": 120
     },
     {
       "user_id": 1,
       "name": "Transport",
       "color": "#90BE6D",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/car.PNG",
       "max_budget": 200
     },
     {
       "user_id": 1,
       "name": "Abonnements",
       "color": "#577590",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/screwdriver-wrench.PNG",
       "max_budget": 80
     },
     {
       "user_id": 2,
       "name": "Energie",
       "color": "#6A4C93",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/bolt.PNG",
       "max_budget": 160
     },
     {
       "user_id": 2,
       "name": "Banque",
       "color": "#8D99AE",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/bank.PNG",
       "max_budget": 40
     },
     {
       "user_id": 2,
       "name": "Maison",
       "color": "#457B9D",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/house.PNG",
       "max_budget": 300
     },
     {
       "user_id": 2,
       "name": "Courses",
       "color": "#F3722C",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/cart-plus.PNG",
       "max_budget": 350
     },
     {
       "user_id": 2,
       "name": "Loisir",
       "color": "#43AA8B",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/gamepad.PNG",
       "max_budget": 150
     },
     {
       "user_id": 2,
       "name": "Santé",
       "color": "#FF6D00",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/hospital.PNG",
       "max_budget": 120
     },
     {
       "user_id": 3,
       "name": "Restaurants",
       "color": "#FFB703",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/pot-food.PNG",
       "max_budget": 220
     },
     {
       "user_id": 3,
       "name": "Loisir",
       "color": "#8ECAE6",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/gamepad.PNG",
       "max_budget": 200
     },
     {
       "user_id": 3,
       "name": "Courses",
       "color": "#219EBC",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/cart-plus.PNG",
       "max_budget": 300
     },
     {
       "user_id": 3,
       "name": "Santé",
       "color": "#023047",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/hospital.PNG",
       "max_budget": 150
     },
     {
       "user_id": 3,
       "name": "Transport",
       "color": "#FFB4A2",
-      "icon": "https://placehold.co/32x32.png",
+      "icon": "/assets/categoryIcons/car.PNG",
       "max_budget": 180
     }
   ],

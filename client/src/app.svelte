@@ -16,14 +16,14 @@
   import EditExpenses from "./lib/components/popup/editExpenses.svelte";
 
   let currentPage = "home";
-  
+
   // Variable pour gérer l'état de connexion de l'utilisateur
   let isLoggedIn = false;
-  
+
   // Au chargement de l'app, vérifier si un token existe dans le localStorage
   // Si oui, l'utilisateur est déjà connecté
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('token');
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
     if (token) {
       isLoggedIn = true;
     }
@@ -56,16 +56,16 @@
     <Dashboard bind:currentPage />
   {:else}
     <!-- Si pas connecté, rediriger vers login -->
-    {currentPage = "login"}
+    {(currentPage = "login")}
   {/if}
 {:else if currentPage === "register"}
-  <Register bind:currentPage />
+  <Register bind:currentPage bind:isLoggedIn />
 {:else if currentPage === "category"}
   <!-- Vérifier si l'utilisateur est connecté avant d'afficher les catégories -->
   {#if isLoggedIn}
     <Category />
   {:else}
-    {currentPage = "login"}
+    {(currentPage = "login")}
   {/if}
 {:else if currentPage === "HomeSidebar"}
   <HomeSidebar />
