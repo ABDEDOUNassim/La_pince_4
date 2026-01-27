@@ -107,6 +107,9 @@ export const expenses = {
   byMonth(yyyyMm) {
     return request(`/expenses/by-month/${yyyyMm}`);
   },
+  getTotal() {
+    return request("/expenses/total");
+  },
   get(id) {
     return request(`/expenses/${id}`);
   },

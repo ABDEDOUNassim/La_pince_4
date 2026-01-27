@@ -298,6 +298,9 @@ input {
 ------------------------- */
 
 .categoryDescription {
+.categoryDescription{
+  background-color: var(--bg-color); 
+  color: white;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -305,11 +308,16 @@ input {
 
   margin: 0 0 0.5em 0;
   border-radius: 10px;
-  padding: 0.3em;
+  margin-bottom: 8px;
+  padding: 12px;
   letter-spacing: 0.1em;
 }
 
 .categoryDescription i {
+  border: none; /* On enlève les bordures inutiles */
+}
+
+.categoryDescription i{
   font-size: 2em;
 }
 
@@ -318,6 +326,8 @@ input {
 .total {
   color: #fff;
   letter-spacing: 0.1em;
+  opacity: 0.9;
+  margin: 0;
 }
 
 /* -------------------------

@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import DonutChart from "../components/components/donutChart.svelte";
   import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
@@ -20,6 +21,17 @@
   let categoryId = "";
   let dateFrom = "";
   let dateTo = "";
+    categories as categoriesApi,
+    expenses as expensesApi,
+  } from "../../api";
+  import { auth } from "../services/auth.service";
+
+  let listCategories = [];
+  let totalAmount = 0;
+
+  $: labels = listCategories.map((cat) => cat.name);
+  $: values = listCategories.map((cat) => Number(cat.max_budget));
+  $: colors = listCategories.map((cat) => cat.color);
 
   let open = false;
   let currentPage = "dashboard";
@@ -38,6 +50,36 @@
   // supression d'une dépense
   async function handleDeleteExpense(id) {
     if (!confirm("Supprimer cette dépense ?")) return;
+  async function loadTotal() {
+    try {
+      const result = await expensesApi.getTotal();
+
+      // On vérifie juste si on a reçu un total valide
+      if (result && result.total !== undefined) {
+        totalAmount = result.total;
+      }
+    } catch (err) {
+      console.error("Erreur chargement total :", err);
+    }
+  }
+
+  async function loadCategories() {
+    try {
+      // On demande à l'API de nous donner la liste
+      listCategories = await categoriesApi.list();
+      console.log("Mes catégories :", listCategories);
+    } catch (err) {
+      console.error("Erreur de chargement :", err);
+    }
+  }
+
+  // Dès que le composant est prêt, on lance le chargement
+
+  onMount(() => {
+    loadCategories();
+    loadTotal();
+    checkMe();
+  });
 
     try {
       error = "";
@@ -142,6 +184,7 @@
     editingExpense = null;
     await loadData();
   }
+  
 </script>
 
 {#if open}
@@ -166,7 +209,9 @@
 
     <section class="expensesTotalLeft">
       <p class="expenseTitle">Dépenses total</p>
-      <span class="expense"><p><strong>1125,58 €</strong></p></span>
+      <span class="expense">
+        <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
+      </span>
     </section>
 
     <section class="search">
@@ -180,6 +225,9 @@
           <i class="fa-solid fa-sliders"></i>
         </button>
 
+        <button class="searchBtn" aria-label="Paramètres"
+          ><i class="fa-solid fa-sliders"></i></button
+        >
         <div class="searchBarMiddle">
           <label for="searchBar" class="srOnly">Recherche</label>
           <input
@@ -195,10 +243,18 @@
         <button class="searchBtn" on:click={applyFilters} title="Appliquer">
           <i class="fa-solid fa-filter"></i>
         </button>
+        <button class="searchBtn" aria-label="Filtrer"
+          ><i class="fa-solid fa-filter"></i></button
+        >
       </div>
 
       <div class="addExpense">
         <button class="btn" on:click={() => (open = !open)}>
+        <button
+          class="btn"
+          on:click={() => (open = !open)}
+          aria-label="Ajouter une dépense"
+        >
           <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
         </button>
       </div>
@@ -240,8 +296,6 @@
       {/if}
       {#if search.trim() || categoryId || dateFrom || dateTo}{/if}
     </section>
-
-    <!-- Expenses -->
 
     <section class="expensesDetailed">
       {#each Object.entries(groupedByDay) as [day, items]}
@@ -290,23 +344,48 @@
           </div>
         {/each}
       {/each}
+      <div class="expensesDescription1">
+        <span
+          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
+          ></i></span
+        >
+        <span><p class="description">Facture électricité</p></span>
+        <span><p class="montant"><strong>152,12 €</strong></p></span>
+      </div>
     </section>
   </section>
-
-  <!-- Right -->
-
   <section class="rightBlock">
     <section class="expensesTotalRight">
       <p class="expenseTitle">Dépenses total</p>
-      <span class="expense"><p><strong>1125,58 €</strong></p></span>
+      <span class="expense">
+        <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
+      </span>
     </section>
 
-    <!-- Diagrame -->
-
     <section class="diagrame">
-      <DonutChart {labels} {values} />
+      {#if labels.length > 0}
+        {#key labels}
+          <DonutChart {labels} {values} {colors} />
+        {/key}
+      {:else}
+        <p>Chargement du graphique...</p>
+      {/if}
     </section>
 
     <!-- -- -->
+    <section class="categoryDetailed">
+      {#each listCategories as cat}
+        <div class="categoryDescription" style="--bg-color: {cat.color};">
+          <p class="nameCategory"><strong>{cat.name}</strong></p>
+          <p class="sum">
+            <strong
+              >0.00 € / <span class="total">{cat.max_budget} €</span></strong
+            >
+          </p>
+        </div>
+      {:else}
+        <p>Chargement des catégories...</p>
+      {/each}
+    </section>
   </section>
 </main>
