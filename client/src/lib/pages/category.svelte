@@ -1,5 +1,6 @@
 <script>
   import NewCategoryPopup from "../components/popup/newCategoryPopup.svelte";
+  import EditCategoryPopup from "../components/popup/editCategorie.svelte";
   import { categories as categoriesApi } from "../services/category.service";
 
   let openEdit = false;
@@ -74,7 +75,6 @@
   <h1>Catégorie</h1>
 
   <div class="nav">
-    <button class="filterBtn">Filtre</button>
     <button class="addBtn" on:click={() => (open = true)}>Ajouter</button>
   </div>
 

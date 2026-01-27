@@ -1,12 +1,33 @@
 @import "./pageHome.css";
 
+/* -------------------------
+   Base
+------------------------- */
+
 .main {
   display: block;
 }
 
-/* left grid */
+input {
+  color-scheme: dark;
+}
 
-/* Expense */
+/* Accessibilité (label invisible) */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -------------------------
+   Cards : Totaux
+------------------------- */
 
 .expensesTotalLeft,
 .expensesTotalRight {
@@ -22,34 +43,46 @@
   font-size: 20px;
   padding-top: 1em;
 }
+
 .expense {
   font-size: 55px;
   letter-spacing: 0.1em;
 }
 
-/* Search */
+/* Spécifique colonne droite */
+.expensesTotalRight {
+  margin-top: 3em;
+}
+
+/* -------------------------
+   Search + actions
+------------------------- */
 
 .search {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5em;
   margin-top: 1em;
+  position: relative;
 }
+
 .searchBar {
   background-color: var(--backgroundCarte);
   border: 1px solid var(--bordure);
   border-radius: 10px;
+
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+
   width: 100%;
   padding: 0.3em 0;
-  margin-right: 1em;
 }
+
 .searchBarMiddle {
   display: flex;
   width: 100%;
 }
+
 .searchBarMiddle input {
   width: 100%;
   margin: 0 0.5em;
@@ -58,67 +91,213 @@
   text-align: center;
 }
 
-/* Icon plus button  search bar*/
+.addExpense {
+  display: flex;
+  margin: 0.2em 0;
+  margin-right: 0.2em;
+}
 
-.fa-sliders {
-  color: var(--textSecondairePlaceholder);
-  font-size: 2em;
-  margin-left: 0.3em;
-}
-.fa-filter {
-  color: var(--textSecondairePlaceholder);
-  font-size: 2em;
-  margin-right: 0.3em;
-}
-.fa-plus {
-  font-size: 2em;
-}
+/* Boutons de la barre */
 .searchBtn {
   border: none;
-  margin-top: -0.1em;
   background-color: var(--backgroundPrincipal);
+  cursor: pointer;
 }
+
 .searchBtn:hover {
   background: none;
 }
 
-/* Expenses detail */
+/* Icônes dans la barre (plus robuste que .fa-sliders/.fa-filter) */
+.searchBtn i {
+  color: var(--textSecondairePlaceholder);
+  font-size: 2em;
+}
+
+.fa-plus {
+  font-size: 2em;
+}
+
+/* -------------------------
+   Filters panel
+------------------------- */
+
+.filtersPanel {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  padding: 14px;
+
+  border: 1px solid #3c4154;
+  border-radius: 12px;
+  background: rgba(20, 23, 32, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.filtersRow {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  color: #c8d4e4;
+  font-family: text, sans-serif;
+  font-size: 0.95rem;
+}
+
+.field select,
+.field input[type="date"] {
+  width: 100%;
+  padding: 0.8em;
+
+  background-color: var(--backgroundListe, #141720);
+  border: 1px solid #3c4154;
+  color: #e1e1e1;
+
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: text, sans-serif;
+}
+
+.filtersActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btnSecondary,
+.btnPrimary {
+  cursor: pointer;
+  border: none;
+  padding: 0.7em 1em;
+  border-radius: 8px;
+  font-family: bouton, sans-serif;
+  font-weight: bold;
+}
+
+.btnSecondary {
+  background: transparent;
+  border: 1px solid #3c4154;
+  color: #e1e1e1;
+}
+
+.btnPrimary {
+  background: #559cd2;
+  color: #fff;
+}
+
+.btnPrimary:hover {
+  background: #1d6fdb;
+}
+
+/* -------------------------
+   Expenses list
+------------------------- */
 
 .expensesDetailed {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   margin-top: 2em;
 }
 
-.expensesDescription,
-.expensesDescription1 {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #4caf50;
-  margin: 0 0 0.5em 0;
+.date {
+  margin-bottom: 0.2em;
+}
+
+/* Conteneur des résultats (si tu l’utilises) */
+.searchResults {
+  margin-top: 0.5em;
+  background-color: var(--backgroundCarte);
   border-radius: 10px;
-  padding: 0.3em;
-  letter-spacing: 0.1em;
-}
-.expensesDescription1 {
-  border: 1px solid #f59e0b;
+  border: 1px solid var(--bordure);
+  overflow: hidden;
 }
 
-.expensesDescription i,
-.expensesDescription1 i {
-  font-size: 2em;
+/* Une ligne */
+.resultRow {
+  display: grid;
+  grid-template-columns: 40% 20% 20%;
+  justify-content: space-between;
+  gap: 0.8em;
+  width: 100%;
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid var(--bordure);
 }
 
-/* Right grid */
-
-.expensesTotalRight {
-  margin-top: 3em;
+/* Partie gauche (icone + titre) */
+.resultLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 0;
 }
 
+.resultTitle {
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resultAmount {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.miniIcon {
+  border-radius: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Ligne “expenseRow” colorée via --cat-color */
+.expenseRow {
+  border: 2px solid var(--cat-color);
+  border-radius: 10px;
+  margin: 0.5em 0;
+  width: 100%; /* <-- au lieu de 105% */
+  color: var(--textSecondairePlaceholder);
+}
+
+.btnEdit {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+}
+
+/* Boutons edit/delete dans la ligne */
+.editBtn,
+.deleteBtn {
+  background-color: var(--bouttonPrincipal);
+  border: none;
+  cursor: pointer;
+}
+
+.editBtn i,
+.deleteBtn i {
+  font-size: 1.5em;
+}
+
+/* -------------------------
+   Category blocks (droite)
+   (tu as 2 versions : normal + "1")
+------------------------- */
+
+.categoryDescription {
 .categoryDescription{
   background-color: var(--bg-color); 
   color: white;
@@ -126,10 +305,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin: 0 0 0.5em 0;
   border-radius: 10px;
   margin-bottom: 8px;
   padding: 12px;
   letter-spacing: 0.1em;
+}
+
+.categoryDescription i {
   border: none; /* On enlève les bordures inutiles */
 }
 
@@ -137,36 +321,55 @@
   font-size: 2em;
 }
 
-.date {
-  margin-bottom: 0.2em;
-}
-
 .nameCategory,
-.nameCategory1,
 .sum,
-.sum1,
-.total,
-.total1 {
-  color: rgb(255, 255, 255);
+.total {
+  color: #fff;
   letter-spacing: 0.1em;
   opacity: 0.9;
   margin: 0;
 }
 
-/* Media query */
+/* -------------------------
+   Responsive
+------------------------- */
 
+@media (max-width: 1100px) {
+  .resultRow {
+    display: grid;
+    grid-template-columns: 40% 20% 20%;
+  }
+}
 @media (min-width: 800px) {
   .main {
     display: grid;
     grid-template-columns: 47% 47%;
     gap: 6%;
   }
+
   .expensesTotalLeft {
     display: none;
   }
 }
+
 @media (max-width: 800px) {
   .rightBlock {
     display: none;
+  }
+}
+
+@media (max-width: 938px) {
+  .filtersRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 530px) {
+  .resultRow {
+    display: grid;
+    grid-template-columns: 40% 20% 20%;
+  }
+  .btn {
+    width: 100%;
   }
 }

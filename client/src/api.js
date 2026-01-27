@@ -1,9 +1,6 @@
 // src/lib/api.js
 const BASE = import.meta.env.VITE_API_URL;
 
-update: (id, data) =>
-  request(`/categories/${id}`, { method: "PATCH", body: data });
-
 // --- Token helpers ---
 export function getToken() {
   return localStorage.getItem("token");
@@ -35,11 +32,9 @@ async function request(path, { method = "GET", body, headers = {} } = {}) {
     body: body ? JSON.stringify(body) : undefined,
   });
 
-  console.log("📡 Statut:", res.status);
-
   if (!res.ok) {
     const txt = await res.text().catch(() => "");
-    console.error("❌ Erreur serveur:", txt);
+
     throw new Error(txt || `Erreur API ${res.status}`);
   }
 
@@ -98,7 +93,7 @@ export const categories = {
     });
   },
   remove(id) {
-    return request(`/categories/${id}`, { method: "DELETE" }); // ← CORRIGÉ
+    return request(`/categories/${id}`, { method: "DELETE" });
   },
 };
 
@@ -107,16 +102,16 @@ export const expenses = {
     return request("/expenses");
   },
   listLimit(limit) {
-    return request(`/expenses?limit=${encodeURIComponent(limit)}`); // ← CORRIGÉ
+    return request(`/expenses?limit=${encodeURIComponent(limit)}`);
   },
   byMonth(yyyyMm) {
-    return request(`/expenses/by-month/${yyyyMm}`); // ← CORRIGÉ
+    return request(`/expenses/by-month/${yyyyMm}`);
   },
   getTotal() {
     return request("/expenses/total");
   },
   get(id) {
-    return request(`/expenses/${id}`); // ← CORRIGÉ
+    return request(`/expenses/${id}`);
   },
   create({ title, user_id, category_id, amount, date }) {
     return request("/expenses", {
@@ -126,12 +121,11 @@ export const expenses = {
   },
   update(id, { title, category_id, amount, date }) {
     return request(`/expenses/${id}`, {
-      // ← CORRIGÉ
       method: "PATCH",
       body: { title, category_id, amount, date },
     });
   },
   remove(id) {
-    return request(`/expenses/${id}`, { method: "DELETE" }); // ← CORRIGÉ
+    return request(`/expenses/${id}`, { method: "DELETE" });
   },
 };
