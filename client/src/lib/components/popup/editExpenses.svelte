@@ -1,52 +1,65 @@
 <script>
   import { expenses as expensesApi } from "../../services/expense.service";
+  import { categories as categoriesApi } from "../../services/category.service";
 
   export let onClose = () => {};
   export let onSaved = () => {};
-  export let expense = null; // ✅ dépense à éditer
+  export let expense = null;
 
   let title = "";
   let amount = "";
-
+  let category_id = "";
+  let categoriesList = [];
   let loading = false;
   let error = "";
+
+  // Charger les catégories au montage
+  async function loadCategories() {
+    try {
+      categoriesList = await categoriesApi.list();
+    } catch (e) {
+      console.error("Erreur chargement catégories :", e);
+    }
+  }
+
+  loadCategories();
 
   // Pré-remplissage quand la dépense arrive
   $: if (expense) {
     title = expense.title ?? "";
     amount = String(expense.amount ?? "");
+    category_id = String(expense.category_id ?? "");
   }
 
   async function submit() {
     try {
       error = "";
-
       if (!expense?.id) {
         throw new Error("Dépense introuvable.");
       }
-
       const trimmed = title.trim();
       if (!trimmed) {
         throw new Error("Le libellé est obligatoire.");
       }
-
       const parsedAmount = Number(
         String(amount).replace(",", ".").replace("€", "").trim(),
       );
-
       if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
         throw new Error("Le montant doit être un nombre > 0 (ex: 60.00).");
       }
+      if (!category_id) {
+        throw new Error("La catégorie est obligatoire.");
+      }
 
       loading = true;
-
       await expensesApi.update(expense.id, {
         title: trimmed,
         amount: parsedAmount,
+        category_id: category_id,
       });
 
-      onSaved(); // recharge la liste
-      onClose(); // ferme le popup
+      onSaved();
+      onClose();
     } catch (e) {
       error = e.message ?? "Erreur inconnue";
     } finally {
@@ -85,6 +98,15 @@
           bind:value={amount}
           inputmode="decimal"
         />
+      </div>
+
+      <div class="formGroup">
+        <label for="category">Catégorie</label>
+        <select id="category" bind:value={category_id} required>
+          {#each categoriesList as cat (cat.id)}
+            <option value={cat.id}>{cat.name}</option>
+          {/each}
+        </select>
       </div>
 
       {#if error}
@@ -183,7 +205,8 @@
     padding-left: 0.3em;
   }
 
-  .formGroup input {
+  .formGroup input,
+  #category {
     width: 100%;
     padding: 0.8em;
     background-color: #141720;
