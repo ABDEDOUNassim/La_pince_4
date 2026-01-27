@@ -34,7 +34,7 @@
   { url: "/assets/categoryIcons/bolt.PNG" },
   { url: "/assets/categoryIcons/car.PNG" },
   { url: "/assets/categoryIcons/cart-plus.PNG" },
-  { url: "/assets/categoryIcons/cart-plus.PNG" },
+  { url: "/assets/categoryIcons/hospital.PNG" },
   { url: "/assets/categoryIcons/faucet-drip.PNG" },
   { url: "/assets/categoryIcons/gamepad.PNG" },
   { url: "/assets/categoryIcons/gas-pump.PNG" },
