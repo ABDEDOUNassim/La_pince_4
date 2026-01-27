@@ -3,6 +3,7 @@
   import DonutChart from "../components/components/donutChart.svelte";
   import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
+  import WarningPopup from "../components/popup/warningPopup.svelte";
 
   import { auth } from "../services/auth.service";
   import { categories as categoriesApi } from "../services/category.service";
@@ -30,7 +31,26 @@
   let listCategories = [];
   let totalAmount = 0;
 
+ // On garde le calcul du total pour l'affichage en haut à gauche
   $: totalAmount = expensesList.reduce((sum, e) => sum + e.amount, 0);
+
+  let showWarningPopup = false;
+  let warningDismissed = false;
+
+  // Svelte va chercher ici si une catégorie dépasse son budget
+  $: alertCategories = categoryTotals.filter(cat => 
+    Number(cat.max_budget) > 0 && 
+    cat.total_spent >= (Number(cat.max_budget) * 0.9)
+  );
+
+  
+  $: if (alertCategories.length > 0 && !warningDismissed) {
+    showWarningPopup = true;
+  }
+  
+  $: if (!alertCategories.length === 0) {
+    warningDismissed = false;
+  }
   $: labels = categoriesList.map((cat) => cat.name);
   $: values = categoriesList.map((cat) => {
     const catExpenses = expensesList.filter(
@@ -232,6 +252,15 @@
   />
 {/if}
 
+{#if showWarningPopup}
+  <WarningPopup 
+    categories={alertCategories}
+    on:close={() => {
+      showWarningPopup = false;
+      warningDismissed = true; 
+  }} />
+{/if}
+
 <main class="main">
   <!-- Left -->
   <section class="leftBlock">
@@ -377,7 +406,7 @@
   <!-- Right -->
   <section class="rightBlock">
     <section class="expensesTotalRight">
-      <p class="expenseTitle">Dépenses total</p>
+      <p class="expenseTitle">Dépenses total mensuelles</p>
       <span class="expense">
         <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
       </span>

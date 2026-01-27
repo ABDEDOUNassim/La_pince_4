@@ -1,14 +1,42 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import DangerIcon from "../../../assets/icon/attentionSmall.png";
+
+  export let categories = []; 
+
+  const dispatch = createEventDispatcher();
+
+  function closePopup() {
+    dispatch("close");
+  }
 </script>
 
 <div class="popupContainer">
-  <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
+  <a class="close" href={"#"} on:click|preventDefault={closePopup}>
+    <i class="fa-solid fa-xmark"></i>
+  </a>
+  
   <div class="popup">
-    <img src={DangerIcon} alt="Pop-up d'alerte de budget" />
-    <p class="texte">Budget maximum bientôt atteint</p>
+    <img src={DangerIcon} alt="Attention" />
+    <div class="content">
+      <p class="title">Attention aux budgets !</p>
+      
+      <div class="scroll-zone">
+        {#each categories as cat}
+          <div class="details">
+            <p class="catName">{cat.name}</p>
+            <p class="amounts">
+              <span class="red">{Number(cat.total_spent).toFixed(2)} €</span> 
+              <span class="grey"> / {Number(cat.max_budget).toFixed(2)} €</span>
+            </p>
+          </div>
+        {/each}
+      </div>
+
+    </div>
   </div>
 </div>
+
 
 <style>
   .popupContainer {
@@ -18,10 +46,11 @@
     transform: translate(-50%, -50%);
     width: 70%;
     max-width: 500px;
-    background-color: var(--BackgroudCarte);
+    background-color: #141720;
     padding: 16px;
     border-radius: 12px;
     z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
 
   .popupContainer:hover {
