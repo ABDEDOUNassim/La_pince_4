@@ -3,22 +3,17 @@
   import DonutChart from "../components/components/donutChart.svelte";
   import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
-  import {
-    auth,
-    categories as categoriesApi,
-    expenses as expensesApi,
-  } from "../../api";
+
+  import { auth } from "../services/auth.service";
+  import { categories as categoriesApi } from "../services/category.service";
+  import { expenses as expensesApi } from "../services/expense.service";
 
   let loading = true;
   let error = "";
   let expensesList = [];
   let categoriesList = [];
   let categoriesById = new Map();
-  import { auth } from "../../api";
-  import { onMount } from "svelte";
 
-  let labels = ["Courses", "Electricité", "Loisir", "Garagiste"];
-  let values = [300, 150, 80, 200];
   let open = false;
   export let currentPage;
 
@@ -28,68 +23,52 @@
   let categoryId = "";
   let dateFrom = "";
   let dateTo = "";
-    categories as categoriesApi,
-    expenses as expensesApi,
-  } from "../../api";
-  import { auth } from "../services/auth.service";
-  // Variable pour stocker les informations de l'utilisateur connecté
+  // import { auth } from "../services/auth.service";
   let userName = "";
   let userId = null;
 
   let listCategories = [];
   let totalAmount = 0;
 
-  $: labels = listCategories.map((cat) => cat.name);
-  $: values = listCategories.map((cat) => Number(cat.max_budget));
-  $: colors = listCategories.map((cat) => cat.color);
+  $: labels = categoriesList.map((cat) => cat.name);
+  $: values = categoriesList.map((cat) => Number(cat.max_budget));
+  $: colors = categoriesList.map((cat) => cat.color);
 
-  let open = false;
-  let currentPage = "dashboard";
-
-  // si tu ne les utilises pas encore, laisse-les en dur
   let labels = [];
   let values = [];
 
   let openEdit = false;
   let editingExpense = null;
 
-  function applyFilters() {
-    // rien à faire : le filtre est déjà réactif via $:
-  }
+  function applyFilters() {}
 
   // supression d'une dépense
   async function handleDeleteExpense(id) {
     if (!confirm("Supprimer cette dépense ?")) return;
-  async function loadTotal() {
-    try {
-      const result = await expensesApi.getTotal();
+    async function loadTotal() {
+      try {
+        const result = await expensesApi.getTotal();
 
-      // On vérifie juste si on a reçu un total valide
-      if (result && result.total !== undefined) {
-        totalAmount = result.total;
+        // On vérifie juste si on a reçu un total valide
+        if (result && result.total !== undefined) {
+          totalAmount = result.total;
+        }
+      } catch (err) {
+        console.error("Erreur chargement total :", err);
       }
-    } catch (err) {
-      console.error("Erreur chargement total :", err);
     }
-  }
 
-  async function loadCategories() {
-    try {
-      // On demande à l'API de nous donner la liste
-      listCategories = await categoriesApi.list();
-      console.log("Mes catégories :", listCategories);
-    } catch (err) {
-      console.error("Erreur de chargement :", err);
+    async function loadCategories() {
+      try {
+        // On demande à l'API de nous donner la liste
+        listCategories = await categoriesApi.list();
+        console.log("Mes catégories :", listCategories);
+      } catch (err) {
+        console.error("Erreur de chargement :", err);
+      }
     }
-  }
 
-  // Dès que le composant est prêt, on lance le chargement
-
-  onMount(() => {
-    loadCategories();
-    loadTotal();
-    checkMe();
-  });
+    // Dès que le composant est prêt, on lance le chargement
 
     try {
       error = "";
@@ -114,7 +93,7 @@
         ...e,
         title: String(e.title ?? ""),
         amount: Number(String(e.amount).replace(",", ".")),
-        date: String(e.date ?? "").slice(0, 10), // YYYY-MM-DD
+        date: String(e.date ?? "").slice(0, 10),
       }));
 
       categoriesList = cats ?? [];
@@ -168,14 +147,16 @@
   const MAX_ROWS = 5;
 
   // tri du plus récent au plus ancien (important pour la limite)
-  $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
-    String(b.date).localeCompare(String(a.date)),
-  );
+  $: sortedExpenses = [...filteredExpenses].sort((a, b) => {
+    if (b.date !== a.date) {
+      return b.date.localeCompare(a.date);
+    }
+    return Number(b.id) - Number(a.id);
+  });
 
   // on limite à 5 lignes
   $: limitedExpenses = sortedExpenses.slice(0, MAX_ROWS);
 
-  // groupé par date: { "YYYY-MM-DD": [expense, ...] }
   $: groupedByDay = limitedExpenses.reduce((acc, e) => {
     const key = String(e.date).slice(0, 10);
     (acc[key] ||= []).push(e);
@@ -194,30 +175,22 @@
     editingExpense = null;
     await loadData();
   }
-  
+
   // Fonction pour récupérer les infos de l'utilisateur connecté
-  // L'endpoint /auth/me permet de vérifier que le token est valide
-  // et de récupérer l'id et le nom de l'utilisateur
+
   async function checkMe() {
     try {
       const me = await auth.me();
-      console.log("✅ Infos utilisateur connecté :", me);
-      
+
       // Stocker les infos de l'utilisateur
       userName = me.name || me.user?.name || "Utilisateur";
       userId = me.id || me.user?.id;
-      
     } catch (err) {
-      console.error("❌ Erreur /auth/me :", err);
-      // Si l'appel échoue, le token est peut-être expiré
-      // Rediriger vers la page de login
       localStorage.removeItem("token");
       currentPage = "login";
     }
   }
 
-  // Appeler checkMe au montage du composant
-  // onMount s'exécute une fois que le composant est affiché
   onMount(() => {
     checkMe();
   });
@@ -238,11 +211,22 @@
   />
 {/if}
 
+{#if open}
+  <NewExpensesPopup
+    {currentPage}
+    onClose={() => (open = false)}
+    on:saved={async () => {
+      open = false;
+      await Promise.all([loadData(), loadTotal(), loadCategories()]);
+    }}
+  />
+{/if}
+
 <main class="main">
   <!-- Left -->
   <section class="leftBlock">
     <h1>Tableau de bord</h1>
-    
+
     <!-- Afficher le nom de l'utilisateur si disponible -->
     {#if userName}
       <p>Bienvenue, <strong>{userName}</strong> !</p>
@@ -257,7 +241,6 @@
 
     <section class="search">
       <div class="searchBar">
-        <!-- ✅ bouton gauche: toggle filtres -->
         <button
           class="searchBtn"
           on:click={() => (showFilters = !showFilters)}
@@ -266,9 +249,6 @@
           <i class="fa-solid fa-sliders"></i>
         </button>
 
-        <button class="searchBtn" aria-label="Paramètres"
-          ><i class="fa-solid fa-sliders"></i></button
-        >
         <div class="searchBarMiddle">
           <label for="searchBar" class="srOnly">Recherche</label>
           <input
@@ -284,13 +264,9 @@
         <button class="searchBtn" on:click={applyFilters} title="Appliquer">
           <i class="fa-solid fa-filter"></i>
         </button>
-        <button class="searchBtn" aria-label="Filtrer"
-          ><i class="fa-solid fa-filter"></i></button
-        >
       </div>
 
       <div class="addExpense">
-        <button class="btn" on:click={() => (open = !open)}>
         <button
           class="btn"
           on:click={() => (open = !open)}
@@ -385,22 +361,7 @@
           </div>
         {/each}
       {/each}
-    <!-- Expenses -->
-    <section class="expensesDetailed">
-      <p class="date">Mercredi 14 Janvier 2025</p>
-      <div class="expensesDescription">
-        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
-        <span><p class="description">Achat Leroy merlin</p></span>
-        <span><p class="montant"><strong>52,12 €</strong></p></span>
-      </div>
-      <div class="expensesDescription1">
-        <span
-          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
-          ></i></span
-        >
-        <span><p class="description">Facture électricité</p></span>
-        <span><p class="montant"><strong>152,12 €</strong></p></span>
-      </div>
+      <!-- Expenses -->
     </section>
   </section>
 
@@ -438,27 +399,6 @@
       {:else}
         <p>Chargement des catégories...</p>
       {/each}
-      <div class="categoryDescription">
-        <span><i class="fa-solid fa-shop" style="color: #63E6BE;"></i></span>
-        <span><p class="nameCategory"><strong>Courses</strong></p></span>
-        <span
-          ><p class="sum">
-            <strong>52,12 € / <span class="total">300,00 €</span></strong>
-          </p></span
-        >
-      </div>
-      <div class="categoryDescription1">
-        <span
-          ><i class="fa-solid fa-bolt-lightning" style="color: #74C0FC;"
-          ></i></span
-        >
-        <span><p class="nameCategory1"><strong>Electricité</strong></p></span>
-        <span
-          ><p class="sum1">
-            <strong>152,12 € / <span class="total1">300,00 €</span></strong>
-          </p></span
-        >
-      </div>
     </section>
   </section>
 </main>

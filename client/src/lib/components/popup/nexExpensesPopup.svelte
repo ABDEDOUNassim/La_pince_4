@@ -1,9 +1,12 @@
 <script>
   import { categories as categoriesApi } from "../../services/category.service";
   import { expenses } from "../../services/expense.service";
-  export let onClose; // Fonction pour fermer le popup
+  import { createEventDispatcher, onMount } from "svelte";
 
-  // Variables du formulaire
+  export let onClose;
+
+  const dispatch = createEventDispatcher();
+
   let title = "";
   let amount = 0;
   let date = new Date().toISOString().split("T")[0];
@@ -13,7 +16,6 @@
   let success = false;
   let loading = false;
 
-  // Charger les catégories au montage
   async function loadCategories() {
     try {
       categories = await categoriesApi.list();
@@ -22,33 +24,26 @@
     }
   }
 
-  loadCategories();
+  onMount(loadCategories);
 
-  // Soumettre le formulaire
   async function handleSubmit() {
     error = null;
     success = false;
     loading = true;
 
     try {
-      // Récupérer l'ID de l'utilisateur (à adapter selon votre système d'authentification)
-      const user_id = 1; // Remplacez par la logique pour récupérer l'ID de l'utilisateur connecté
-
-      // Appel à l'API pour ajouter la dépense
+      const user_id = 1;
       await expenses.create({ title, user_id, category_id, amount, date });
       success = true;
+      dispatch("saved");
+      onClose?.();
 
-      // Réinitialiser et fermer après 2 secondes
-      setTimeout(() => {
-        title = "";
-        amount = 0;
-        category_id = "";
-        date = new Date().toISOString().split("T")[0];
-        onClose(); // Ferme le popup
-      }, 2000);
+      title = "";
+      amount = 0;
+      category_id = "";
+      date = new Date().toISOString().split("T")[0];
     } catch (err) {
       error = err.message;
-      console.error("Erreur :", err);
     } finally {
       loading = false;
     }

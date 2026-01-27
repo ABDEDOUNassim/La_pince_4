@@ -1,7 +1,7 @@
 <script>
   import logo from "../../../assets/logo/La_pince.png";
-  import HomeSidebar from "../sideBar/homeSidebar.svelte";
-  import { auth } from "../../../api";
+  import HomeSidebar from "../../components/sideBar/homeSidebar.svelte";
+  import { auth } from "../../services/auth.service";
 
   export let currentPage;
   export let isLoggedIn; // Recevoir l'état de connexion
@@ -13,16 +13,15 @@
     try {
       // Appel à l'API backend pour déconnecter
       await auth.logout();
-      
+
       // Supprimer le token du localStorage
       localStorage.removeItem("token");
-      
+
       // Mettre à jour l'état de connexion
       isLoggedIn = false;
-      
+
       // Rediriger vers la page d'accueil
       currentPage = "home";
-      
     } catch (err) {
       console.error("Erreur lors de la déconnexion :", err);
       // Même en cas d'erreur API, on déconnecte côté client
@@ -37,7 +36,6 @@
   <section class="head">
     <img src={logo} alt="Logo" />
     <section class="deskstop">
-      
       <!-- Si l'utilisateur n'est PAS connecté (page home, login, register) -->
       {#if !isLoggedIn}
         <button class="btn" on:click={() => (currentPage = "register")}>
@@ -46,8 +44,8 @@
         <button class="btn" on:click={() => (currentPage = "login")}>
           Connexion
         </button>
-      
-      <!-- Si l'utilisateur EST connecté (dashboard, category) -->
+
+        <!-- Si l'utilisateur EST connecté (dashboard, category) -->
       {:else}
         <!-- Afficher "Tableau de bord" seulement si on n'est pas déjà dessus -->
         {#if currentPage !== "dashboard"}
@@ -55,22 +53,19 @@
             Tableau de bord
           </button>
         {/if}
-        
+
         <!-- Afficher "Catégorie" seulement si on n'est pas déjà dessus -->
         {#if currentPage !== "category"}
           <button class="btn" on:click={() => (currentPage = "category")}>
             Catégorie
           </button>
         {/if}
-        
+
         <!-- Bouton de déconnexion -->
-        <button class="btn" on:click={handleLogout}>
-          Se déconnecter
-        </button>
-        
+        <button class="btn" on:click={handleLogout}> Se déconnecter </button>
+
         <i class="iconUser fa-solid fa-user-check"></i>
       {/if}
-
     </section>
     <button id="sidebar" on:click={() => (open = !open)}>☰</button>
   </section>
@@ -128,4 +123,3 @@
     }
   }
 </style>
-

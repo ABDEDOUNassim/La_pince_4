@@ -10,8 +10,9 @@
 
 input {
   color-scheme: dark;
+}
 /* left grid */
-.username{
+.username {
   color: var(--textSecondairePlaceholder);
   font-family: text, sans-serif;
 }
@@ -302,8 +303,7 @@ input {
 ------------------------- */
 
 .categoryDescription {
-.categoryDescription{
-  background-color: var(--bg-color); 
+  background-color: var(--bg-color);
   color: white;
   width: 100%;
   display: flex;
@@ -321,7 +321,7 @@ input {
   border: none; /* On enlève les bordures inutiles */
 }
 
-.categoryDescription i{
+.categoryDescription i {
   font-size: 2em;
 }
 

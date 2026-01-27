@@ -1,4 +1,3 @@
-
 <script>
   import { auth } from "../../services/auth.service";
 
@@ -41,15 +40,25 @@
 
   <section class="content">
     <nav class="menu">
-
       <!-- UTILISATEUR NON CONNECTÉ -->
       {#if !isLoggedIn}
         <button
           class="btnhome"
           on:click={() => {
+            currentPage = "home";
+            open = false;
+          }}
+        >
+          Accueil
+        </button>
+
+        <button
+          class="btnhome"
+          on:click={() => {
             currentPage = "login";
             open = false;
-          }}>
+          }}
+        >
           Connexion
         </button>
 
@@ -58,13 +67,13 @@
           on:click={() => {
             currentPage = "register";
             open = false;
-          }}>
+          }}
+        >
           S'inscrire
         </button>
 
-      <!-- UTILISATEUR CONNECTÉ -->
+        <!-- UTILISATEUR CONNECTÉ -->
       {:else}
-
         <!-- Si on est sur CATEGORY → bouton Dashboard -->
         {#if currentPage === "category"}
           <button
@@ -72,7 +81,8 @@
             on:click={() => {
               currentPage = "dashboard";
               open = false;
-            }}>
+            }}
+          >
             Tableau de bord
           </button>
         {/if}
@@ -84,18 +94,16 @@
             on:click={() => {
               currentPage = "category";
               open = false;
-            }}>
+            }}
+          >
             Catégories
           </button>
         {/if}
 
         <!-- Déconnexion -->
-        <button
-          class="btnhome"
-          on:click={handleLogout}>
+        <button class="btnhome" on:click={handleLogout}>
           Se déconnecter
         </button>
-
       {/if}
     </nav>
   </section>

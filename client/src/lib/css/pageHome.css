@@ -10,6 +10,12 @@
   text-align: center;
 }
 
+.textHeadline {
+  margin-bottom: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
 .targets {
   display: flex;
   justify-content: space-around;
