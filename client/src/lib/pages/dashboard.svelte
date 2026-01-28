@@ -68,7 +68,6 @@
       try {
         // On demande à l'API de nous donner la liste
         listCategories = await categoriesApi.list();
-        console.log("Mes catégories :", listCategories);
       } catch (err) {
         console.error("Erreur de chargement :", err);
       }

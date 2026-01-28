@@ -41,7 +41,7 @@
       // Rediriger vers le dashboard
       currentPage = "dashboard";
     } catch (err) {
-      console.error("❌ ERREUR:", err);
+      console.error(" ERREUR:", err);
       error = err.message || "Erreur lors de l'inscription";
     } finally {
       loading = false;

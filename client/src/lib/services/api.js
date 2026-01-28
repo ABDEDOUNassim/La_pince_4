@@ -26,10 +26,9 @@ export async function request(path, { method = "GET", body, headers = {} } = {})
     headers: finalHeaders,
     body: body ? JSON.stringify(body) : undefined,
   });
-  console.log("📡 Statut:", res.status);
   if (!res.ok) {
     const txt = await res.text().catch(() => "");
-    console.error("❌ Erreur serveur:", txt);
+    console.error(" Erreur serveur:", txt);
     throw new Error(txt || `Erreur API ${res.status}`);
   }
   const ct = res.headers.get("content-type") || "";
