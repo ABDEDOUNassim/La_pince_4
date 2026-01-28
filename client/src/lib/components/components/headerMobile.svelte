@@ -5,12 +5,24 @@
   import { onMount } from "svelte";
 
   export let currentPage;
-  export let isLoggedIn; // Recevoir l'état de connexion
+  export let isLoggedIn;
 
   let open = false;
   let userName = "";
 
-  // Fonction  our affichage du nom du user quand il est connecté
+  // THEME
+  let theme = "dark";
+
+  function applyTheme(t) {
+    theme = t;
+    document.documentElement.dataset.theme = t; // html[data-theme="..."]
+    localStorage.setItem("theme", t);
+  }
+
+  function toggleTheme() {
+    applyTheme(theme === "light" ? "dark" : "light");
+  }
+
   async function loadUserName() {
     if (!isLoggedIn) return;
 
@@ -23,6 +35,18 @@
   }
 
   onMount(() => {
+    // init theme
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      theme = saved;
+    } else {
+      const prefersLight = window.matchMedia(
+        "(prefers-color-scheme: light)",
+      ).matches;
+      theme = prefersLight ? "light" : "dark";
+    }
+    document.documentElement.dataset.theme = theme;
+
     loadUserName();
   });
 
@@ -32,21 +56,19 @@
     userName = "";
   }
 
-  // Fonction de déconnexion
-async function handleLogout() {
-  try {
-    await auth.logout();
-    localStorage.removeItem("token");
-    isLoggedIn = false;
-    currentPage = "home";
-
-  } catch (err) {
-    console.error("Erreur lors de la déconnexion :", err);
-    localStorage.removeItem("token");
-    isLoggedIn = false;
-    currentPage = "home";
+  async function handleLogout() {
+    try {
+      await auth.logout();
+      localStorage.removeItem("token");
+      isLoggedIn = false;
+      currentPage = "home";
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion :", err);
+      localStorage.removeItem("token");
+      isLoggedIn = false;
+      currentPage = "home";
+    }
   }
-}
 </script>
 
 <header>
@@ -95,7 +117,13 @@ async function handleLogout() {
         <!-- Bouton de déconnexion -->
         <button class="btn" on:click={handleLogout}> Se déconnecter </button>
 
-        <i class="iconUser fa-solid fa-user-check"></i>
+        <button
+          class="btn themeBtn"
+          on:click={toggleTheme}
+          aria-label="Changer le thème"
+        >
+          {theme === "light" ? "🌙" : "☀️"}
+        </button>
       {/if}
     </section>
     <button id="sidebar" on:click={() => (open = !open)}>☰</button>
@@ -131,7 +159,7 @@ async function handleLogout() {
   #sidebar {
     margin-right: 0.5em;
     padding: 0.5em;
-    background-color: var(--backgroundHeaderFooter);
+    background: none;
     color: var(--textPrincipal);
     cursor: pointer;
     font-size: 2em;
@@ -152,5 +180,17 @@ async function handleLogout() {
     .deskstop {
       display: none;
     }
+  }
+
+  .themeBtn {
+    border: 1px solid var(--bordure);
+    background: var(--backgroundCarte);
+    color: var(--textPrincipal);
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .themeBtn:hover {
+    filter: brightness(1.1);
   }
 </style>

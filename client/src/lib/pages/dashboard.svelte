@@ -8,7 +8,6 @@
   import { auth } from "../services/auth.service";
   import { categories as categoriesApi } from "../services/category.service";
   import { expenses as expensesApi } from "../services/expense.service";
-  
 
   let loading = true;
   let error = "";
@@ -19,7 +18,7 @@
 
   let open = false;
   export let currentPage;
-  
+
   // recherche + filtres
   let search = "";
   let showFilters = false;
@@ -33,7 +32,7 @@
   let listCategories = [];
   let totalAmount = 0;
 
- // On garde le calcul du total pour l'affichage en haut à gauche
+  // On garde le calcul du total pour l'affichage en haut à gauche
   $: totalAmount = expensesList.reduce((sum, e) => sum + e.amount, 0);
 
   $: labels = categoriesList.map((cat) => cat.name);
@@ -51,7 +50,7 @@
 
   $: sortState = 0;
 
-  let defaultGraphColor = colors==undefined ? "#559CD2" : colors[0];
+  let defaultGraphColor = colors == undefined ? "#559CD2" : colors[0];
 
   let openEdit = false;
   let editingExpense = null;
@@ -99,7 +98,8 @@
 
       categoriesList = cats ?? [];
 
-      defaultGraphColor = categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
+      defaultGraphColor =
+        categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
 
       categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
@@ -121,27 +121,28 @@
     });
   }
 
-  function expenseSort(){
+  function expenseSort() {
     if (sortState === 1) {
       sortedExpenses = [...sortedExpenses].sort((a, b) => b.amount - a.amount);
     }
 
-    if(sortState === 2) {
+    if (sortState === 2) {
       sortedExpenses = [...sortedExpenses].sort((a, b) => a.amount - b.amount);
     }
 
     if (sortState === 0) {
-      sortedExpenses = [...sortedExpenses].sort((a, b) => String(b.date).localeCompare(String(a.date)),);
+      sortedExpenses = [...sortedExpenses].sort((a, b) =>
+        String(b.date).localeCompare(String(a.date)),
+      );
     }
 
     console.log(sortedExpenses);
   }
 
-  function handleSort(){
-    if(sortState < 2){
+  function handleSort() {
+    if (sortState < 2) {
       sortState++;
-    }
-    else {
+    } else {
       sortState = 0;
     }
 
@@ -214,30 +215,36 @@
   function addNotification(cat) {
     const id = cat.id;
     // On vérifie si une notification pour cette catégorie existe déjà
-    if (!notifications.find(n => n.id === id)) {
+    if (!notifications.find((n) => n.id === id)) {
       const isOver = cat.total_spent >= cat.max_budget;
-      
-      notifications = [...notifications, {
-        id,
-        category: cat.name,
-        message: isOver ? "Budget dépassé !" : "Limite bientôt atteinte !",
-        type: isOver ? "danger" : "warning",
-        color: cat.color
-      }];
+
+      notifications = [
+        ...notifications,
+        {
+          id,
+          category: cat.name,
+          message: isOver ? "Budget dépassé !" : "Limite bientôt atteinte !",
+          type: isOver ? "danger" : "warning",
+          color: cat.color,
+        },
+      ];
     }
   }
 
   // Surveillance des catégories
   $: {
-    categoryTotals.forEach(cat => {
-      if (Number(cat.max_budget) > 0 && cat.total_spent >= (Number(cat.max_budget) * 0.9)) {
+    categoryTotals.forEach((cat) => {
+      if (
+        Number(cat.max_budget) > 0 &&
+        cat.total_spent >= Number(cat.max_budget) * 0.9
+      ) {
         addNotification(cat);
       }
     });
   }
 
   function removeNotification(id) {
-    notifications = notifications.filter(n => n.id !== id);
+    notifications = notifications.filter((n) => n.id !== id);
   }
 
   async function handleExpenseSaved() {
@@ -288,8 +295,6 @@
   />
 {/if}
 
-
-
 <main class="main">
   <!-- Left -->
   <section class="leftBlock">
@@ -325,21 +330,19 @@
           />
         </div>
 
-        <button class="searchBtn" on:click={applyFilters} title="Appliquer">
-        </button>
-          {#if sortState===0}
+        {#if sortState === 0}
           <button aria-label="sort" class="searchBtn" on:click={handleSort}>
-          <i class="fa-solid fa-filter"></i>
+            <i class="fa-solid fa-filter"></i>
           </button>
-          {:else if sortState===1}
+        {:else if sortState === 1}
           <button aria-label="sort" class="searchBtn" on:click={handleSort}>
-          <i class="fa-solid fa-arrow-down-wide-short"></i>
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
           </button>
-          {:else if sortState===2}
+        {:else if sortState === 2}
           <button aria-label="sort" class="searchBtn" on:click={handleSort}>
-          <i class="fa-solid fa-arrow-down-short-wide"></i>
+            <i class="fa-solid fa-arrow-down-short-wide"></i>
           </button>
-          {/if}
+        {/if}
       </div>
 
       <div class="addExpense">
@@ -400,48 +403,48 @@
 
     <section class="expensesDetailed">
       {#if sortState !== 0}
-        {#each sortedExpenses as e} 
-            {@const cat = categoriesById.get(String(e.category_id))}
+        {#each sortedExpenses as e}
+          {@const cat = categoriesById.get(String(e.category_id))}
 
-            <div
-              class="resultRow expenseRow"
-              style="--cat-color: {cat?.color || '#555'}"
-            >
-              <div class="resultLeft">
-                {#if cat}
-                  <img
-                    class="miniIcon"
-                    src={cat.icon}
-                    alt={cat.name}
-                    width="34"
-                    height="34"
-                  />
-                {/if}
+          <div
+            class="resultRow expenseRow"
+            style="--cat-color: {cat?.color || '#555'}"
+          >
+            <div class="resultLeft">
+              {#if cat}
+                <img
+                  class="miniIcon"
+                  src={cat.icon}
+                  alt={cat.name}
+                  width="34"
+                  height="34"
+                />
+              {/if}
 
-                <span class="resultTitle">{e.title}</span>
-              </div>
-              <div class="amountDashboard">
-                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
-              </div>
-
-              <div class="btnEdit">
-                <button
-                  class="editBtn"
-                  title="Modifier"
-                  on:click={() => openEditExpense(e)}
-                >
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-
-                <button
-                  class="deleteBtn"
-                  title="Supprimer"
-                  on:click={() => handleDeleteExpense(e.id)}
-                >
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              </div>
+              <span class="resultTitle">{e.title}</span>
             </div>
+            <div class="amountDashboard">
+              <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+            </div>
+
+            <div class="btnEdit">
+              <button
+                class="editBtn"
+                title="Modifier"
+                on:click={() => openEditExpense(e)}
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+
+              <button
+                class="deleteBtn"
+                title="Supprimer"
+                on:click={() => handleDeleteExpense(e.id)}
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
         {/each}
       {:else}
         {#each Object.entries(groupedByDay) as [day, items]}
@@ -468,7 +471,8 @@
                 <span class="resultTitle">{e.title}</span>
               </div>
               <div class="amountDashboard">
-                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span
+                >
               </div>
 
               <div class="btnEdit">
@@ -513,8 +517,13 @@
         {/key}
       {:else}
         <p class="graphe-warning">
-          Veuillez ajouter au moins une catégorie et une dépense pour afficher le graphique !
-          <DonutChart labels={[labels[0]]} values={[0.1]} colors={[defaultGraphColor]} />
+          Veuillez ajouter au moins une catégorie et une dépense pour afficher
+          le graphique !
+          <DonutChart
+            labels={[labels[0]]}
+            values={[0.1]}
+            colors={[defaultGraphColor]}
+          />
         </p>
       {/if}
     </section>
@@ -544,14 +553,15 @@
       {/each}
     </section>
     <div class="toast-container">
-  {#each notifications as n (n.id)}
-    <Toast 
-      category={n.category} 
-      message={n.message} 
-      type={n.type} 
-      color={n.color} onRemove={() => removeNotification(n.id)} 
-    />
-  {/each}
-</div>
+      {#each notifications as n (n.id)}
+        <Toast
+          category={n.category}
+          message={n.message}
+          type={n.type}
+          color={n.color}
+          onRemove={() => removeNotification(n.id)}
+        />
+      {/each}
+    </div>
   </section>
 </main>

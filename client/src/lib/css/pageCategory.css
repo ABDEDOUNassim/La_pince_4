@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: 50px 3fr auto auto;
   align-items: center;
-  gap: 12px;
   padding: 12px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px var(--bouttonPrincipal);
@@ -40,6 +39,10 @@
 .filterBtn,
 .addBtn {
   padding: 0.5em 2em;
+}
+
+.editBtn {
+  margin-left: 1em;
 }
 
 .editBtn,

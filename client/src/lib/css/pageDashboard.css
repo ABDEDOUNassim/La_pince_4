@@ -104,7 +104,7 @@ input {
 /* Boutons de la barre */
 .searchBtn {
   border: none;
-  background-color: var(--backgroundPrincipal);
+  background: none;
   cursor: pointer;
 }
 
@@ -217,7 +217,7 @@ input {
 
 .date {
   margin-bottom: 0.2em;
-  color: rgba(255, 255, 255, 0.527);
+  color: rgba(255, 255, 255, 0.726);
   font-size: 0.9em;
 }
 
@@ -254,12 +254,12 @@ input {
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  margin-right: -2em;
+  /* white-space: nowrap;  */
 }
 
-.resultAmount {
-  font-weight: bold;
-  white-space: nowrap;
+.amountDashboard {
+  text-align: right;
 }
 
 .miniIcon {
@@ -330,17 +330,18 @@ input {
   margin: 0;
 }
 
-.toast-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
 .miniIcon {
   filter: brightness(0) invert(1);
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 /* -------------------------
@@ -385,5 +386,16 @@ input {
   }
   .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .miniIcon {
+    display: none;
+  }
+  .resultTitle {
+    margin-right: -1em;
+  }
+  .categoryDescription {
   }
 }

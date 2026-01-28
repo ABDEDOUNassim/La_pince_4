@@ -1,11 +1,36 @@
 <script>
   import { auth } from "../../services/auth.service";
+  import { onMount } from "svelte";
 
   export let currentPage;
   export let open;
   export let isLoggedIn;
 
-  // Déconnexion
+  let theme = "dark";
+
+  function applyTheme(t) {
+    theme = t;
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem("theme", t);
+  }
+
+  function toggleTheme() {
+    applyTheme(theme === "light" ? "dark" : "light");
+  }
+
+  onMount(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      theme = saved;
+    } else {
+      const prefersLight = window.matchMedia(
+        "(prefers-color-scheme: light)",
+      ).matches;
+      theme = prefersLight ? "light" : "dark";
+    }
+    document.documentElement.dataset.theme = theme;
+  });
+
   async function handleLogout() {
     try {
       await auth.logout();
@@ -30,13 +55,23 @@
 ></div>
 
 <aside class="sidebar">
-  <button
-    class="close"
-    on:click={() => (open = false)}
-    aria-label="Fermer le menu"
-  >
-    <i class="fa-solid fa-xmark"></i>
-  </button>
+  <div class="closeLight">
+    <button
+      class="btn themeBtn"
+      on:click={toggleTheme}
+      aria-label="Changer le thème"
+    >
+      {theme === "light" ? "🌙" : "☀️"}
+    </button>
+
+    <button
+      class="close"
+      on:click={() => (open = false)}
+      aria-label="Fermer le menu"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
 
   <section class="content">
     <nav class="menu">
@@ -173,5 +208,13 @@
 
   .btnhome:hover {
     filter: brightness(0.9);
+  }
+  .themeBtn {
+    border: 1px solid var(--bordure);
+    background: var(--backgroundCarte);
+    color: var(--textPrincipal);
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    margin: 1.5em 0 0 1.5em;
   }
 </style>
