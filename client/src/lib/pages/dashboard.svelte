@@ -63,23 +63,6 @@
     } catch (e) {
       error = e.message ?? "Erreur lors de la suppression";
     }
-
-    async function loadCategories() {
-      try {
-        // On demande à l'API de nous donner la liste
-        listCategories = await categoriesApi.list();
-        console.log("Mes catégories :", listCategories);
-      } catch (err) {
-        console.error("Erreur de chargement :", err);
-      }
-    }
-    try {
-      error = "";
-      await expensesApi.remove(id);
-      await loadData();
-    } catch (e) {
-      error = e.message ?? "Erreur lors de la suppression";
-    }
   }
 
   async function loadData() {
@@ -120,7 +103,7 @@
     });
   }
 
-  // ✅ filtrage live (nom ou montant + catégorie + dates)
+  // Filtrage
   $: filteredExpenses = expensesList.filter((e) => {
     const q = search.trim().toLowerCase();
 
@@ -145,9 +128,6 @@
     dateTo = "";
   }
 
-  // groupement plus limite
-
-  // tri du plus récent au plus ancien (important pour la limite)
   // tri du plus récent au plus ancien
   $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
     String(b.date).localeCompare(String(a.date)),
@@ -160,7 +140,7 @@
     return acc;
   }, {});
 
-  // limite de 3 categorie sur le dashboard
+  // limite de 6 categorie sur le dashboard
 
   const MAX_CATEGORIES = 6;
 
@@ -213,7 +193,14 @@
 </script>
 
 {#if open}
-  <NewExpensesPopup {currentPage} onClose={() => (open = false)} />
+  <NewExpensesPopup
+    {currentPage}
+    onClose={() => (open = false)}
+    on:saved={async () => {
+      open = false;
+      await loadData();
+    }}
+  />
 {/if}
 
 {#if openEdit}
