@@ -20,126 +20,126 @@
   {
     "user_id": 1,
     "name": "Alimentation",
-    "color": "#e63946",
+    "color": "#dd515a",
     "icon": "/assets/categoryIcons/pot-food.PNG",
     "max_budget": 320
   },
   {
     "user_id": 1,
     "name": "Voiture",
-    "color": "#f77f00",
+    "color": "#ed7b2e",
     "icon": "/assets/categoryIcons/car.PNG",
     "max_budget": 250
   },
   {
     "user_id": 1,
     "name": "Loisir",
-    "color": "#ffbe0b",
+    "color": "#ffd037",
     "icon": "/assets/categoryIcons/gamepad.PNG",
     "max_budget": 180
   },
   {
     "user_id": 1,
     "name": "Energie",
-    "color": "#8ac926",
+    "color": "#91c13f",
     "icon": "/assets/categoryIcons/bolt.PNG",
     "max_budget": 140
   },
   {
     "user_id": 1,
     "name": "Santé",
-    "color": "#1982c4",
+    "color": "#3d7fc0",
     "icon": "/assets/categoryIcons/hospital.PNG",
     "max_budget": 120
   },
   {
     "user_id": 1,
     "name": "Transport",
-    "color": "#6a4c93",
+    "color": "#7b59a0",
     "icon": "/assets/categoryIcons/car.PNG",
     "max_budget": 200
   },
   {
     "user_id": 1,
     "name": "Abonnements",
-    "color": "#f72585",
+    "color": "#eb4890",
     "icon": "/assets/categoryIcons/screwdriver-wrench.PNG",
     "max_budget": 80
   },
   {
     "user_id": 2,
     "name": "Energie",
-    "color": "#3a86ff",
+    "color": "#5d8fff",
     "icon": "/assets/categoryIcons/bolt.PNG",
     "max_budget": 160
   },
   {
     "user_id": 2,
     "name": "Banque",
-    "color": "#06d6a0",
+    "color": "#30c49e",
     "icon": "/assets/categoryIcons/bank.PNG",
     "max_budget": 40
   },
   {
     "user_id": 2,
     "name": "Maison",
-    "color": "#ff5722",
+    "color": "#ff6b3b",
     "icon": "/assets/categoryIcons/house.PNG",
     "max_budget": 300
   },
   {
     "user_id": 2,
     "name": "Courses",
-    "color": "#9b5de5",
+    "color": "#9e65e3",
     "icon": "/assets/categoryIcons/cart-plus.PNG",
     "max_budget": 350
   },
   {
     "user_id": 2,
     "name": "Loisir",
-    "color": "#ffb4a2",
+    "color": "#ffacae",
     "icon": "/assets/categoryIcons/gamepad.PNG",
     "max_budget": 150
   },
   {
     "user_id": 2,
     "name": "Santé",
-    "color": "#e63946",
+    "color": "#dd515a",
     "icon": "/assets/categoryIcons/hospital.PNG",
     "max_budget": 120
   },
   {
     "user_id": 3,
     "name": "Restaurants",
-    "color": "#f77f00",
+    "color": "#ed7b2e",
     "icon": "/assets/categoryIcons/pot-food.PNG",
     "max_budget": 220
   },
   {
     "user_id": 3,
     "name": "Loisir",
-    "color": "#ffbe0b",
+    "color": "#ffd037",
     "icon": "/assets/categoryIcons/gamepad.PNG",
     "max_budget": 200
   },
   {
     "user_id": 3,
     "name": "Courses",
-    "color": "#8ac926",
+    "color": "#91c13f",
     "icon": "/assets/categoryIcons/cart-plus.PNG",
     "max_budget": 300
   },
   {
     "user_id": 3,
     "name": "Santé",
-    "color": "#1982c4",
+    "color": "#3d7fc0",
     "icon": "/assets/categoryIcons/hospital.PNG",
     "max_budget": 150
   },
   {
     "user_id": 3,
     "name": "Transport",
-    "color": "#6a4c93",
+    "color": "#7b59a0",
     "icon": "/assets/categoryIcons/car.PNG",
     "max_budget": 180
   }

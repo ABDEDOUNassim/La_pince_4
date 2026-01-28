@@ -1,6 +1,7 @@
 <script>
   import { auth } from "../../services/auth.service";
   import { categories } from "../../services/category.service.js";
+  import { createEventDispatcher } from "svelte";
 
   export let currentPage;
   export let onClose = () => {};
@@ -14,75 +15,37 @@
   let loading = false;
   let error = "";
 
+  const dispatch = createEventDispatcher();
+
   const colors = [
-    "#e63946",
-    "#f77f00",
-    "#ffbe0b",
-    "#8ac926",
-    "#1982c4",
-    "#6a4c93",
-    "#f72585",
-    "#3a86ff",
-    "#06d6a0",
-    "#ff5722",
-    "#9b5de5",
-    "#ffb4a2",
+    "#dd515a",
+    "#ed7b2e",
+    "#ffd037",
+    "#91c13f",
+    "#3d7fc0",
+    "#7b59a0",
+    "#eb4890",
+    "#5d8fff",
+    "#30c49e",
+    "#ff6b3b",
+    "#9e65e3",
+    "#ffacae",
   ];
 
-
   const icons = [
-  { url: "/assets/categoryIcons/bank.PNG" },
-  { url: "/assets/categoryIcons/bolt.PNG" },
-  { url: "/assets/categoryIcons/car.PNG" },
-  { url: "/assets/categoryIcons/cart-plus.PNG" },
-  { url: "/assets/categoryIcons/hospital.PNG" },
-  { url: "/assets/categoryIcons/faucet-drip.PNG" },
-  { url: "/assets/categoryIcons/gamepad.PNG" },
-  { url: "/assets/categoryIcons/gas-pump.PNG" },
-  { url: "/assets/categoryIcons/house.PNG" },
-  { url: "/assets/categoryIcons/plane.PNG" },
-  { url: "/assets/categoryIcons/pot-food.PNG" },
-  { url: "/assets/categoryIcons/screwdriver-wrench.PNG" }
-];
-// <ul>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={cartIcon} alt="un panier" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={carIcon} alt="une voiture" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={boltIcon} alt="un éclair" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={faucetIcon} alt="un robinet" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={wrenchIcon} alt="une clé à molette" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={hospitalIcon} alt="un hôpital" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={moneyIcon} alt="de l'argent" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={houseIcon} alt="une maison" />
-//   </li>
-//   <li>
-//     <a href="https://www.google.com/"></a>
-//     <img src={gasIcon} alt="du gaz" />
-//   </li>
-// </ul>
-
+    { url: "/assets/categoryIcons/bank.PNG" },
+    { url: "/assets/categoryIcons/bolt.PNG" },
+    { url: "/assets/categoryIcons/car.PNG" },
+    { url: "/assets/categoryIcons/cart-plus.PNG" },
+    { url: "/assets/categoryIcons/hospital.PNG" },
+    { url: "/assets/categoryIcons/faucet-drip.PNG" },
+    { url: "/assets/categoryIcons/gamepad.PNG" },
+    { url: "/assets/categoryIcons/gas-pump.PNG" },
+    { url: "/assets/categoryIcons/house.PNG" },
+    { url: "/assets/categoryIcons/plane.PNG" },
+    { url: "/assets/categoryIcons/pot-food.PNG" },
+    { url: "/assets/categoryIcons/screwdriver-wrench.PNG" },
+  ];
 
   function selectColor(hex) {
     color = hex;
@@ -123,8 +86,8 @@
         user_id: 1,
       });
 
-      onCreated();
-      onClose();
+      dispatch("created");
+      onClose?.();
     } catch (e) {
       error = e.message ?? "Erreur inconnue";
     } finally {
@@ -133,7 +96,7 @@
   }
 </script>
 
-<div class="overlay"></div>
+<div class="overlay" on:click={onClose} role="button" tabindex="0"></div>
 
 <aside class="sidebar">
   <main class="sidebarCategory" on:click|stopPropagation>
@@ -354,9 +317,9 @@
     padding: 1em 0;
   }
 
-  .category_icon{
+  .category_icon {
     width: 70%;
-    filter: brightness(2.0);
+    filter: brightness(2);
   }
 
   .formGroupIcon li.selected {

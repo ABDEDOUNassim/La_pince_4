@@ -52,12 +52,7 @@
 
 <a class="close" href="/" on:click|preventDefault={onClose}>X</a>
 
-<div
-  class="overlay"
-  on:click={() => (open = false)}
-  role="button"
-  tabindex="0"
-></div>
+<div class="overlay" on:click={onClose} role="button" tabindex="0"></div>
 
 <aside class="formPopupNewExpense">
   <a class="close" on:click|preventDefault={onClose}
@@ -192,7 +187,9 @@
     color: #c8d4e4;
     font-family: title, sans-serif;
     text-align: center;
-    padding: 2.5em 0 1em 0;
+    padding: 2.5em 0 0em 0;
+    font-size: 1.5em;
+    margin-bottom: -250px;
   }
 
   /* Bouton Ajouter */
@@ -239,10 +236,6 @@
     main {
       max-width: 900px;
       margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 3rem;
     }
   }
 
