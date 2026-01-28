@@ -44,6 +44,9 @@
   });
   $: colors = categoriesList.map((cat) => cat.color);
 
+  //let defaultGraphColor = colors[0] || "#559CD2";
+  let defaultGraphColor = colors==undefined ? "#559CD2" : colors[0];
+
   let labels = [];
   let values = [];
 
@@ -99,6 +102,10 @@
       }));
 
       categoriesList = cats ?? [];
+      console.log("voici ma console : ", categoriesList[0])
+      defaultGraphColor = categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
+      console.log("voici ma couleur", defaultGraphColor);
+
       categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
       error = e.message ?? "Erreur API";
@@ -119,7 +126,7 @@
     });
   }
 
-  // ✅ filtrage live (nom ou montant + catégorie + dates)
+  // Filtrage
   $: filteredExpenses = expensesList.filter((e) => {
     const q = search.trim().toLowerCase();
 
@@ -144,9 +151,6 @@
     dateTo = "";
   }
 
-  // groupement plus limite
-
-  // tri du plus récent au plus ancien (important pour la limite)
   // tri du plus récent au plus ancien
   $: sortedExpenses = [...filteredExpenses].sort((a, b) =>
     String(b.date).localeCompare(String(a.date)),
@@ -159,7 +163,7 @@
     return acc;
   }, {});
 
-  // limite de 3 categorie sur le dashboard
+  // limite de 6 categorie sur le dashboard
 
   const MAX_CATEGORIES = 6;
 
@@ -212,7 +216,14 @@
 </script>
 
 {#if open}
-  <NewExpensesPopup {currentPage} onClose={() => (open = false)} />
+  <NewExpensesPopup
+    {currentPage}
+    onClose={() => (open = false)}
+    on:saved={async () => {
+      open = false;
+      await loadData();
+    }}
+  />
 {/if}
 
 {#if openEdit}
@@ -385,13 +396,14 @@
 
     <!-- Diagrame -->
     <section class="diagrame">
-      {#if labels.length > 0}
+      {#if expensesList.length > 0}
         {#key labels}
           <DonutChart {labels} {values} {colors} />
         {/key}
       {:else}
         <p class="graphe-warning">
-          Veuillez ajouter une dépense pour que le graphique s'affiche !
+          Veuillez ajouter au moins une catégorie et une dépense pour afficher le graphique !
+          <DonutChart labels={[labels[0]]} values={[0.1]} colors={[defaultGraphColor]} />
         </p>
       {/if}
     </section>
@@ -401,7 +413,7 @@
       {#each topCategories as cat (cat.id)}
         <div class="categoryDescription" style="--bg-color: {cat.color};">
           <span>
-            <i class={cat.icon} style="color: {cat.color};"></i>
+            <img src={cat.icon} alt="" width="32" height="32" />
           </span>
 
           <p class="nameCategory"><strong>{cat.name}</strong></p>

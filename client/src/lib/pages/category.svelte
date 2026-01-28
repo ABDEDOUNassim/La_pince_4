@@ -73,6 +73,7 @@
   }
 
   async function handleDelete(id) {
+    if (!confirm("Supprimer cette catégorie ?")) return;
     try {
       await categoriesApi.remove(id);
       await loadData();
@@ -86,7 +87,7 @@
   <NewCategoryPopup
     {currentPage}
     onClose={() => (open = false)}
-    onCreated={handleCreated}
+    on:created={handleCreated}
   />
 {/if}
 

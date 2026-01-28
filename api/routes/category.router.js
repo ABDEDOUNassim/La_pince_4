@@ -11,5 +11,4 @@ router.delete("/categories/:id", validateId, categoryController.delete);
 router.post("/categories", validateCreateCategory, categoryController.create);
 router.patch("/categories/:id", validateId, validateUpdateCategory, categoryController.update);
 
-
 export default router;

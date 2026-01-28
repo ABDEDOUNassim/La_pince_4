@@ -20,7 +20,6 @@ export function validateCreateExpense (req, res, next){
         if(validation.error){
             throw new HttpError(validation.error, 400);
         }
-
     next();
 }
 
