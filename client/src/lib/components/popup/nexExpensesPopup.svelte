@@ -52,12 +52,7 @@
 
 <a class="close" href="/" on:click|preventDefault={onClose}>X</a>
 
-<div
-  class="overlay"
-  on:click={() => (open = false)}
-  role="button"
-  tabindex="0"
-></div>
+<div class="overlay" on:click={onClose} role="button" tabindex="0"></div>
 
 <aside class="formPopupNewExpense">
   <a class="close" on:click|preventDefault={onClose}
