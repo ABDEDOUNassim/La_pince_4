@@ -35,13 +35,12 @@
 
 html[data-theme="light"] {
   color-scheme: light;
-
   --backgroundPrincipal: #f5f7fb;
   --backgroundCarte: #ffffff;
   --backgroundHeaderFooter: #eef2f7;
   --textPrincipal: #0f172a;
   --textSecondairePlaceholder: #475569;
-  --bouttonPrincipal: #3d63dd;
+  --bouttonPrincipal: #2284ce;
   --bordure: #d7deea;
   --backgroundListe: #f1f5f9;
 }

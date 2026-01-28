@@ -217,7 +217,7 @@ input {
 
 .date {
   margin-bottom: 0.2em;
-  color: rgba(255, 255, 255, 0.726);
+  color: var(--textPrincipal);
   font-size: 0.9em;
 }
 
@@ -264,6 +264,14 @@ input {
 
 .miniIcon {
   border-radius: 4px;
+  transition: filter 0.25s ease;
+}
+html[data-theme="dark"] .miniIcon {
+  filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] .miniIcon {
+  filter: none;
 }
 
 .dot {
@@ -328,10 +336,6 @@ input {
   letter-spacing: 0.1em;
   opacity: 0.9;
   margin: 0;
-}
-
-.miniIcon {
-  filter: brightness(0) invert(1);
 }
 
 .toast-container {
