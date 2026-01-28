@@ -3,17 +3,19 @@
   import DonutChart from "../components/components/donutChart.svelte";
   import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
-  import WarningPopup from "../components/popup/warningPopup.svelte";
+  import Toast from "../components/popup/warningPopup.svelte";
 
   import { auth } from "../services/auth.service";
   import { categories as categoriesApi } from "../services/category.service";
   import { expenses as expensesApi } from "../services/expense.service";
+  
 
   let loading = true;
   let error = "";
   let expensesList = [];
   let categoriesList = [];
   let categoriesById = new Map();
+  let notifications = [];
 
   let open = false;
   export let currentPage;
@@ -34,23 +36,6 @@
  // On garde le calcul du total pour l'affichage en haut à gauche
   $: totalAmount = expensesList.reduce((sum, e) => sum + e.amount, 0);
 
-  let showWarningPopup = false;
-  let warningDismissed = false;
-
-  // Svelte va chercher ici si une catégorie dépasse son budget
-  $: alertCategories = categoryTotals.filter(cat => 
-    Number(cat.max_budget) > 0 && 
-    cat.total_spent >= (Number(cat.max_budget) * 0.9)
-  );
-
-  
-  $: if (alertCategories.length > 0 && !warningDismissed) {
-    showWarningPopup = true;
-  }
-  
-  $: if (!alertCategories.length === 0) {
-    warningDismissed = false;
-  }
   $: labels = categoriesList.map((cat) => cat.name);
   $: values = categoriesList.map((cat) => {
     const catExpenses = expensesList.filter(
@@ -64,9 +49,6 @@
   });
   $: colors = categoriesList.map((cat) => cat.color);
   
-
-  let labels = [];
-  let values = [];
 
   let openEdit = false;
   let editingExpense = null;
@@ -94,13 +76,6 @@
       } catch (err) {
         console.error("Erreur de chargement :", err);
       }
-    }
-    try {
-      error = "";
-      await expensesApi.remove(id);
-      await loadData();
-    } catch (e) {
-      error = e.message ?? "Erreur lors de la suppression";
     }
   }
 
@@ -210,6 +185,35 @@
     editingExpense = expense;
     openEdit = true;
   }
+  // Fonction pour ajouter une notification sans doublon
+  function addNotification(cat) {
+    const id = cat.id;
+    // On vérifie si une notification pour cette catégorie existe déjà
+    if (!notifications.find(n => n.id === id)) {
+      const isOver = cat.total_spent >= cat.max_budget;
+      
+      notifications = [...notifications, {
+        id,
+        category: cat.name,
+        message: isOver ? "Budget dépassé !" : "Limite bientôt atteinte !",
+        type: isOver ? "danger" : "warning",
+        color: cat.color
+      }];
+    }
+  }
+
+  // Surveillance des catégories
+  $: {
+    categoryTotals.forEach(cat => {
+      if (Number(cat.max_budget) > 0 && cat.total_spent >= (Number(cat.max_budget) * 0.9)) {
+        addNotification(cat);
+      }
+    });
+  }
+
+  function removeNotification(id) {
+    notifications = notifications.filter(n => n.id !== id);
+  }
 
   async function handleExpenseSaved() {
     openEdit = false;
@@ -252,14 +256,7 @@
   />
 {/if}
 
-{#if showWarningPopup}
-  <WarningPopup 
-    categories={alertCategories}
-    on:close={() => {
-      showWarningPopup = false;
-      warningDismissed = true; 
-  }} />
-{/if}
+
 
 <main class="main">
   <!-- Left -->
@@ -447,5 +444,15 @@
         </div>
       {/each}
     </section>
+    <div class="toast-container">
+  {#each notifications as n (n.id)}
+    <Toast 
+      category={n.category} 
+      message={n.message} 
+      type={n.type} 
+      color={n.color} onRemove={() => removeNotification(n.id)} 
+    />
+  {/each}
+</div>
   </section>
 </main>
