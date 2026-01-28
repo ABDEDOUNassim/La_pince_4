@@ -1,6 +1,3 @@
-@import "./pageHome.css";
-@import "./settings.css";
-
 .form {
   display: flex;
   flex-direction: column;
@@ -15,13 +12,13 @@
 
 .formGroup label {
   font-size: 0.95rem;
-  color: #c8d4e4;
+  color: var(--textPrincipal);
   font-family: text, sans-serif;
 }
 
 .formGroup input {
   padding: 14px 16px;
-  border: 1px solid #3c4154;
+  border: 1px solid var(--bordure);
   border-radius: 10px;
   color: var(--textSecondairePlaceholder);
   font-size: 1rem;
@@ -43,13 +40,13 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #559cd2;
-  border: 1px solid #3c4154;
+  accent-color: var(--bouttonPrincipal);
+  border: 1px solid var(--bordure);
 }
 
 .checkBoxGroup label {
   font-size: 0.95rem;
-  color: #c8d4e4;
+  color: var(--textPrincipal);
   font-family: text, sans-serif;
 }
 
@@ -62,10 +59,10 @@
   transform: translateY(0);
   transition:
     transform 0.08s ease,
-    box-shadow 0.08s ease; /* Animation fluide */
+    box-shadow 0.08s ease;
 }
 
 .submitBtn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #2563eb;
+  box-shadow: 0 2px 0 var(--bouttonPrincipal);
 }

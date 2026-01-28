@@ -8,15 +8,14 @@
   // Fonction de déconnexion
   async function handleLogout() {
     try {
-      await auth.logout();             // Appel backend pour logout
+      await auth.logout(); // Appel backend pour logout
       localStorage.removeItem("token"); // Supprime le token
-      currentPage = "login";            // Redirige vers login
+      currentPage = "login"; // Redirige vers login
       open = false;
     } catch (err) {
       console.error("Erreur lors de la déconnexion :", err);
     }
   }
-
 </script>
 
 <header>
@@ -58,8 +57,6 @@
 </header>
 
 <style>
-  @import "../../css/settings.css";
-
   .header {
     display: flex;
     height: 100vh;
@@ -69,11 +66,12 @@
 
   .menu {
     display: flex;
-    box-shadow: 0 4 6px var(--Bordure);
     flex-direction: column;
     padding: 1em;
     gap: 2em;
     min-width: 200px;
+    box-shadow: 0 4px 6px var(--bordure);
+    background-color: var(--backgroundCarte);
   }
 
   .btnMenu {
@@ -90,6 +88,7 @@
       box-shadow 0.08s ease;
   }
 
+  /* Croix de fermeture */
   .close {
     text-decoration: none;
     position: absolute;
@@ -101,12 +100,13 @@
     cursor: pointer;
     z-index: 10;
   }
+
   .close i {
-    color: #ffffff;
+    color: var(--textSecondairePlaceholder);
     font-size: 28px;
   }
 
   .close:hover i {
-    color: #e0e0e0;
+    filter: brightness(0.9);
   }
 </style>

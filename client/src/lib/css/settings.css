@@ -26,6 +26,10 @@
   --bouttonPrincipal: #559cd2;
   --bordure: #3c4154;
   --backgroundListe: #141720;
+  --white: #ebe8e8;
+  --red: #f50707;
+  --black: #0e0d0d;
+  --overlay: #0000008c;
 }
 
 body {
