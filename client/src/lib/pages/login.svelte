@@ -28,8 +28,8 @@
       isLoggedIn = true;
       currentPage = "dashboard";
     } catch (err) {
-      console.error("❌ ERREUR login :", err);
-      error = err.message || "Erreur lors de la connexion";
+      error = JSON.parse(err.message).message || "Erreur lors de la connexion";
+      console.log(error);
     } finally {
       loading = false;
     }
