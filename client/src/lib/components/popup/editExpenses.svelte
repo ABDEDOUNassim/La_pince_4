@@ -8,7 +8,7 @@
 
   let title = "";
   let amount = "";
-  let category_id = "";
+  let category_id = 0;
   let categoriesList = [];
   let loading = false;
   let error = "";
@@ -28,7 +28,7 @@
   $: if (expense) {
     title = expense.title ?? "";
     amount = String(expense.amount ?? "");
-    category_id = String(expense.category_id ?? "");
+    category_id = expense.category_id;
   }
 
   async function submit() {
@@ -104,7 +104,7 @@
         <label for="category">Catégorie</label>
         <select id="category" bind:value={category_id} required>
           {#each categoriesList as cat (cat.id)}
-            <option value={cat.id}>{cat.name}</option>
+              <option value={cat.id}>{cat.name}</option>
           {/each}
         </select>
       </div>

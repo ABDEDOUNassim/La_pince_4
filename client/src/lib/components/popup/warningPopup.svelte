@@ -1,77 +1,63 @@
 <script>
+  import { onMount } from "svelte";
   import DangerIcon from "../../../assets/icon/attentionSmall.png";
+
+  export let message = "";
+  export let category = "";
+  //export let type = "warning"; // 'warning' ou 'danger'
+  export let onRemove; // Fonction pour s'auto-supprimer
+  export let color = "#555";
+
+  onMount(() => {
+    // La notification disparaît toute seule après 5 secondes
+    const timer = setTimeout(onRemove, 5000);
+    return () => clearTimeout(timer);
+  });
 </script>
 
-<div class="popupContainer">
-  <a class="close" href=""><i class="fa-solid fa-xmark"></i></a>
-  <div class="popup">
-    <img src={DangerIcon} alt="Pop-up d'alerte de budget" />
-    <p class="texte">Budget maximum bientôt atteint</p>
+<div class="toast" on:click={onRemove}>
+  <div class="text">
+    <strong style="color: {color};">{category}</strong>
+    <p>{message}</p>
   </div>
 </div>
 
 <style>
-  .popupContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-width: 500px;
-    background-color: var(--BackgroudCarte);
-    padding: 16px;
-    border-radius: 12px;
-    z-index: 1000;
-  }
-
-  .popupContainer:hover {
-    border-color: var(--BouttonPrincipal);
-  }
-  .close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+  .toast {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+    gap: 12px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
     cursor: pointer;
-    z-index: 10;
+
+    border-left: 6px solid;
+    border-left-color: transparent;
+    animation: slideIn 0.5s ease-out;
   }
 
-  .close i {
-    color: #f4f5f6;
-    font-size: 18px;
-    margin: 1em 1em 0 0;
+  .text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #333;
   }
-
-  .popup {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 2em 5em;
-    border-radius: 12px;
-    background-color: var(--BackgroudCarte);
-    box-shadow: 0 6px 18px rgba(255, 0, 0, 0.25);
-  }
-
-  /* Icône danger */
-  .popup img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-  }
-
-  .content {
-    flex: 1;
-  }
-
-  .texte {
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #c62828;
-    font-family: text, sans-serif;
+  .text p {
     margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 </style>

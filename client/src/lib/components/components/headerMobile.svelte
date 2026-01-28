@@ -33,27 +33,20 @@
   }
 
   // Fonction de déconnexion
-  async function handleLogout() {
-    try {
-      // Appel à l'API backend pour déconnecter
-      await auth.logout();
+async function handleLogout() {
+  try {
+    await auth.logout();
+    localStorage.removeItem("token");
+    isLoggedIn = false;
+    currentPage = "home";
 
-      // Supprimer le token du localStorage
-      localStorage.removeItem("token");
-
-      // Mettre à jour l'état de connexion
-      isLoggedIn = false;
-
-      // Rediriger vers la page d'accueil
-      currentPage = "home";
-    } catch (err) {
-      console.error("Erreur lors de la déconnexion :", err);
-      // Même en cas d'erreur API, on déconnecte côté client
-      localStorage.removeItem("token");
-      isLoggedIn = false;
-      currentPage = "home";
-    }
+  } catch (err) {
+    console.error("Erreur lors de la déconnexion :", err);
+    localStorage.removeItem("token");
+    isLoggedIn = false;
+    currentPage = "home";
   }
+}
 </script>
 
 <header>

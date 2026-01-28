@@ -3,20 +3,23 @@
   import DonutChart from "../components/components/donutChart.svelte";
   import EditExpensePopup from "../components/popup/editExpenses.svelte";
   import NewExpensesPopup from "../components/popup/nexExpensesPopup.svelte";
+  import Toast from "../components/popup/warningPopup.svelte";
 
   import { auth } from "../services/auth.service";
   import { categories as categoriesApi } from "../services/category.service";
   import { expenses as expensesApi } from "../services/expense.service";
+  
 
   let loading = true;
   let error = "";
   let expensesList = [];
   let categoriesList = [];
   let categoriesById = new Map();
+  let notifications = [];
 
   let open = false;
   export let currentPage;
-
+  
   // recherche + filtres
   let search = "";
   let showFilters = false;
@@ -30,7 +33,9 @@
   let listCategories = [];
   let totalAmount = 0;
 
+ // On garde le calcul du total pour l'affichage en haut à gauche
   $: totalAmount = expensesList.reduce((sum, e) => sum + e.amount, 0);
+
   $: labels = categoriesList.map((cat) => cat.name);
   $: values = categoriesList.map((cat) => {
     const catExpenses = expensesList.filter(
@@ -44,8 +49,9 @@
   });
   $: colors = categoriesList.map((cat) => cat.color);
 
-  let labels = [];
-  let values = [];
+  $: sortState = 0;
+
+  let defaultGraphColor = colors==undefined ? "#559CD2" : colors[0];
 
   let openEdit = false;
   let editingExpense = null;
@@ -62,6 +68,15 @@
       await loadData();
     } catch (e) {
       error = e.message ?? "Erreur lors de la suppression";
+    }
+
+    async function loadCategories() {
+      try {
+        // On demande à l'API de nous donner la liste
+        listCategories = await categoriesApi.list();
+      } catch (err) {
+        console.error("Erreur de chargement :", err);
+      }
     }
   }
 
@@ -83,6 +98,9 @@
       }));
 
       categoriesList = cats ?? [];
+
+      defaultGraphColor = categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
+
       categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
       error = e.message ?? "Erreur API";
@@ -101,6 +119,33 @@
       month: "long",
       year: "numeric",
     });
+  }
+
+  function expenseSort(){
+    if (sortState === 1) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => b.amount - a.amount);
+    }
+
+    if(sortState === 2) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => a.amount - b.amount);
+    }
+
+    if (sortState === 0) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => String(b.date).localeCompare(String(a.date)),);
+    }
+
+    console.log(sortedExpenses);
+  }
+
+  function handleSort(){
+    if(sortState < 2){
+      sortState++;
+    }
+    else {
+      sortState = 0;
+    }
+
+    expenseSort(); // expenseSort is outside to be used by itself
   }
 
   // Filtrage
@@ -165,6 +210,35 @@
     editingExpense = expense;
     openEdit = true;
   }
+  // Fonction pour ajouter une notification sans doublon
+  function addNotification(cat) {
+    const id = cat.id;
+    // On vérifie si une notification pour cette catégorie existe déjà
+    if (!notifications.find(n => n.id === id)) {
+      const isOver = cat.total_spent >= cat.max_budget;
+      
+      notifications = [...notifications, {
+        id,
+        category: cat.name,
+        message: isOver ? "Budget dépassé !" : "Limite bientôt atteinte !",
+        type: isOver ? "danger" : "warning",
+        color: cat.color
+      }];
+    }
+  }
+
+  // Surveillance des catégories
+  $: {
+    categoryTotals.forEach(cat => {
+      if (Number(cat.max_budget) > 0 && cat.total_spent >= (Number(cat.max_budget) * 0.9)) {
+        addNotification(cat);
+      }
+    });
+  }
+
+  function removeNotification(id) {
+    notifications = notifications.filter(n => n.id !== id);
+  }
 
   async function handleExpenseSaved() {
     openEdit = false;
@@ -214,6 +288,8 @@
   />
 {/if}
 
+
+
 <main class="main">
   <!-- Left -->
   <section class="leftBlock">
@@ -250,8 +326,20 @@
         </div>
 
         <button class="searchBtn" on:click={applyFilters} title="Appliquer">
-          <i class="fa-solid fa-filter"></i>
         </button>
+          {#if sortState===0}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-filter"></i>
+          </button>
+          {:else if sortState===1}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-arrow-down-wide-short"></i>
+          </button>
+          {:else if sortState===2}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-arrow-down-short-wide"></i>
+          </button>
+          {/if}
       </div>
 
       <div class="addExpense">
@@ -311,53 +399,99 @@
     </section>
 
     <section class="expensesDetailed">
-      {#each Object.entries(groupedByDay) as [day, items]}
-        <p class="date">{formatDay(day)}</p>
+      {#if sortState !== 0}
+        {#each sortedExpenses as e} 
+            {@const cat = categoriesById.get(String(e.category_id))}
 
-        {#each items as e (e.id)}
-          {@const cat = categoriesById.get(String(e.category_id))}
+            <div
+              class="resultRow expenseRow"
+              style="--cat-color: {cat?.color || '#555'}"
+            >
+              <div class="resultLeft">
+                {#if cat}
+                  <img
+                    class="miniIcon"
+                    src={cat.icon}
+                    alt={cat.name}
+                    width="34"
+                    height="34"
+                  />
+                {/if}
 
-          <div
-            class="resultRow expenseRow"
-            style="--cat-color: {cat?.color || '#555'}"
-          >
-            <div class="resultLeft">
-              {#if cat}
-                <img
-                  class="miniIcon"
-                  src={cat.icon}
-                  alt={cat.name}
-                  width="34"
-                  height="34"
-                />
-              {/if}
+                <span class="resultTitle">{e.title}</span>
+              </div>
+              <div class="amountDashboard">
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+              </div>
 
-              <span class="resultTitle">{e.title}</span>
+              <div class="btnEdit">
+                <button
+                  class="editBtn"
+                  title="Modifier"
+                  on:click={() => openEditExpense(e)}
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button
+                  class="deleteBtn"
+                  title="Supprimer"
+                  on:click={() => handleDeleteExpense(e.id)}
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
             </div>
-            <div class="amountDashboard">
-              <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
-            </div>
-
-            <div class="btnEdit">
-              <button
-                class="editBtn"
-                title="Modifier"
-                on:click={() => openEditExpense(e)}
-              >
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-
-              <button
-                class="deleteBtn"
-                title="Supprimer"
-                on:click={() => handleDeleteExpense(e.id)}
-              >
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
         {/each}
-      {/each}
+      {:else}
+        {#each Object.entries(groupedByDay) as [day, items]}
+          <p class="date">{formatDay(day)}</p>
+
+          {#each items as e (e.id)}
+            {@const cat = categoriesById.get(String(e.category_id))}
+
+            <div
+              class="resultRow expenseRow"
+              style="--cat-color: {cat?.color || '#555'}"
+            >
+              <div class="resultLeft">
+                {#if cat}
+                  <img
+                    class="miniIcon"
+                    src={cat.icon}
+                    alt={cat.name}
+                    width="34"
+                    height="34"
+                  />
+                {/if}
+
+                <span class="resultTitle">{e.title}</span>
+              </div>
+              <div class="amountDashboard">
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+              </div>
+
+              <div class="btnEdit">
+                <button
+                  class="editBtn"
+                  title="Modifier"
+                  on:click={() => openEditExpense(e)}
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button
+                  class="deleteBtn"
+                  title="Supprimer"
+                  on:click={() => handleDeleteExpense(e.id)}
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          {/each}
+        {/each}
+      {/if}
       <!-- Expenses -->
     </section>
   </section>
@@ -374,10 +508,13 @@
     <!-- Diagrame -->
     <section class="diagrame">
       {#if expensesList.length > 0}
-        <DonutChart {labels} {values} {colors} />
+        {#key labels}
+          <DonutChart {labels} {values} {colors} />
+        {/key}
       {:else}
         <p class="graphe-warning">
-          Veuillez ajouter une dépense pour que le graphique s'affiche !
+          Veuillez ajouter au moins une catégorie et une dépense pour afficher le graphique !
+          <DonutChart labels={[labels[0]]} values={[0.1]} colors={[defaultGraphColor]} />
         </p>
       {/if}
     </section>
@@ -406,5 +543,15 @@
         </div>
       {/each}
     </section>
+    <div class="toast-container">
+  {#each notifications as n (n.id)}
+    <Toast 
+      category={n.category} 
+      message={n.message} 
+      type={n.type} 
+      color={n.color} onRemove={() => removeNotification(n.id)} 
+    />
+  {/each}
+</div>
   </section>
 </main>
