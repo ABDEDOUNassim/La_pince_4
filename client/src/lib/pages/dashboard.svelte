@@ -402,7 +402,7 @@
       {#each topCategories as cat (cat.id)}
         <div class="categoryDescription" style="--bg-color: {cat.color};">
           <span>
-            <i class={cat.icon} style="color: {cat.color};"></i>
+            <img src={cat.icon} alt="" width="32" height="32" />
           </span>
 
           <p class="nameCategory"><strong>{cat.name}</strong></p>
