@@ -66,6 +66,22 @@
     } catch (e) {
       error = e.message ?? "Erreur lors de la suppression";
     }
+
+    async function loadCategories() {
+      try {
+        // On demande à l'API de nous donner la liste
+        listCategories = await categoriesApi.list();
+      } catch (err) {
+        console.error("Erreur de chargement :", err);
+      }
+    }
+    try {
+      error = "";
+      await expensesApi.remove(id);
+      await loadData();
+    } catch (e) {
+      error = e.message ?? "Erreur lors de la suppression";
+    }
   }
 
   async function loadData() {
