@@ -16,7 +16,7 @@
 
   let open = false;
   export let currentPage;
-
+  
   // recherche + filtres
   let search = "";
   let showFilters = false;
@@ -44,7 +44,8 @@
   });
   $: colors = categoriesList.map((cat) => cat.color);
 
-  //let defaultGraphColor = colors[0] || "#559CD2";
+  $: sortState = 0;
+
   let defaultGraphColor = colors==undefined ? "#559CD2" : colors[0];
 
   let labels = [];
@@ -102,9 +103,8 @@
       }));
 
       categoriesList = cats ?? [];
-      console.log("voici ma console : ", categoriesList[0])
+
       defaultGraphColor = categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
-      console.log("voici ma couleur", defaultGraphColor);
 
       categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
@@ -124,6 +124,33 @@
       month: "long",
       year: "numeric",
     });
+  }
+
+  function expenseSort(){
+    if (sortState === 1) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => b.amount - a.amount);
+    }
+
+    if(sortState === 2) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => a.amount - b.amount);
+    }
+
+    if (sortState === 0) {
+      sortedExpenses = [...sortedExpenses].sort((a, b) => String(b.date).localeCompare(String(a.date)),);
+    }
+
+    console.log(sortedExpenses);
+  }
+
+  function handleSort(){
+    if(sortState < 2){
+      sortState++;
+    }
+    else {
+      sortState = 0;
+    }
+
+    expenseSort(); // expenseSort is outside to be used by itself
   }
 
   // Filtrage
@@ -273,8 +300,20 @@
         </div>
 
         <button class="searchBtn" on:click={applyFilters} title="Appliquer">
-          <i class="fa-solid fa-filter"></i>
         </button>
+          {#if sortState===0}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-filter"></i>
+          </button>
+          {:else if sortState===1}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-arrow-down-wide-short"></i>
+          </button>
+          {:else if sortState===2}
+          <button aria-label="sort" class="searchBtn" on:click={handleSort}>
+          <i class="fa-solid fa-arrow-down-short-wide"></i>
+          </button>
+          {/if}
       </div>
 
       <div class="addExpense">
@@ -334,53 +373,99 @@
     </section>
 
     <section class="expensesDetailed">
-      {#each Object.entries(groupedByDay) as [day, items]}
-        <p class="date">{formatDay(day)}</p>
+      {#if sortState !== 0}
+        {#each sortedExpenses as e} 
+            {@const cat = categoriesById.get(String(e.category_id))}
 
-        {#each items as e (e.id)}
-          {@const cat = categoriesById.get(String(e.category_id))}
+            <div
+              class="resultRow expenseRow"
+              style="--cat-color: {cat?.color || '#555'}"
+            >
+              <div class="resultLeft">
+                {#if cat}
+                  <img
+                    class="miniIcon"
+                    src={cat.icon}
+                    alt={cat.name}
+                    width="34"
+                    height="34"
+                  />
+                {/if}
 
-          <div
-            class="resultRow expenseRow"
-            style="--cat-color: {cat?.color || '#555'}"
-          >
-            <div class="resultLeft">
-              {#if cat}
-                <img
-                  class="miniIcon"
-                  src={cat.icon}
-                  alt={cat.name}
-                  width="34"
-                  height="34"
-                />
-              {/if}
+                <span class="resultTitle">{e.title}</span>
+              </div>
+              <div class="amountDashboard">
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+              </div>
 
-              <span class="resultTitle">{e.title}</span>
+              <div class="btnEdit">
+                <button
+                  class="editBtn"
+                  title="Modifier"
+                  on:click={() => openEditExpense(e)}
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button
+                  class="deleteBtn"
+                  title="Supprimer"
+                  on:click={() => handleDeleteExpense(e.id)}
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
             </div>
-            <div class="amountDashboard">
-              <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
-            </div>
-
-            <div class="btnEdit">
-              <button
-                class="editBtn"
-                title="Modifier"
-                on:click={() => openEditExpense(e)}
-              >
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-
-              <button
-                class="deleteBtn"
-                title="Supprimer"
-                on:click={() => handleDeleteExpense(e.id)}
-              >
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
         {/each}
-      {/each}
+      {:else}
+        {#each Object.entries(groupedByDay) as [day, items]}
+          <p class="date">{formatDay(day)}</p>
+
+          {#each items as e (e.id)}
+            {@const cat = categoriesById.get(String(e.category_id))}
+
+            <div
+              class="resultRow expenseRow"
+              style="--cat-color: {cat?.color || '#555'}"
+            >
+              <div class="resultLeft">
+                {#if cat}
+                  <img
+                    class="miniIcon"
+                    src={cat.icon}
+                    alt={cat.name}
+                    width="34"
+                    height="34"
+                  />
+                {/if}
+
+                <span class="resultTitle">{e.title}</span>
+              </div>
+              <div class="amountDashboard">
+                <span class="resultAmount">{Number(e.amount).toFixed(2)} €</span>
+              </div>
+
+              <div class="btnEdit">
+                <button
+                  class="editBtn"
+                  title="Modifier"
+                  on:click={() => openEditExpense(e)}
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button
+                  class="deleteBtn"
+                  title="Supprimer"
+                  on:click={() => handleDeleteExpense(e.id)}
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          {/each}
+        {/each}
+      {/if}
       <!-- Expenses -->
     </section>
   </section>
