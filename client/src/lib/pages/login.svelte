@@ -28,7 +28,7 @@
       isLoggedIn = true;
       currentPage = "dashboard";
     } catch (err) {
-      console.error("❌ ERREUR login :", err);
+      console.error(" ERREUR login :", err);
       error = err.message || "Erreur lors de la connexion";
     } finally {
       loading = false;
