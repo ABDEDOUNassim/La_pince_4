@@ -44,6 +44,9 @@
   });
   $: colors = categoriesList.map((cat) => cat.color);
 
+  //let defaultGraphColor = colors[0] || "#559CD2";
+  let defaultGraphColor = colors==undefined ? "#559CD2" : colors[0];
+
   let labels = [];
   let values = [];
 
@@ -56,23 +59,6 @@
   async function handleDeleteExpense(id) {
     if (!confirm("Supprimer cette dépense ?")) return;
 
-    try {
-      error = "";
-      await expensesApi.remove(id);
-      await loadData();
-    } catch (e) {
-      error = e.message ?? "Erreur lors de la suppression";
-    }
-
-    async function loadCategories() {
-      try {
-        // On demande à l'API de nous donner la liste
-        listCategories = await categoriesApi.list();
-        console.log("Mes catégories :", listCategories);
-      } catch (err) {
-        console.error("Erreur de chargement :", err);
-      }
-    }
     try {
       error = "";
       await expensesApi.remove(id);
@@ -100,6 +86,10 @@
       }));
 
       categoriesList = cats ?? [];
+      console.log("voici ma console : ", categoriesList[0])
+      defaultGraphColor = categoriesList[0] != undefined ? categoriesList[0].color : "#559CD2";
+      console.log("voici ma couleur", defaultGraphColor);
+
       categoriesById = new Map(categoriesList.map((c) => [String(c.id), c]));
     } catch (e) {
       error = e.message ?? "Erreur API";
@@ -386,13 +376,14 @@
 
     <!-- Diagrame -->
     <section class="diagrame">
-      {#if labels.length > 0}
+      {#if expensesList.length > 0}
         {#key labels}
           <DonutChart {labels} {values} {colors} />
         {/key}
       {:else}
         <p class="graphe-warning">
-          Veuillez ajouter une dépense pour que le graphique s'affiche !
+          Veuillez ajouter au moins une catégorie et une dépense pour afficher le graphique !
+          <DonutChart labels={[labels[0]]} values={[0.1]} colors={[defaultGraphColor]} />
         </p>
       {/if}
     </section>

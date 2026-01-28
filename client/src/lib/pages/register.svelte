@@ -41,7 +41,11 @@
       // Rediriger vers le dashboard
       currentPage = "dashboard";
     } catch (err) {
-      error = JSON.parse(err.message).message || "Erreur lors de l'inscription";
+      if (err.message == "Failed to fetch"){
+        error = err.message;
+        return error;
+      }
+      error = JSON.parse(err.message).message || "Erreur lors de la connexion";
       if(error.startsWith("ValidationError: \"name\"")){
         error = "Username must contains at least 3 characters";
         return error;

@@ -28,6 +28,10 @@
       isLoggedIn = true;
       currentPage = "dashboard";
     } catch (err) {
+      if (err.message == "Failed to fetch"){
+        error = err.message;
+        return error;
+      }
       error = JSON.parse(err.message).message || "Erreur lors de la connexion";
       console.log(error);
     } finally {
