@@ -40,7 +40,6 @@ async function handleLogout() {
     isLoggedIn = false;
     currentPage = "home";
 
-    console.log("Utilisateur déconnecté ✅"); // <--- Ajout ici
   } catch (err) {
     console.error("Erreur lors de la déconnexion :", err);
     localStorage.removeItem("token");
