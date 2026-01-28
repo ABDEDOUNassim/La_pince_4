@@ -331,6 +331,10 @@ input {
   margin: 0;
 }
 
+.miniIcon {
+  filter: brightness(0) invert(1);
+}
+
 /* -------------------------
    Responsive
 ------------------------- */

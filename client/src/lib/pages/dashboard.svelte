@@ -43,7 +43,6 @@
     return totalSpent;
   });
   $: colors = categoriesList.map((cat) => cat.color);
-  
 
   let labels = [];
   let values = [];
@@ -56,7 +55,7 @@
   // supression d'une dépense
   async function handleDeleteExpense(id) {
     if (!confirm("Supprimer cette dépense ?")) return;
-    
+
     try {
       error = "";
       await expensesApi.remove(id);
@@ -64,7 +63,6 @@
     } catch (e) {
       error = e.message ?? "Erreur lors de la suppression";
     }
-  
 
     async function loadCategories() {
       try {
@@ -235,9 +233,6 @@
     <h1>Tableau de bord</h1>
 
     <!-- Afficher le nom de l'utilisateur si disponible -->
-    {#if userName}
-      <p>Bienvenue, <strong>{userName}</strong> !</p>
-    {/if}
 
     <section class="expensesTotalLeft">
       <p class="expenseTitle">Dépenses total</p>
@@ -276,12 +271,14 @@
         <button
           class="btn"
           on:click={() => {
-            if (categoriesList.length !== 0){
-              (open = !open)
-              }
-              else {
-                alert("Veuillez créer au moins une dépense/catégorie pour afficher le graphique !");
-              }}}
+            if (categoriesList.length !== 0) {
+              open = !open;
+            } else {
+              alert(
+                "Veuillez créer au moins une dépense/catégorie pour afficher le graphique !",
+              );
+            }
+          }}
           aria-label="Ajouter une dépense"
         >
           <i class="fa-solid fa-plus" style="color: #ffffff;"></i>
@@ -342,11 +339,12 @@
                 <img
                   class="miniIcon"
                   src={cat.icon}
-                  alt=""
-                  width="18"
-                  height="18"
+                  alt={cat.name}
+                  width="34"
+                  height="34"
                 />
               {/if}
+
               <span class="resultTitle">{e.title}</span>
             </div>
             <div class="amountDashboard">
@@ -393,7 +391,9 @@
           <DonutChart {labels} {values} {colors} />
         {/key}
       {:else}
-        <p class="graphe-warning">Veuillez ajouter une dépense pour que le graphique s'affiche !</p>
+        <p class="graphe-warning">
+          Veuillez ajouter une dépense pour que le graphique s'affiche !
+        </p>
       {/if}
     </section>
 
