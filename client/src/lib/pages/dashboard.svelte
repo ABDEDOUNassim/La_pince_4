@@ -373,10 +373,8 @@
 
     <!-- Diagrame -->
     <section class="diagrame">
-      {#if labels.length > 0}
-        {#key labels}
-          <DonutChart {labels} {values} {colors} />
-        {/key}
+      {#if expensesList.length > 0}
+        <DonutChart {labels} {values} {colors} />
       {:else}
         <p class="graphe-warning">
           Veuillez ajouter une dépense pour que le graphique s'affiche !
