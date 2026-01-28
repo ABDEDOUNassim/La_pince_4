@@ -1,18 +1,32 @@
 import { mount } from "svelte";
 import App from "./app.svelte";
 
+// ===============================
+// MONTE L'APPLICATION SVELTE
+// ===============================
 mount(App, {
   target: document.getElementById("app"),
 });
 
-const sidebar = document.getElementById("side-bar");
-const content = document.querySelector(".content");
-const btn = document.getElementById("btn");
+// ===============================
+// SIDEBAR / BURGER MENU
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("side-bar");
+  const content = document.querySelector(".content");
+  const btn = document.getElementById("btn");
 
-btn.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
-});
+  // Bouton pour ouvrir / fermer la sidebar
+  if (btn) {
+    btn.addEventListener("click", () => {
+      if (sidebar) sidebar.classList.toggle("active");
+    });
+  }
 
-content.addEventListener("click", () => {
-  sidebar.classList.remove("active");
+  // Clic sur le contenu pour fermer la sidebar
+  if (content) {
+    content.addEventListener("click", () => {
+      if (sidebar) sidebar.classList.remove("active");
+    });
+  }
 });
