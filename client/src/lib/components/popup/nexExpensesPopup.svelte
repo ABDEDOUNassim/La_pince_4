@@ -127,6 +127,7 @@
     margin: 0% auto;
     height: 82vh;
   }
+
   input {
     color-scheme: dark;
   }
@@ -137,12 +138,13 @@
     flex-direction: column;
     gap: 25px;
   }
+
   #category {
     width: 100%;
     padding: 0.8em;
     background-color: var(--backgroundListe);
-    border: 1px solid #3c4154;
-    color: #e1e1e1;
+    border: 1px solid var(--bordure);
+    color: var(--textSecondairePlaceholder);
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
@@ -162,8 +164,8 @@
     width: 100%;
     padding: 0.8em;
     background-color: var(--backgroundListe);
-    border: 1px solid #3c4154;
-    color: #e1e1e1;
+    border: 1px solid var(--bordure);
+    color: var(--textSecondairePlaceholder);
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
@@ -173,18 +175,18 @@
   /*Labels*/
   .formExpense label {
     font-size: 0.95rem;
-    color: #c8d4e4;
+    color: var(--textPrincipal);
     font-family: text, sans-serif;
     padding-left: 0.3em;
   }
 
   /* Focus */
   .formExpense input:hover {
-    border-color: #559cd2;
+    border-color: var(--bouttonPrincipal);
   }
 
   h1 {
-    color: #c8d4e4;
+    color: var(--textPrincipal);
     font-family: title, sans-serif;
     text-align: center;
     padding: 2.5em 0 0em 0;
@@ -195,10 +197,10 @@
   /* Bouton Ajouter */
   .btn {
     cursor: pointer;
-    background-color: #559cd2;
+    background-color: var(--bouttonPrincipal);
     border: none;
     padding: 0.8em;
-    color: #e1e1e1;
+    color: var(--textSecondairePlaceholder);
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;
@@ -206,9 +208,12 @@
     width: 60%;
     align-self: center;
   }
+
+  /* Hover (sans nouvelle variable, on fait simple) */
   .btn:hover {
-    background-color: #1d6fdb;
+    filter: brightness(0.9);
   }
+
   /*croix de fermeture */
   .close {
     position: absolute;
@@ -223,12 +228,12 @@
   }
 
   .close i {
-    color: #ffffff;
-    font-size: 28px; /* Augmente la taille */
+    color: var(--textSecondairePlaceholder);
+    font-size: 28px;
   }
 
   .close:hover i {
-    color: #e0e0e0; /* Légèrement gris au survol */
+    filter: brightness(0.9);
   }
 
   /* Desktop */
@@ -247,7 +252,7 @@
     width: 85%;
     max-width: 350px;
     height: 100vh;
-    background-color: var(--backgroundHeaderFooter, #1a1a1a);
+    background-color: var(--backgroundHeaderFooter);
     z-index: 999;
     box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
     animation: slideIn 0.3s ease;
@@ -265,7 +270,7 @@
   }
 
   .close i {
-    color: #ffffff;
+    color: var(--textSecondairePlaceholder);
     font-size: 32px;
   }
 
@@ -292,9 +297,9 @@
     width: 100%;
     padding: 1em 1.5em;
     font-size: 1.1rem;
-    background-color: var(--buttonBackground, #2a2a2a);
-    color: var(--textPrincipal, #ffffff);
-    border: 2px solid var(--bordure, #444);
+    background-color: var(--backgroundCarte);
+    color: var(--textPrincipal);
+    border: 2px solid var(--bordure);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;

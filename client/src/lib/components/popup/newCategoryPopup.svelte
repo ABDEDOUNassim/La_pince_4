@@ -167,12 +167,10 @@
 </aside>
 
 <style>
-  @import "../../css/settings.css";
-
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+    background: var(--overlay);
     z-index: 998;
   }
 
@@ -183,7 +181,7 @@
     width: 85%;
     max-width: 350px;
     height: 100vh;
-    background-color: var(--backgroundHeaderFooter, #1a1a1a);
+    background-color: var(--backgroundHeaderFooter);
     z-index: 999;
     box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
     animation: slideIn 0.3s ease;
@@ -206,7 +204,6 @@
     margin: 0 auto;
     padding: 1em;
     position: relative;
-    min-height: auto;
     display: flex;
     flex-direction: column;
   }
@@ -224,12 +221,12 @@
   }
 
   .close i {
-    color: #ffffff;
+    color: var(--textSecondairePlaceholder);
     font-size: 24px;
   }
 
   h1 {
-    color: #c8d4e4;
+    color: var(--textPrincipal);
     font-family: title, sans-serif;
     text-align: center;
     padding: 1em 0 0.5em 0;
@@ -252,7 +249,7 @@
 
   .formGroup label {
     font-size: 0.9rem;
-    color: #c8d4e4;
+    color: var(--textPrincipal);
     font-family: text, sans-serif;
     padding-left: 0.3em;
   }
@@ -260,9 +257,9 @@
   .formGroup input {
     width: 100%;
     padding: 0.8em;
-    background-color: #141720;
-    border: 1px solid #3c4154;
-    color: #e1e1e1;
+    background-color: var(--backgroundListe);
+    border: 1px solid var(--bordure);
+    color: var(--textSecondairePlaceholder);
     border-radius: 8px;
     font-size: 14px;
     box-sizing: border-box;
@@ -270,7 +267,7 @@
 
   .formGroup input:hover,
   .formGroup input:focus {
-    border-color: #559cd2;
+    border-color: var(--bouttonPrincipal);
     outline: none;
   }
 
@@ -292,7 +289,7 @@
   }
 
   .formGroupColor li.selected {
-    outline: 2px solid #559cd2;
+    outline: 2px solid var(--bouttonPrincipal);
     transform: scale(1.1);
   }
 
@@ -306,8 +303,8 @@
   }
 
   .formGroupIcon li {
-    background-color: #20232e;
-    border: 2px solid #3c4154;
+    background-color: var(--backgroundCarte);
+    border: 2px solid var(--bordure);
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -323,20 +320,20 @@
   }
 
   .formGroupIcon li.selected {
-    border-color: #559cd2;
+    border-color: var(--bouttonPrincipal);
   }
 
   .formGroupIcon i {
     font-size: 30px;
-    color: #c8d4e4;
+    color: var(--textPrincipal);
   }
 
   .btn-ajouter {
     cursor: pointer;
-    background-color: #559cd2;
+    background-color: var(--bouttonPrincipal);
     border: none;
     padding: 0.8em;
-    color: #e1e1e1;
+    color: var(--textSecondairePlaceholder);
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;
@@ -346,11 +343,11 @@
   }
 
   .btn-ajouter:hover {
-    background-color: #1d6fdb;
+    filter: brightness(0.9);
   }
 
   .error {
-    color: #ff6b6b;
+    color: var(--red);
     text-align: center;
     margin-top: 0.25rem;
     font-family: text, sans-serif;

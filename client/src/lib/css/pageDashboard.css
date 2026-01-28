@@ -1,5 +1,3 @@
-@import "./pageHome.css";
-
 /* -------------------------
    Base
 ------------------------- */
@@ -11,6 +9,7 @@
 input {
   color-scheme: dark;
 }
+
 /* left grid */
 .username {
   color: var(--textSecondairePlaceholder);
@@ -113,7 +112,7 @@ input {
   background: none;
 }
 
-/* Icônes dans la barre (plus robuste que .fa-sliders/.fa-filter) */
+/* Icônes dans la barre */
 .searchBtn i {
   color: var(--textSecondairePlaceholder);
   font-size: 2em;
@@ -132,7 +131,7 @@ input {
   margin-top: 12px;
   padding: 14px;
 
-  border: 1px solid #3c4154;
+  border: 1px solid var(--bordure);
   border-radius: 12px;
   background: rgba(20, 23, 32, 0.85);
   backdrop-filter: blur(8px);
@@ -152,7 +151,7 @@ input {
 }
 
 .field label {
-  color: #c8d4e4;
+  color: var(--textPrincipal);
   font-family: text, sans-serif;
   font-size: 0.95rem;
 }
@@ -162,9 +161,9 @@ input {
   width: 100%;
   padding: 0.8em;
 
-  background-color: var(--backgroundListe, #141720);
-  border: 1px solid #3c4154;
-  color: #e1e1e1;
+  background-color: var(--backgroundListe);
+  border: 1px solid var(--bordure);
+  color: var(--textSecondairePlaceholder);
 
   border-radius: 8px;
   font-size: 14px;
@@ -191,17 +190,18 @@ input {
 
 .btnSecondary {
   background: transparent;
-  border: 1px solid #3c4154;
-  color: #e1e1e1;
+  border: 1px solid var(--bordure);
+  color: var(--textSecondairePlaceholder);
 }
 
 .btnPrimary {
-  background: #559cd2;
-  color: #fff;
+  background: var(--bouttonPrincipal);
+  color: var(--textPrincipal);
 }
 
 .btnPrimary:hover {
-  background: #1d6fdb;
+  /* Pas de variable "hover", on fait une variante simple sans rajouter de nouvelles variables */
+  filter: brightness(0.9);
 }
 
 /* -------------------------
@@ -217,9 +217,11 @@ input {
 
 .date {
   margin-bottom: 0.2em;
+  color: rgba(255, 255, 255, 0.527);
+  font-size: 0.9em;
 }
 
-/* Conteneur des résultats (si tu l’utilises) */
+/* Conteneur des résultats */
 .searchResults {
   margin-top: 0.5em;
   background-color: var(--backgroundCarte);
@@ -275,7 +277,7 @@ input {
   border: 2px solid var(--cat-color);
   border-radius: 10px;
   margin: 0.5em 0;
-  width: 100%; /* <-- au lieu de 105% */
+  width: 100%;
   color: var(--textSecondairePlaceholder);
 }
 
@@ -300,12 +302,11 @@ input {
 
 /* -------------------------
    Category blocks (droite)
-   (tu as 2 versions : normal + "1")
 ------------------------- */
 
 .categoryDescription {
   background-color: var(--bg-color);
-  color: white;
+  color: var(--textPrincipal);
   width: 100%;
   align-items: center;
   margin: 0 0 0.5em 0;
@@ -317,16 +318,13 @@ input {
 
 .categoryDescription i {
   border: none;
-}
-
-.categoryDescription i {
   font-size: 2em;
 }
 
 .nameCategory,
 .sum,
 .total {
-  color: #fff;
+  color: var(--textPrincipal);
   letter-spacing: 0.1em;
   opacity: 0.9;
   margin: 0;
@@ -355,6 +353,7 @@ input {
     grid-template-columns: 40% 20% 20%;
   }
 }
+
 @media (min-width: 800px) {
   .main {
     display: grid;

@@ -96,15 +96,13 @@
 </aside>
 
 <style>
-  @import "../../css/settings.css";
-
   .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--overlay);
     z-index: 998;
   }
 
@@ -117,7 +115,7 @@
     height: 100vh;
     background-color: var(--backgroundHeaderFooter);
     z-index: 999;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: -4px 0 15px var(--overlay);
     border-left: 2px solid var(--bouttonPrincipal);
     animation: slideIn 0.3s ease;
   }
@@ -141,7 +139,7 @@
   }
 
   .close i {
-    color: white;
+    color: var(--textSecondairePlaceholder);
     font-size: 32px;
   }
 
@@ -165,7 +163,7 @@
     width: 100%;
     padding: 1em;
     font-size: 1.1rem;
-    background-color: var(--buttonBackground);
+    background-color: var(--backgroundCarte);
     color: var(--textPrincipal);
     border: 2px solid var(--bordure);
     border-radius: 8px;
@@ -174,6 +172,6 @@
   }
 
   .btnhome:hover {
-    opacity: 0.85;
+    filter: brightness(0.9);
   }
 </style>

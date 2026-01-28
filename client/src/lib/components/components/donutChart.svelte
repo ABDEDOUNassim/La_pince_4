@@ -1,5 +1,5 @@
 <script>
-import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   // On utilise "auto" pour éviter les erreurs d'enregistrement de contrôleurs
   import Chart from "chart.js/auto";
 
@@ -13,10 +13,10 @@ import { onMount, onDestroy } from "svelte";
   // Fonction pour mettre à jour le graphique sans le recréer entièrement
   function updateChart() {
     if (!chart) return;
-    
+
     chart.data.labels = labels;
     chart.data.datasets[0].data = values;
-    
+
     // Si on a des couleurs, on les met, sinon on met du gris par sécurité
     if (colors && colors.length > 0) {
       chart.data.datasets[0].backgroundColor = colors;
@@ -40,8 +40,8 @@ import { onMount, onDestroy } from "svelte";
             data: values,
             borderWidth: 0,
             // Couleur par défaut au chargement pour éviter le crash
-            backgroundColor: (colors && colors.length > 0) ? colors : ["#e5e7eb"],
-            hoverOffset: 4
+            backgroundColor: colors && colors.length > 0 ? colors : ["#e5e7eb"],
+            hoverOffset: 4,
           },
         ],
       },
@@ -51,7 +51,7 @@ import { onMount, onDestroy } from "svelte";
         cutout: "70%",
         plugins: {
           legend: { display: false },
-          tooltip: { enabled: true } // Réactivé pour voir les montants au survol
+          tooltip: { enabled: true }, // Réactivé pour voir les montants au survol
         },
       },
     });
@@ -63,7 +63,6 @@ import { onMount, onDestroy } from "svelte";
   onDestroy(() => {
     if (chart) chart.destroy();
   });
-  
 </script>
 
 <div class="chartBox">
