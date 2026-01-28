@@ -68,7 +68,9 @@
     <!--affichage du nom du user quand il est connecté -->
 
     {#if isLoggedIn && userName}
-      <p class="textwelcome">Bienvenue {userName}</p>
+      <p class="textwelcome">
+        Bienvenue {userName.charAt(0).toUpperCase() + userName.slice(1)}
+      </p>
     {/if}
 
     <section class="deskstop">

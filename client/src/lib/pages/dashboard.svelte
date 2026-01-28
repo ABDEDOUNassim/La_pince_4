@@ -222,7 +222,7 @@
     <!-- Afficher le nom de l'utilisateur si disponible -->
 
     <section class="expensesTotalLeft">
-      <p class="expenseTitle">Dépenses total</p>
+      <p class="expenseTitle">Dépenses totales mensuel</p>
       <span class="expense">
         <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
       </span>
@@ -365,7 +365,7 @@
   <!-- Right -->
   <section class="rightBlock">
     <section class="expensesTotalRight">
-      <p class="expenseTitle">Dépenses total</p>
+      <p class="expenseTitle">Dépenses totales mensuelles</p>
       <span class="expense">
         <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
       </span>

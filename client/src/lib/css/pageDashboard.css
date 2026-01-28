@@ -217,6 +217,8 @@ input {
 
 .date {
   margin-bottom: 0.2em;
+  color: rgba(255, 255, 255, 0.527);
+  font-size: 0.9em;
 }
 
 /* Conteneur des résultats */
