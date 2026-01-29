@@ -392,9 +392,6 @@
             <button type="button" class="btnSecondary" on:click={resetFilters}
               >Réinitialiser</button
             >
-            <button type="button" class="btnPrimary" on:click={applyFilters}
-              >Appliquer</button
-            >
           </div>
         </div>
       {/if}

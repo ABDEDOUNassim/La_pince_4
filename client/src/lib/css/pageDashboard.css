@@ -6,10 +6,6 @@
   display: block;
 }
 
-input {
-  color-scheme: dark;
-}
-
 /* left grid */
 .username {
   color: var(--textSecondairePlaceholder);
@@ -133,7 +129,7 @@ input {
 
   border: 1px solid var(--bordure);
   border-radius: 12px;
-  background: rgba(20, 23, 32, 0.85);
+  background: var(--backgroundListe);
   backdrop-filter: blur(8px);
 }
 
@@ -160,11 +156,9 @@ input {
 .field input[type="date"] {
   width: 100%;
   padding: 0.8em;
-
   background-color: var(--backgroundListe);
   border: 1px solid var(--bordure);
   color: var(--textSecondairePlaceholder);
-
   border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
@@ -178,30 +172,23 @@ input {
   margin-top: 12px;
 }
 
-.btnSecondary,
-.btnPrimary {
+.btnSecondary {
   cursor: pointer;
   border: none;
   padding: 0.7em 1em;
   border-radius: 8px;
   font-family: bouton, sans-serif;
   font-weight: bold;
-}
-
-.btnSecondary {
-  background: transparent;
-  border: 1px solid var(--bordure);
-  color: var(--textSecondairePlaceholder);
-}
-
-.btnPrimary {
   background: var(--bouttonPrincipal);
-  color: var(--textPrincipal);
+  border: 1px solid var(--bordure);
+  color: var(--textBtn);
+}
+.btnSecondary:hover {
+  background: var(--boutonPrinciaplHover);
 }
 
-.btnPrimary:hover {
-  /* Pas de variable "hover", on fait une variante simple sans rajouter de nouvelles variables */
-  filter: brightness(0.9);
+.resultAmount {
+  font-weight: bold;
 }
 
 /* -------------------------
@@ -289,6 +276,10 @@ html[data-theme="light"] .miniIcon {
   color: var(--textSecondairePlaceholder);
 }
 
+.btn:hover {
+  background: var(--boutonPrinciaplHover);
+}
+
 .btnEdit {
   display: flex;
   justify-content: flex-end;
@@ -305,7 +296,7 @@ html[data-theme="light"] .miniIcon {
 
 .editBtn i,
 .deleteBtn i {
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 /* -------------------------
@@ -399,7 +390,5 @@ html[data-theme="light"] .miniIcon {
   }
   .resultTitle {
     margin-right: -1em;
-  }
-  .categoryDescription {
   }
 }

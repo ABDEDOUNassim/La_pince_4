@@ -25,12 +25,14 @@
   --textPrincipal: #c8d4e4;
   --textSecondairePlaceholder: #e1e1e1;
   --bouttonPrincipal: #559cd2;
+  --boutonPrinciaplHover: #1d6fd8;
   --bordure: #3c4154;
   --backgroundListe: #141720;
   --white: #ebe8e8;
   --red: #f50707;
   --black: #0e0d0d;
   --overlay: #0000008c;
+  --textBtn: #c8d4e4;
 }
 
 html[data-theme="light"] {
@@ -40,9 +42,12 @@ html[data-theme="light"] {
   --backgroundHeaderFooter: #eef2f7;
   --textPrincipal: #0f172a;
   --textSecondairePlaceholder: #475569;
-  --bouttonPrincipal: #2284ce;
+  --bouttonPrincipal: #1d6fd8;
+  --boutonPrinciaplHover: #2825b9;
   --bordure: #d7deea;
   --backgroundListe: #f1f5f9;
+  --textBtn: #c8d4e4;
+  --black: #fff;
 }
 
 body {
@@ -102,6 +107,8 @@ input {
   font-family: text, sans-serif;
 }
 
+/* switch light mode, dark mode */
+
 .theme-switch {
   width: 52px;
   height: 28px;
@@ -114,6 +121,7 @@ input {
   display: flex;
   align-items: center;
   transition: background 0.3s ease;
+  margin-right: 2em;
 }
 
 .theme-switch:hover {

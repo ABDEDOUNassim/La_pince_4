@@ -200,7 +200,7 @@
     background-color: var(--bouttonPrincipal);
     border: none;
     padding: 0.8em;
-    color: var(--textSecondairePlaceholder);
+    color: var(--textBtn);
     border-radius: 5px;
     font-family: bouton, sans-serif;
     font-weight: bold;
@@ -212,6 +212,7 @@
   /* Hover (sans nouvelle variable, on fait simple) */
   .btn:hover {
     filter: brightness(0.9);
+    background-color: var(--boutonPrinciaplHover);
   }
 
   /*croix de fermeture */

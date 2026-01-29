@@ -57,11 +57,13 @@
 <aside class="sidebar">
   <div class="closeLight">
     <button
-      class="btn themeBtn"
+      class="theme-switch"
       on:click={toggleTheme}
       aria-label="Changer le thème"
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      <span class:active={theme === "dark"} class="thumb">
+        {theme === "light" ? "☀️" : "🌙"}
+      </span>
     </button>
 
     <button
@@ -209,12 +211,8 @@
   .btnhome:hover {
     filter: brightness(0.9);
   }
-  .themeBtn {
-    border: 1px solid var(--bordure);
-    background: var(--backgroundCarte);
-    color: var(--textPrincipal);
-    padding: 0.4rem 0.7rem;
-    border-radius: 8px;
+
+  .theme-switch {
     margin: 1.5em 0 0 1.5em;
   }
 </style>

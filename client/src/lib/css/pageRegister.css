@@ -57,9 +57,14 @@
   min-width: 200px;
   font-size: 1.1rem;
   transform: translateY(0);
+  color: var(--textBtn);
   transition:
     transform 0.08s ease,
     box-shadow 0.08s ease;
+}
+
+.submitBtn:hover {
+  background: var(--boutonPrinciaplHover);
 }
 
 .submitBtn:active {

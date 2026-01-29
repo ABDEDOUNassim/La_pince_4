@@ -118,11 +118,13 @@
         <button class="btn" on:click={handleLogout}> Se déconnecter </button>
 
         <button
-          class="btn themeBtn"
+          class="theme-switch"
           on:click={toggleTheme}
           aria-label="Changer le thème"
         >
-          {theme === "light" ? "🌙" : "☀️"}
+          <span class:active={theme === "dark"} class="thumb">
+            {theme === "light" ? "☀️" : "🌙"}
+          </span>
         </button>
       {/if}
     </section>
@@ -150,11 +152,21 @@
   img {
     height: 100px;
   }
+  .deskstop {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
   .deskstop i {
     font-size: 25px;
   }
   .btn {
     margin-right: 1em;
+    color: var(--textBtn);
+    padding: 0.5em 2em;
+  }
+  .btn:hover {
+    background: var(--boutonPrinciaplHover);
   }
   #sidebar {
     margin-right: 0.5em;
@@ -164,9 +176,6 @@
     cursor: pointer;
     font-size: 2em;
     border: none;
-  }
-  .deskstop {
-    margin-right: 2rem;
   }
   .iconUser {
     color: white;
