@@ -303,7 +303,7 @@
     <!-- Afficher le nom de l'utilisateur si disponible -->
 
     <section class="expensesTotalLeft">
-      <p class="expenseTitle">Dépenses totales mensuel</p>
+      <p class="expenseTitle">Dépenses totales mensuelles</p>
       <span class="expense">
         <p><strong>{totalAmount.toFixed(2).replace(".", ",")} €</strong></p>
       </span>
@@ -493,10 +493,22 @@
           {/each}
         {/each}
       {/if}
-      <!-- Expenses -->
     </section>
   </section>
 
+  <div class="toast-container">
+    {#each notifications as n (n.id)}
+      <Toast
+        category={n.category}
+        message={n.message}
+        type={n.type}
+        color={n.color}
+        onRemove={() => removeNotification(n.id)}
+      />
+    {/each}
+  </div>
+
+  <!-- Expenses -->
   <!-- Right -->
   <section class="rightBlock">
     <section class="expensesTotalRight">
@@ -549,16 +561,5 @@
         </div>
       {/each}
     </section>
-    <div class="toast-container">
-      {#each notifications as n (n.id)}
-        <Toast
-          category={n.category}
-          message={n.message}
-          type={n.type}
-          color={n.color}
-          onRemove={() => removeNotification(n.id)}
-        />
-      {/each}
-    </div>
   </section>
 </main>
