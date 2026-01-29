@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: 50px 3fr auto auto;
   align-items: center;
-  gap: 12px;
   padding: 12px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px var(--bouttonPrincipal);
@@ -40,6 +39,13 @@
 .filterBtn,
 .addBtn {
   padding: 0.5em 2em;
+  color: var(--textBtn);
+}
+.addBtn:hover {
+  background: var(--boutonPrinciaplHover);
+}
+.editBtn {
+  margin-left: 1em;
 }
 
 .editBtn,
@@ -73,17 +79,13 @@
 .nane {
   display: none;
 }
-
-@media (max-width: 800px) {
-  .nameCategory,
-  .categoryCard .sum,
-  .total {
-    display: block;
+@media (max-width: 380px) {
+  .icon {
+    display: none;
   }
-  .nameCategory1,
-  .sum1,
-  .total1 {
-    display: block;
+  .categoryDescription {
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
   }
 }
 
@@ -97,6 +99,18 @@
   .sum1,
   .total1 {
     font-size: 0.9em;
+  }
+}
+@media (max-width: 800px) {
+  .nameCategory,
+  .categoryCard .sum,
+  .total {
+    display: block;
+  }
+  .nameCategory1,
+  .sum1,
+  .total1 {
+    display: block;
   }
 }
 

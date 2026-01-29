@@ -6,10 +6,6 @@
   display: block;
 }
 
-input {
-  color-scheme: dark;
-}
-
 /* left grid */
 .username {
   color: var(--textSecondairePlaceholder);
@@ -104,7 +100,7 @@ input {
 /* Boutons de la barre */
 .searchBtn {
   border: none;
-  background-color: var(--backgroundPrincipal);
+  background: none;
   cursor: pointer;
 }
 
@@ -133,7 +129,7 @@ input {
 
   border: 1px solid var(--bordure);
   border-radius: 12px;
-  background: rgba(20, 23, 32, 0.85);
+  background: var(--backgroundListe);
   backdrop-filter: blur(8px);
 }
 
@@ -160,11 +156,9 @@ input {
 .field input[type="date"] {
   width: 100%;
   padding: 0.8em;
-
   background-color: var(--backgroundListe);
   border: 1px solid var(--bordure);
   color: var(--textSecondairePlaceholder);
-
   border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
@@ -178,30 +172,23 @@ input {
   margin-top: 12px;
 }
 
-.btnSecondary,
-.btnPrimary {
+.btnSecondary {
   cursor: pointer;
   border: none;
   padding: 0.7em 1em;
   border-radius: 8px;
   font-family: bouton, sans-serif;
   font-weight: bold;
-}
-
-.btnSecondary {
-  background: transparent;
-  border: 1px solid var(--bordure);
-  color: var(--textSecondairePlaceholder);
-}
-
-.btnPrimary {
   background: var(--bouttonPrincipal);
-  color: var(--textPrincipal);
+  border: 1px solid var(--bordure);
+  color: var(--textBtn);
+}
+.btnSecondary:hover {
+  background: var(--boutonPrinciaplHover);
 }
 
-.btnPrimary:hover {
-  /* Pas de variable "hover", on fait une variante simple sans rajouter de nouvelles variables */
-  filter: brightness(0.9);
+.resultAmount {
+  font-weight: bold;
 }
 
 /* -------------------------
@@ -217,7 +204,7 @@ input {
 
 .date {
   margin-bottom: 0.2em;
-  color: rgba(255, 255, 255, 0.527);
+  color: var(--textPrincipal);
   font-size: 0.9em;
 }
 
@@ -254,16 +241,24 @@ input {
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  margin-right: -2em;
+  /* white-space: nowrap;  */
 }
 
-.resultAmount {
-  font-weight: bold;
-  white-space: nowrap;
+.amountDashboard {
+  text-align: right;
 }
 
 .miniIcon {
   border-radius: 4px;
+  transition: filter 0.25s ease;
+}
+html[data-theme="dark"] .miniIcon {
+  filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] .miniIcon {
+  filter: none;
 }
 
 .dot {
@@ -279,6 +274,10 @@ input {
   margin: 0.5em 0;
   width: 100%;
   color: var(--textSecondairePlaceholder);
+}
+
+.btn:hover {
+  background: var(--boutonPrinciaplHover);
 }
 
 .btnEdit {
@@ -297,7 +296,7 @@ input {
 
 .editBtn i,
 .deleteBtn i {
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 /* -------------------------
@@ -331,16 +330,13 @@ input {
 }
 
 .toast-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-.miniIcon {
-  filter: brightness(0) invert(1);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 /* -------------------------
@@ -385,5 +381,14 @@ input {
   }
   .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .miniIcon {
+    display: none;
+  }
+  .resultTitle {
+    margin-right: -1em;
   }
 }
