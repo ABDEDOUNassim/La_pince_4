@@ -32,7 +32,9 @@ Category.init(
     }
 
       },
-    { sequelize, modelName: 'category'}
+    { sequelize, modelName: 'category',
+        tableName: 'categories',
+    }
 );
 
 export default Category;

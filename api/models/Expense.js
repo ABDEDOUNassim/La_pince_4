@@ -29,7 +29,9 @@ Expense.init({
             allowNull: true
         }
         },
-    { sequelize, modelName: 'expense'}
+    { sequelize, modelName: 'expense',
+        tableName: 'expenses'
+    }
 );
 
 export default Expense;

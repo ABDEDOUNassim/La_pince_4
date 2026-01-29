@@ -22,7 +22,9 @@ User.init({
             allowNull: false
         }
     },
-    { sequelize, modelName: 'user'}
+    { sequelize, modelName: 'user',
+        tableName: 'users',
+    }
 );
 
 export default User;
