@@ -14,7 +14,4 @@ const sequelize = new Sequelize(process.env.DATABASE_URL,
 	}
 );
 
-// synchronize la BDD et reset la bdd
-await sequelize.sync({ force: false });
-
 export default sequelize;
