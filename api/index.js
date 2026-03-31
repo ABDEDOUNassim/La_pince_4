@@ -6,6 +6,7 @@ import cors from "cors";
 import categoryRouter from "./routes/category.router.js";
 import expenseRouter from "./routes/expense.router.js";
 import authRouter from "./routes/auth.router.js";
+import './models/index.js';
 
 import { validateToken } from './middlewares/auth.middleware.js';
 import { handleError } from './middlewares/common.middleware.js';
