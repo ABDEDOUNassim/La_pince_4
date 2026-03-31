@@ -7,6 +7,7 @@ import categoryRouter from "./routes/category.router.js";
 import expenseRouter from "./routes/expense.router.js";
 import authRouter from "./routes/auth.router.js";
 import './models/index.js';
+import sequelize from './database/sequelize-client.js';
 
 import { validateToken } from './middlewares/auth.middleware.js';
 import { handleError } from './middlewares/common.middleware.js';
@@ -25,6 +26,9 @@ app.use(categoryRouter);
 app.use(expenseRouter);
 
 app.use(handleError);
+
+// Synchronise la BDD (crée les tables si elles n'existent pas)
+await sequelize.sync({ force: false });
 
 const port = process.env.PORT;
 const base_url = process.env.BASE_URL;
